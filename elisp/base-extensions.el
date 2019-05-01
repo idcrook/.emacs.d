@@ -166,14 +166,16 @@
                             ))
   ;;(add-to-list 'dashboard-items '(agenda) t)
 
-  ;; https://github.com/functionreturnfunction/dashboard-project-status
-  (use-package dashboard-project-status
-    :straight (:host github :repo "functionreturnfunction/dashboard-project-status")
+  ;; ;; https://github.com/functionreturnfunction/dashboard-project-status
+  ;; commenting out since it is exposing error:
+  ;;; face-attribute: Symbol’s function definition is void: dashboard-insert-recentf-list
+  ;; (use-package dashboard-project-status
+  ;;   :straight (:host github :repo "functionreturnfunction/dashboard-project-status")
 
-    :config
-    (add-to-list 'dashboard-item-generators
-                 `(project-status . ,(dashboard-project-status (expand-file-name "~/"))))
-    (add-to-list 'dashboard-items '(project-status) t))
+  ;;   :config
+  ;;   (add-to-list 'dashboard-item-generators
+  ;;                `(project-status . ,(dashboard-project-status (expand-file-name "~/"))))
+  ;;   (add-to-list 'dashboard-items '(project-status) t))
 
   ;; Set the title
   (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
