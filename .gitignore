@@ -1,0 +1,12 @@
+/straight/
+/elpa/
+/transient/
+/emojis/
+/image-dired/
+/url/
+ido.last
+tramp
+/irony/
+/server/
+/elisp/ssh-config-keywords.txt
+*.secrets*
