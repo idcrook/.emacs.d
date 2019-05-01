@@ -204,8 +204,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
        ;; copy selected text to clipboard
        (setq mouse-drag-copy-region t)
 
-       (when (or
-              (macos-p))
+       (when macos-p
          (add-to-list 'default-frame-alist '(height . 40))
          (add-to-list 'default-frame-alist '(width . 80))
          ;; macos titlebar mods
