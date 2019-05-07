@@ -140,12 +140,10 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
        (setq w32shell-shell (quote cygwin))
        (setq emacsw32-style-frame-title t))
       (linux-p ;; Linux-specific code goes here.
-       ;;; https://github.com/syohex/emacs-ac-emoji
+       ;;; https://github.com/dunn/company-emoji
        ;; sudo apt install ttf-ancient-fonts-symbola
-       ;;; turn off emojify since wasn't working well and do not need
-       ;; (set-fontset-font
-       ;;  t 'symbol
-       ;;  (font-spec :family "Symbola") nil 'prepend)
+       ;; sudo apt install fonts-symbola
+       (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)
        )
       (macos-p ;; macOS-specific code goes here.
        ;;; Look into osx-lib https://github.com/raghavgautam/osx-lib
@@ -167,7 +165,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
        ;; always use find-file-other-window to open dropped files
        (setq dnd-open-file-other-window t)
 
-       ;;; https://github.com/syohex/emacs-ac-emoji
+       ;;; Useful for https://github.com/dunn/company-emoji
+       ;; https://www.reddit.com/r/emacs/comments/8ph0hq/i_have_converted_from_the_mac_port_to_the_ns_port/
        (if (version< "27.0" emacs-version)
            (set-fontset-font
             "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)

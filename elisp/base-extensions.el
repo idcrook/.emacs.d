@@ -110,12 +110,16 @@
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
   (add-to-list 'company-backends 'company-ansible)
+  (add-to-list 'company-backends 'company-emoji)
   (add-to-list 'company-backends 'company-restclient)
   (add-to-list 'company-backends '(company-shell company-shell-env))
   (add-hook 'after-init-hook 'global-company-mode))
 
 ;; https://github.com/krzysztof-magosa/company-ansible
 (use-package company-ansible)
+
+;;; https://github.com/dunn/company-emoji
+(use-package company-emoji)
 
 ;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
@@ -265,6 +269,7 @@
 ;; https://github.com/wwwjfy/emacs-fish
 (use-package fish-mode)
 
+;; https://www.flycheck.org/en/latest/
 (use-package flycheck
   :init
   (global-flycheck-mode))
@@ -272,7 +277,7 @@
 ;; (use-package flycheck-pos-tip-mode)
 ;; (with-eval-after-load 'flycheck (flycheck-pos-tip-mode))
 
-;; pip3 install yamllint
+;; pip3 install --user yamllint
 ;; https://github.com/krzysztof-magosa/flycheck-yamllint
 (use-package flycheck-yamllint
   :init
