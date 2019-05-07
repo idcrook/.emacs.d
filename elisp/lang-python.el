@@ -5,9 +5,12 @@
 
 ;;; Code:
 
-;; https://github.com/jorgenschaefer/elpy
-;; pip3 install jedi flake8 autopep8 yapf
-;; pip3 install black
+;;; elpy : https://github.com/jorgenschaefer/elpy
+;; # completion and code navigation - jedi
+;; # automatic formatting - black autopep8 yapf
+;; # code checks - flake8
+;; pip3 install --user jedi flake8 black autopep8 yapf
+;; python3 -m pip install --user --upgrade jedi flake8 black autopep8 yapf
 
 (use-package python
   :mode ("\\.py$" . python-mode)
@@ -19,8 +22,9 @@
     :delight highlight-indentation-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+    :config
+    (setq elpy-rpc-backend "jedi")
     (setq elpy-rpc-python-command "python3")
-    ;; seems redundant with global flycheck ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
     :bind (:map elpy-mode-map
 	      ("M-." . elpy-goto-definition)
@@ -33,12 +37,12 @@
   :config
   (add-hook 'pip-requirements-mode-hook #'pip-requirements-auto-complete-setup))
 
-;; https://github.com/paetzke/py-autopep8.el
-(use-package py-autopep8
-  :config
-  (setq py-autopep8-options '("--max-line-length=100"))
-  ;;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-  )
+;; ;; https://github.com/paetzke/py-autopep8.el
+;; (use-package py-autopep8
+;;   :config
+;;   (setq py-autopep8-options '("--max-line-length=100"))
+;;   ;;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;;   )
 
 ;; https://github.com/JorisE/yapfify
 (use-package yapfify
