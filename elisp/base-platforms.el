@@ -143,8 +143,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
        ;;; https://github.com/dunn/company-emoji
        ;; sudo apt install ttf-ancient-fonts-symbola
        ;; sudo apt install fonts-symbola
-       (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)
-       )
+       (set-fontset-font t 'symbol (font-spec :family "Symbola") nil 'prepend))
       (macos-p ;; macOS-specific code goes here.
        ;;; Look into osx-lib https://github.com/raghavgautam/osx-lib
 
