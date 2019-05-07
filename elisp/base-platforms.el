@@ -47,14 +47,16 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
+;; masos : brew cask install font-fira-mono-for-powerline
+;;       : brew cask install font-ubuntu-mono-derivative-powerline
+;;       : brew cask install font-inconsolata-for-powerline
+;; ubuntu : sudo apt-get install fonts-powerline
 
-;; trial templates
-;; (set-face-attribute 'default nil
-;;                  :family "Hack"
-;;                  :height 140
-;;                  :weight 'normal)
-;;;(set-face-attribute 'mode-line nil :family "Inconsolata" :height 180)
-;;;(set-face-attribute 'mode-line nil :family "Hack" :height 140)
+;; Nerd Fonts : https://github.com/ryanoasis/nerd-fonts
+;; macos : brew tap homebrew/cask-fonts
+;;         brew cask install font-hack-nerd-font font-inconsolata-nerd-font
+;;:family "Inconsolata Nerd Font"
+;;:family "Hack Nerd Font"
 
 (defun inconsolata ()
   "Set the default font to Inconsolata."
@@ -81,8 +83,6 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 ;; defaults
 (set-face-attribute 'default nil
                     :family "Inconsolata for Powerline"
-                    ;;:family "Inconsolata Nerd Font"
-                    ;;:family "Hack Nerd Font"
                     :height 160
                     :weight 'normal)
 (set-face-attribute 'mode-line nil :family "Fira Mono for Powerline" :height 140 :weight 'regular)
