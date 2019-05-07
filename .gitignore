@@ -13,3 +13,4 @@ tramp
 !README.md
 !TODO.md
 !*example
+flycheck_*.elc

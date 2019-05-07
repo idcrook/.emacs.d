@@ -168,9 +168,11 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
        (setq dnd-open-file-other-window t)
 
        ;;; https://github.com/syohex/emacs-ac-emoji
-       ;; (set-fontset-font
-       ;;  t 'symbol
-       ;;  (font-spec :family "Apple Color Emoji") nil 'prepend)
+       (if (version< "27.0" emacs-version)
+           (set-fontset-font
+            "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
+         (set-fontset-font
+          t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
        ;;; https://stackoverflow.com/questions/45697790/how-to-enter-special-symbols-with-alt-in-emacs-under-mac-os-x
        ;; use the left alt/option key as meta
