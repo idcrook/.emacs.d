@@ -4,6 +4,7 @@
 - https://github.com/saf-dmitry/taskpaper-mode
 - https://github.com/tigersoldier/company-lsp
 - https://github.com/emacs-lsp/lsp-python-ms - emacs lsp-mode client for Microsoft's python language server
+- [ ] apple/sourcekit-lsp: Language Server Protocol implementation for Swift and C-based languages
 
 # Interesting
 
@@ -15,6 +16,7 @@
 - https://github.com/aaronjensen/company-flow
   - https://flow.org Flow static type checker for javascript
 - https://github.com/Mic92/company-tmux
+- [ ] https://github.com/ahendriksen/ob-tmux -  allows org mode to evaluate code blocks in a tmux session.
 
 # Other
 

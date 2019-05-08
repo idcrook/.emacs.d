@@ -302,6 +302,12 @@
 
 (use-package gist)
 
+;;; https://github.com/syohex/emacs-git-gutter
+(use-package git-gutter
+  ;; suggested bindings : https://github.com/syohex/emacs-git-gutter#sample-configuration
+  ;; other custom : https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
+  )
+
 (use-package gitignore-mode)
 
 (use-package graphql-mode)
@@ -454,7 +460,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; Emacs 26.1 added this (replaces linum-mode)
 (when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode 1))
+  (global-display-line-numbers-mode 1)
+  (setq display-line-numbers "%4d \u2502 ")
+  ;; ;;(setq display-line-numbers "%4d: ")
+  ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-395275471
+  ;; enable after global-display-line-numbers-mode
+  (eval-after-load 'git-gutter
+    (global-git-gutter-mode +1)))
 
 
 ;;;________________________________________________________________________
@@ -513,9 +525,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (magit-todos-mode -1)
   )
 
-;; https://github.com/markedjs/marked
-;; npm install -g marked
-;; for marked command
+
+;;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
@@ -523,15 +534,17 @@ This function is intended for use with `ivy-ignore-buffers'."
          ("\\.markdown\\'" . markdown-mode))
   :config
   ;; https://jblevins.org/log/markdown-imenu
+  ;; https://github.com/markedjs/marked
   (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
   (add-hook 'gfm-mode-hook 'imenu-add-menubar-index)
   (setq imenu-auto-rescan t)
+  ;; npm install -g marked  # for marked command
   (setq markdown-command "marked --gfm --breaks --tables")  ; /usr/local/bin/marked
   (setq markdown-gfm-use-electric-backquote nil)
-  ;; FIXME: work under platforms other than macOS
+  ;; FIXME: broken under platforms other than macOS
   (setq markdown-open-command "~/bin/macos/marked2"))
 
-;; https://github.com/ardumont/markdown-toc
+;;; https://github.com/ardumont/markdown-toc
 ;; M-x markdown-toc-generate-or-refresh-toc
 (use-package markdown-toc)
 
