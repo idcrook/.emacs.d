@@ -55,7 +55,7 @@
 ;; see https://www.slideshare.net/kaz_yos/search-and-replacement-techniques-in-emacs-avy-swiper-multiplecursor-ag-and-wgrep
 (use-package avy
   :bind (
-;;   ("C-c SPC" . avy-goto-char)
+   ("C-c SPC" . avy-goto-char)
    (:map isearch-mode-map
 	 ("C-'" . avy-isearch)))
   :config
