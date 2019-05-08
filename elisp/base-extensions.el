@@ -82,10 +82,11 @@
   :config
   (add-hook 'image-mode-hook 'blimp-mode))
 
+;;; https://github.com/rmuslimov/browse-at-remote/tree/master
 ;; (browse-at-remote) should open up GitHub, etc. at file in dired, etc
 (use-package browse-at-remote
   :bind
-  ("C-c b r" . browse-at-remote))
+  (("C-c b r" . browse-at-remote)))
 
 (use-package browse-url-dwim
   :init
@@ -103,7 +104,7 @@
 
 ;;;https://github.com/camdez/checkbox.el
 (use-package checkbox
-  :bind ("C-c C-c t" . checkbox-toggle))
+  :bind (("C-c C-c t" . checkbox-toggle)))
 
 (use-package company
   :config
@@ -151,8 +152,8 @@
 (use-package dash-at-point
   :commands dash-at-point dash-at-point-with-docset
   :bind
-  ("C-c d" . dash-at-point)
-  ("C-c e" . dash-at-point-with-docset)
+  (("C-c d" . dash-at-point)
+   ("C-c e" . dash-at-point-with-docset))
   :config
   (add-to-list 'dash-at-point-mode-alist '(web-mode . "html,svg,css,bootstrap,foundation,awesome,javascript,jquery,jqueryui,jquerym,angularjs,backbone,ember,extjs,react,vuejs"))
   (add-hook 'emacs-lisp-mode-hook
@@ -257,7 +258,7 @@
 
 (use-package expand-region
   :bind
-  ("C-=" . er/expand-region))
+  (("C-=" . er/expand-region)))
 
 ;; fish shell style completion
 (use-package fish-completion
@@ -307,7 +308,7 @@
 
 ;; ;; https://www.reddit.com/r/emacs/comments/8vdhb4/tip_how_to_integrate_snippets_with_yasnippets/
 ;; (use-package hydra
-;;   :bind ("C-c y" . hydra-yasnippet/body))
+;;   :bind (("C-c y" . hydra-yasnippet/body)))
 
 ;; (defhydra hydra-yasnippet (:color blue)
 ;;   "
@@ -332,9 +333,9 @@
   :diminish ivy-mode
   :commands (swiper)
   :bind
-  ("C-x s" . swiper)
-  ("C-x C-r" . ivy-resume)  ;; find-file-read-only (found in global-map)
-  ("C-x B" . ivy-switch-buffer-other-window)
+  (("C-x s" . swiper)
+   ("C-x C-r" . ivy-resume)  ;; find-file-read-only (found in global-map)
+   ("C-x B" . ivy-switch-buffer-other-window))
   :config
   (ivy-mode 1)
   (setq
@@ -417,26 +418,26 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package counsel
   :diminish counsel-mode
   :bind
-  ("M-x" . counsel-M-x)
-  ("C-x C-m" . counsel-M-x)
-  ("C-x C-f" . counsel-find-file)
-  ("C-x c k" . counsel-yank-pop)         ;; M-y
-  ("<f1> f" . counsel-describe-function) ;; C-h f
-  ("<f1> v" . counsel-describe-variable) ;; C-h v
-  ("<f1> l" . counsel-find-library)
-  ("<f2> i" . counsel-info-lookup-symbol)
-  ("<f2> u" . counsel-unicode-char)
-  ("C-c g" . counsel-git)
-  ("C-c j" . counsel-git-grep)
-  ("C-c k" . counsel-ag)
-  ("<f2> u" . counsel-unicode-char)
+  (("M-x" . counsel-M-x)
+   ("C-x C-m" . counsel-M-x)
+   ("C-x C-f" . counsel-find-file)
+   ("C-x c k" . counsel-yank-pop)         ;; M-y
+   ("<f1> f" . counsel-describe-function) ;; C-h f
+   ("<f1> v" . counsel-describe-variable) ;; C-h v
+   ("<f1> l" . counsel-find-library)
+   ("<f2> i" . counsel-info-lookup-symbol)
+   ("<f2> u" . counsel-unicode-char)
+   ("C-c g" . counsel-git)
+   ("C-c j" . counsel-git-grep)
+   ("C-c k" . counsel-ag)
+   ("<f2> u" . counsel-unicode-char))
   :config
   (counsel-mode))
 
 ;; https://github.com/ericdanan/counsel-projectile
 (use-package counsel-projectile
   :bind
-  ("C-x C-a" . counsel-projectile)
+  (("C-x C-a" . counsel-projectile))
   ;; ("C-x c p" . counsel-projectile-ag) ;; default binding is 'C-c p s s'
   :config
   (counsel-projectile-mode +1))
@@ -484,13 +485,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 
   :bind
   ;; Magit
-  ("C-x g s" . magit-status)
-  ("C-x g x" . magit-checkout)
-  ("C-x g c" . magit-commit)
-  ("C-x g p" . magit-push)
-  ("C-x g u" . magit-pull)
-  ("C-x g e" . magit-ediff-resolve)
-  ("C-x g r" . magit-rebase-interactive))
+  (("C-x g s" . magit-status)
+   ("C-x g x" . magit-checkout)
+   ("C-x g c" . magit-commit)
+   ("C-x g p" . magit-push)
+   ("C-x g u" . magit-pull)
+   ("C-x g e" . magit-ediff-resolve)
+   ("C-x g r" . magit-rebase-interactive)))
 
 ;; based on http://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
 (defun idc-magit-kill-buffers ()
@@ -540,15 +541,15 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 (use-package multiple-cursors
   :bind
-  ("C-S-c C-S-c" . mc/edit-lines)
-  ;; highlighting symbols only
-  ("C-M->" . mc/mark-next-symbol-like-this)
-  ("C-M-<" . mc/mark-previous-symbol-like-this)
-  ("C-M-*" . mc/mark-all-symbols-like-this)
-  ;; highlighting all
-  ("C->" . mc/mark-next-like-this)
-  ("C-<" . mc/mark-previous-like-this)
-  ("C-c C->" . mc/mark-all-like-this))
+  (("C-S-c C-S-c" . mc/edit-lines)
+   ;; highlighting symbols only
+   ("C-M->" . mc/mark-next-symbol-like-this)
+   ("C-M-<" . mc/mark-previous-symbol-like-this)
+   ("C-M-*" . mc/mark-all-symbols-like-this)
+   ;; highlighting all
+   ("C->" . mc/mark-next-like-this)
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-c C->" . mc/mark-all-like-this)))
 
 ;; https://github.com/domtronn/all-the-icons.el
 ;; M-x all-the-icons-install-fonts ; puts them in global area
@@ -558,7 +559,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; sidebar and dired in one
 (use-package neotree
   :bind
-  ("<f8>" . neotree-toggle)
+  (("<f8>" . neotree-toggle))
   :config
   ;; needs package all-the-icons
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
@@ -674,8 +675,8 @@ Inserted by installing 'org-mode' or when a release is made."
 (use-package org-plus-contrib
   :mode (("\\.org$" . org-mode))
   :bind
-  ("C-c l" . org-store-link)
-  ("C-c a" . org-agenda)
+  (("C-c l" . org-store-link)
+   ("C-c a" . org-agenda))
   :config
   (setq org-directory "~/.org-files"
         org-default-notes-file (concat org-directory "/todo.org"))
@@ -871,8 +872,8 @@ Inserted by installing 'org-mode' or when a release is made."
 ;; ;; https://github.com/lujun9972/verify-url
 ;; (use-package verify-url)
 
-;; relies on ~/.user_elisp/verilog-mode.el
 ;; via https://www.veripool.org/projects/verilog-mode/wiki/Installing
+;; relies on ~/.emacs.d/user_elisp/verilog-mode.el
 (autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
 (add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode))
 
