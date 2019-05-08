@@ -6,6 +6,7 @@
 
 ;;; Code:
 
+(add-to-list 'load-path (concat user-emacs-directory "user_elisp"))
 
 (defconst private-dir   (expand-file-name "private" user-emacs-directory)
   "Set aside per-user Emacs directory.")

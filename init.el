@@ -51,9 +51,6 @@
 ;; https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
  (setq ad-redefinition-action 'accept)
 
-(add-to-list 'load-path "~/.user_elisp")
-(add-to-list 'load-path "~/.user_elisp/csh-mode")
-
 (require 'base)
 (require 'base-theme)
 (require 'base-platforms)
