@@ -9,4 +9,4 @@ else
 fi
 
 # compile these .el files as standalone elisp
-$Emacs --batch --no-init-file  --no-site-file --directory ~/.user_elisp/ -f batch-byte-compile *.el
+$Emacs --batch --no-init-file  --no-site-file --directory ~/.emacs.d/user_elisp/ -f batch-byte-compile *.el

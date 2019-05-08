@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+
+;; See ~/.emacs.d/user_elisp/README.md
 (add-to-list 'load-path (concat user-emacs-directory "user_elisp"))
 
 (defconst private-dir   (expand-file-name "private" user-emacs-directory)

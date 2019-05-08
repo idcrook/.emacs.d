@@ -142,7 +142,7 @@
 ;; (global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
 ;; https://opensource.apple.com/source/tcsh/tcsh-27.1/tcsh/csh-mode.el
-;; installed manually/locally into ~/.user_elisp/
+;; installed manually/locally into ~/.emacs.d/user_elisp/csh-mode.el
 (require 'csh-mode)
 
 ;; ;; https://github.com/josteink/csharp-mode
