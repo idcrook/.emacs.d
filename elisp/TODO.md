@@ -1,19 +1,20 @@
 
 # Higher priority
 
-- https://github.com/syohex/emacs-company-jedi
 - https://github.com/saf-dmitry/taskpaper-mode
-- jq
-  - https://github.com/ljos/jq-mode (edit jq queries)
-  - https://github.com/wbolster/emacs-jq-format (reformatter)
+- https://github.com/tigersoldier/company-lsp
+- https://github.com/emacs-lsp/lsp-python-ms - emacs lsp-mode client for Microsoft's python language server
 
 # Interesting
 
 - https://github.com/skeeto/emacs-aio - async/await for Emacs Lisp
-- https://github.com/emacs-lsp/lsp-python-ms - emacs lsp-mode client for Microsoft's python language server
 - github-explorer - https://github.com/TxGVNN/github-explorer
-
-
+- jq
+  - https://github.com/ljos/jq-mode (edit jq queries)
+  - https://github.com/wbolster/emacs-jq-format (reformatter)
+- https://github.com/aaronjensen/company-flow
+  - https://flow.org Flow static type checker for javascript
+- https://github.com/Mic92/company-tmux
 
 # Other
 
