@@ -31,6 +31,14 @@
 	      ("M-," . pop-tag-mark)))
   (elpy-enable))
 
+
+;;; https://github.com/syohex/emacs-company-jedi
+;; company-mode completion back-end for Python JEDI.
+(use-package company-jedi
+  :requires (company-mode)
+  :config
+  (add-to-list 'company-backends 'company-jedi))
+
 ;; major mode for editing pip requirements files.
 (use-package pip-requirements
   :mode ("/requirements.txt$" . pip-requirements-mode)
