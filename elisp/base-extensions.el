@@ -54,10 +54,10 @@
 
 ;; see https://www.slideshare.net/kaz_yos/search-and-replacement-techniques-in-emacs-avy-swiper-multiplecursor-ag-and-wgrep
 (use-package avy
-  :bind (
-   ("C-c SPC" . avy-goto-char)
-   (:map isearch-mode-map
-	 ("C-'" . avy-isearch)))
+  :bind (("C-c SPC" . avy-goto-char)
+         (:map isearch-mode-map
+	           (("C-'" . avy-isearch)))
+         )
   :config
   (setq
    avy-background t
@@ -304,6 +304,7 @@
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
+  :diminish git-gutter-mode "gg"
   ;; suggested bindings : https://github.com/syohex/emacs-git-gutter#sample-configuration
   ;; other custom : https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
   )
