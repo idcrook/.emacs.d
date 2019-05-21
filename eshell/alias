@@ -1,0 +1,8 @@
+# ;;; is this a comment? -*- sh -*-
+
+# https://github.com/peterwvj/eshell-up
+alias up eshell-up $1
+alias pk eshell-up-peek $1
+
+# like emacsclient
+alias e 'find-file $1'

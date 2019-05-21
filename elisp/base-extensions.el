@@ -64,6 +64,24 @@
    avy-highlight-first t
    avy-style 'at-full))
 
+;;; https://github.com/manateelazycat/aweshell
+;;; https://github.com/zwild/eshell-prompt-extras
+;;; https://github.com/peterwvj/eshell-up
+(use-package aweshell
+  :straight (:type git :host github
+                   :repo "manateelazycat/aweshell")
+  :init
+  (with-eval-after-load "esh-opt"
+    (autoload 'epe-theme-lambda "eshell-prompt-extras")
+    (setq eshell-highlight-prompt nil
+          eshell-prompt-function 'epe-theme-lambda))
+  :config
+  (setq epe-path-style 'full)
+  (setq eshell-up-ignore-case nil)
+  (setq eshell-up-print-parent-dir t)
+  )
+
+
 (use-package bash-completion)
 
 ;; https://github.com/Malabarba/beacon

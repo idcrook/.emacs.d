@@ -107,7 +107,8 @@
  ;; dired-listing-switches             "-alh"
 
 (require 'eshell)
-(setq eshell-directory-name              (concat temp-dir "/eshell/"))
+;; use default instead (~/.emacs.d/eshell)
+;; (setq eshell-directory-name              (concat temp-dir "/eshell/"))
 
 
 ;; emacs 25 has a network security manager ;;
