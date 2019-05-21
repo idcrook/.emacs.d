@@ -305,21 +305,20 @@
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 
+;;; https://github.com/cadadr/elisp
 (use-package forecast
   :config
-  (setq   calendar-latitude 40.4565
-          calendar-longitude -105.0296
-          calendar-location-name "Loveland, Colorado"
-          forecast-units "us")
+  (let ((forecast-api-config-file (expand-file-name "forecast-api.config.el" private-dir)))
+    (when (file-exists-p forecast-api-config-file)
+      (load-file forecast-api-config-file)))
   (let ((forecast-api-key-file (expand-file-name "forecast-api.key.el" private-dir)))
     (when (file-exists-p forecast-api-key-file)
       (load-file forecast-api-key-file)))
   )
 
-;; in the file forecast-api-key.el:
-;; (setq forecast-api-key "<deduced>")
-
-(use-package gist)
+;;; https://github.com/defunkt/gist.el
+;; broken because of GNU TLS on macOS emacs
+;; (use-package gist)
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
