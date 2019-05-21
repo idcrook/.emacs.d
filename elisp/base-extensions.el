@@ -233,6 +233,7 @@
 ;; https://github.com/stsquad/emacs_chrome
 ;; for addl ideas see here: https://github.com/stsquad/my-emacs-stuff/blob/master/my-edit-server.el
 (use-package edit-server
+  :if window-system
   :init
   (when (require 'edit-server nil t)
     ;; do not pop up a new frame
@@ -526,7 +527,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (magit-todos-mode -1)
   )
 
-
 ;;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
@@ -539,11 +539,30 @@ This function is intended for use with `ivy-ignore-buffers'."
   (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
   (add-hook 'gfm-mode-hook 'imenu-add-menubar-index)
   (setq imenu-auto-rescan t)
+  ;;; https://github.com/markedjs/marked
   ;; npm install -g marked  # for marked command
+  ;; options emulate Github Flavored Markdown (GFM)
   (setq markdown-command "marked --gfm --breaks --tables")  ; /usr/local/bin/marked
   (setq markdown-gfm-use-electric-backquote nil)
   ;; FIXME: broken under platforms other than macOS
   (setq markdown-open-command "~/bin/macos/marked2"))
+
+
+
+
+;;; https://github.com/ancane/markdown-preview-mode
+;; uses `markdown-command from markdown-mode
+;; dependency:
+;; - https://github.com/eschulte/emacs-web-server
+;; - https://github.com/ahyatt/emacs-websocket
+(use-package markdown-preview-mode
+  ;; markdown-preview-mode :  start mode and open preview window.
+
+  )
+
+;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server (aliases to web-server)
+(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd")
+
 
 ;;; https://github.com/ardumont/markdown-toc
 ;; M-x markdown-toc-generate-or-refresh-toc
@@ -911,29 +930,29 @@ Inserted by installing 'org-mode' or when a release is made."
 ;;npm install -g vmd
 ;; ubuntu: sudo apt-get install -y libgconf-2-4
 
-;;; Issue with previewing files edited over TRAMP session
-;; https://github.com/blak3mill3r/vmd-mode/issues/16
-(use-package vmd-mode
-  :config
-  (setq vmd-mode--emojis-file  (expand-file-name "github-emojis" temp-dir))
-  ;;(add-hook 'markdown-mode-hook 'vmd-mode)
-  ;; run this if needed (vmd-mode--update-emojis-file)
-  )
+;; ;;; Issue with previewing files edited over TRAMP session
+;; ;; https://github.com/blak3mill3r/vmd-mode/issues/16
+;; (use-package vmd-mode
+;;   :config
+;;   (setq vmd-mode--emojis-file  (expand-file-name "github-emojis" temp-dir))
+;;   ;;(add-hook 'markdown-mode-hook 'vmd-mode)
+;;   ;; run this if needed (vmd-mode--update-emojis-file)
+;;   )
 
-(eval-after-load "company"
-  '(defun vmd-company-backend (command &optional arg &rest ignored)
-  (interactive (list 'interactive))
+;; (eval-after-load "company"
+;;   '(defun vmd-company-backend (command &optional arg &rest ignored)
+;;   (interactive (list 'interactive))
 
-  (cl-case command
-    (interactive (company-begin-backend 'company-sample-backend))
-    (prefix (and (eq major-mode 'fundamental-mode)
-                 (company-grab-symbol)))
-    (candidates
-     (cl-remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      vmd-mode-github-emojis-list)))))
+;;   (cl-case command
+;;     (interactive (company-begin-backend 'company-sample-backend))
+;;     (prefix (and (eq major-mode 'fundamental-mode)
+;;                  (company-grab-symbol)))
+;;     (candidates
+;;      (cl-remove-if-not
+;;       (lambda (c) (string-prefix-p arg c))
+;;       vmd-mode-github-emojis-list)))))
 
-(add-to-list 'company-backends 'vmd-company-backend)
+;; (add-to-list 'company-backends 'vmd-company-backend)
 
 ;; (use-package undo-tree
 ;;   :config
