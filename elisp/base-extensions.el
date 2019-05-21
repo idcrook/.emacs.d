@@ -549,6 +549,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; M-x markdown-toc-generate-or-refresh-toc
 (use-package markdown-toc)
 
+;;; https://github.com/nlamirault/emacs-markdownfmt
+;; install dependency:
+;; go get -u github.com/shurcooL/markdownfmt
+(use-package markdownfmt
+  :config
+  (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save))
+
 ;; mpd client that integrates with ivy for search
 ;; NOTE: does not seem to work to control mopidy
 ;; (use-package ivy-mpdel)
