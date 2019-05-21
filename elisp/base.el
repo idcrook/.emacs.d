@@ -103,13 +103,7 @@
 (require 'delsel)
 (delete-selection-mode t)
 
-;;; -h : human-readable
- ;; dired-listing-switches             "-alh"
-
 (require 'eshell)
-;; use default instead (~/.emacs.d/eshell)
-;; (setq eshell-directory-name              (concat temp-dir "/eshell/"))
-
 
 ;; emacs 25 has a network security manager ;;
 (require 'nsm)
@@ -163,14 +157,6 @@
 (when (fboundp 'auto-image-file-mode)
     (auto-image-file-mode 1))
 
-;;; commenting out as I do not use
-;;(size-indication-mode t)
-
-;;; using counsel-find-file instead
-;; (add-hook 'dired-load-hook
-;;             (function (lambda () (load "dired-x"))))
-
-
 ;;;________________________________________________________________________
 ;; === Backup and save or autosave stuff
 
@@ -205,15 +191,6 @@
 (require 'tramp)
 (require 'tramp-cache)
 (setq  tramp-persistency-file-name (expand-file-name "tramp" temp-dir))
-
-;; To “turn off” the backup feature for tramp files and stop tramp
-;; from saving to the backup directory, use this:
-;; (add-to-list 'backup-directory-alist
-;; 	     (cons tramp-file-name-regexp nil))
-
-;; ;; tramp backup path (if not set, save in local backup directory)
-;;(setq tramp-backup-directory-alist nil)
-;;(setq tramp-auto-save-directory nil)
 
 ;; see base-platforms.el for
 ;;  - emacs server (used by emacsclient)

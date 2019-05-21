@@ -409,26 +409,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package ivy-hydra
   :after (ivy hydra))
 
-;; ;;; https://github.com/mkcms/ivy-yasnippet
-;; (use-package ivy-yasnippet
-;;   :after (ivy yasnippet))
-
-
-;; ;;; https://github.com/raxod502/prescient.el
-;; Do not like - overrides ivy-rich for switch-buffer, e.g.
-;; (use-package ivy-prescient
-;;   :config
-;;   (ivy-prescient-mode 0))
-
-;;; https://github.com/d12frosted/flyspell-correct
-;; (use-package flyspell-correct-ivy
-;; ;;   :after flyspell
-;;   :bind (:map flyspell-mode-map
-;; 	      ("C-c $" . flyspell-correct-word-generic)
-;; 	      ("C-;" . flyspell-correct-previous-word-generic))
-;;   :config
-;;   (add-hook 'flyspell-mode-hook #'flyspell-correct-auto-mode))
-
 (use-package ivy-rich
   :requires (counsel)
   :config
@@ -540,8 +520,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; brew reinstall --with-pcre2 git
 ;; in magit-status buffer "jT" to jump to TODOs
 (use-package magit-todos
-  ;; :config
-  ;; (magit-todos-mode -1)
+  :init
+  (magit-todos-mode +1)
   )
 
 ;;; https://github.com/jrblevin/markdown-mode
@@ -585,7 +565,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
   )
 
-;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server (aliases to web-server)
+;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server
+;; Otherwise aliases to web-server package (emacs-web-server)
 (straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
 
 
@@ -600,10 +581,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package markdownfmt
   :config
   (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save))
-
-;; mpd client that integrates with ivy for search
-;; NOTE: does not seem to work to control mopidy
-;; (use-package ivy-mpdel)
 
 (use-package multiple-cursors
   :bind
@@ -701,44 +678,9 @@ This function is intended for use with `ivy-ignore-buffers'."
             (neotree-select-up-node))
         (neotree-select-up-node)))))
 
-
-;;______________________________________________________________________
-;;;;  Installing Org with straight.el
-;;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
-(require 'subr-x)
-(straight-use-package 'git)
-
-(defun org-git-version ()
-  "The Git version of 'org-mode'.
-Inserted by installing 'org-mode' or when a release is made."
-  (require 'git)
-  (let ((git-repo (expand-file-name
-                   "straight/repos/org/" user-emacs-directory)))
-    (string-trim
-     (git-run "describe"
-              "--match=release\*"
-              "--abbrev=6"
-              "HEAD"))))
-
-(defun org-release ()
-  "The release version of 'org-mode'.
-Inserted by installing 'org-mode' or when a release is made."
-  (require 'git)
-  (let ((git-repo (expand-file-name
-                   "straight/repos/org/" user-emacs-directory)))
-    (string-trim
-     (string-remove-prefix
-      "release_"
-      (git-run "describe"
-               "--match=release\*"
-               "--abbrev=0"
-               "HEAD")))))
-
-(provide 'org-version)
-
-;; (straight-use-package 'org) ; or org-plus-contrib if desired
-
-(use-package org-plus-contrib
+;; straight.el relies on internal kludge to build org-mode
+(use-package org
+  :straight org-plus-contrib
   :mode (("\\.org$" . org-mode))
   :bind
   (("C-c l" . org-store-link)
@@ -769,10 +711,13 @@ Inserted by installing 'org-mode' or when a release is made."
      org-projectile-per-project-filepath "TODO.org"
      org-agenda-files (append org-agenda-files (org-projectile-todo-files)))))
 
+;;; https://github.com/alf/ob-restclient.el
 (use-package ob-restclient)
 
+;;; https://github.com/larstvei/ox-gfm
 (use-package ox-gfm)
 
+;;; https://github.com/yjwen/org-reveal
 (use-package ox-reveal)
 
 ;; https://github.com/abo-abo/org-download
