@@ -554,7 +554,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq markdown-open-command "~/bin/macos/marked2"))
 
 ;;; https://github.com/ancane/markdown-preview-mode
-;; uses `markdown-command` from markdown-mode
+;; uses markdown-command from markdown-mode
 ;; dependency:
 ;; - https://github.com/eschulte/emacs-web-server
 ;; - https://github.com/ahyatt/emacs-websocket
@@ -569,7 +569,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   )
 
 ;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server (aliases to web-server)
-(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd")
+(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
 
 
 ;;; https://github.com/ardumont/markdown-toc
