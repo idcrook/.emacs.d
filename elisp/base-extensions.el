@@ -555,9 +555,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; dependency:
 ;; - https://github.com/eschulte/emacs-web-server
 ;; - https://github.com/ahyatt/emacs-websocket
+;; markdown-preview-mode :  start mode and open preview window.
 (use-package markdown-preview-mode
-  ;; markdown-preview-mode :  start mode and open preview window.
-
+  :config
+  ;;; Use GFM-like CSS - https://github.com/sindresorhus/github-markdown-css
+  (setq markdown-preview-stylesheets (list "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"))
+  ;; (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
   )
 
 ;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server (aliases to web-server)
