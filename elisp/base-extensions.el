@@ -528,17 +528,23 @@ This function is intended for use with `ivy-ignore-buffers'."
   )
 
 ;;; https://github.com/jrblevin/markdown-mode
+;; C-c C-c p - markdown-preview - open preview in browser
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . gfm-mode)
          ("\\.markdown\\'" . markdown-mode))
   :config
+  ;; for generated html, try to emulate Github README.md previews
+  (setq markdown-css-paths '("https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"))
+  (setq markdown-xhtml-body-preamble "<article id=\"markdown-body\" class=\"markdown-body\"><p>")
+  (setq markdown-xhtml-body-epilogue "</p></article>")
+
   ;; https://jblevins.org/log/markdown-imenu
-  ;; https://github.com/markedjs/marked
   (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
   (add-hook 'gfm-mode-hook 'imenu-add-menubar-index)
   (setq imenu-auto-rescan t)
+
   ;;; https://github.com/markedjs/marked
   ;; npm install -g marked  # for marked command
   ;; options emulate Github Flavored Markdown (GFM)
@@ -547,11 +553,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; FIXME: broken under platforms other than macOS
   (setq markdown-open-command "~/bin/macos/marked2"))
 
-
-
-
 ;;; https://github.com/ancane/markdown-preview-mode
-;; uses `markdown-command from markdown-mode
+;; uses `markdown-command` from markdown-mode
 ;; dependency:
 ;; - https://github.com/eschulte/emacs-web-server
 ;; - https://github.com/ahyatt/emacs-websocket
@@ -560,6 +563,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   ;;; Use GFM-like CSS - https://github.com/sindresorhus/github-markdown-css
   (setq markdown-preview-stylesheets (list "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"))
+  ;; (add-to-list 'markdown-preview-stylesheets "https://raw.githubusercontent.com/richleland/pygments-css/master/emacs.css")
+
   ;; (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
   )
 
@@ -568,7 +573,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 
 ;;; https://github.com/ardumont/markdown-toc
-;; M-x markdown-toc-generate-or-refresh-toc
+;; Compute the TOC and insert it at current position: M-x markdown-toc-generate-or-refresh-toc
+;; Update the existing TOC: M-x markdown-toc-refresh-toc
 (use-package markdown-toc)
 
 ;;; https://github.com/nlamirault/emacs-markdownfmt
