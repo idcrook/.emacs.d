@@ -8,13 +8,6 @@
 
 ;; https://elpa.gnu.org/packages/delight.html
 (use-package delight)
-;; https://www.emacswiki.org/emacs/DelightedModes
-;; (use-package emacs
-;;   :delight
-;;   (emacs-lisp-mode
-;;           '("Elisp" (lexical-binding ":Lex" ":Dyn")))
-;;   (auto-fill-function " AF")
-;;   (visual-line-mode))
 
 ;;; http://emacs.stackexchange.com/questions/7432/make-visual-line-mode-more-compatible-with-org-mode
 (use-package adaptive-wrap
@@ -120,7 +113,7 @@
 ;;; : https://github.com/veelenga/carbon-now-sh.el
 (use-package carbon-now-sh)
 
-;;;https://github.com/camdez/checkbox.el
+;;; https://github.com/camdez/checkbox.el
 (use-package checkbox
   :bind (("C-c C-c t" . checkbox-toggle)))
 
@@ -134,13 +127,13 @@
   (add-to-list 'company-backends '(company-shell company-shell-env))
   (add-hook 'after-init-hook 'global-company-mode))
 
-;; https://github.com/krzysztof-magosa/company-ansible
+;;; https://github.com/krzysztof-magosa/company-ansible
 (use-package company-ansible)
 
 ;;; https://github.com/dunn/company-emoji
 (use-package company-emoji)
 
-;; https://github.com/raxod502/prescient.el
+;;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
   :requires (prescient)
   :config
@@ -148,16 +141,16 @@
   (prescient-persist-mode 1)
   (setq prescient-save-file (expand-file-name "prescient-save.el" temp-dir)))
 
-;; HTTPS://github.com/iquiw/company-restclient
+;;; https://github.com/iquiw/company-restclient
 (use-package company-restclient)
 
- ;; https://github.com/Alexander-Miller/company-shell
+;;; https://github.com/Alexander-Miller/company-shell
 (use-package company-shell)
 
-;; https://github.com/sshaw/copy-as-format
+;;; https://github.com/sshaw/copy-as-format
 (use-package copy-as-format)
-;; (global-set-key (kbd "C-c w s") 'copy-as-format-slack)
-;; (global-set-key (kbd "C-c w g") 'copy-as-format-github)
+(global-set-key (kbd "C-c w s") 'copy-as-format-slack)
+(global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
 ;; https://opensource.apple.com/source/tcsh/tcsh-27.1/tcsh/csh-mode.el
 ;; installed manually/locally into ~/.emacs.d/user_elisp/csh-mode.el
@@ -187,18 +180,13 @@
   ;;                         ;; (registers . 5)
                           ;; (agenda         . 10)
                             ))
-  ;;(add-to-list 'dashboard-items '(agenda) t)
+  ;; (add-to-list 'dashboard-items '(agenda) t)
 
-  ;; ;; https://github.com/functionreturnfunction/dashboard-project-status
-  ;; commenting out since it is exposing error:
-  ;;; face-attribute: Symbol’s function definition is void: dashboard-insert-recentf-list
-  ;; (use-package dashboard-project-status
-  ;;   :straight (:host github :repo "functionreturnfunction/dashboard-project-status")
+  ;; Content is not centered by default. To center, set
+  (setq dashboard-center-content t)
 
-  ;;   :config
-  ;;   (add-to-list 'dashboard-item-generators
-  ;;                `(project-status . ,(dashboard-project-status (expand-file-name "~/"))))
-  ;;   (add-to-list 'dashboard-items '(project-status) t))
+  (setq dashboard-set-heading-icons t)
+  ;; (setq dashboard-set-file-icons t)
 
   ;; Set the title
   (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
@@ -206,6 +194,20 @@
   (setq dashboard-startup-banner 'logo)
   (dashboard-setup-startup-hook))
 
+
+;;  dashboard-project-status is broken
+;;; https://github.com/functionreturnfunction/dashboard-project-status/issues/2
+;; (use-package dashboard
+;;   :config
+;;   (use-package dashboard-project-status
+;;    :config
+;;     (add-to-list 'dashboard-item-generators
+;;                  `(project-status . ,(dashboard-project-status  (expand-file-name "~/.dotfiles"))))
+;;     (add-to-list 'dashboard-items '(project-status) t)
+;;     (setq dashboard-items '((project-status . 10)
+;;                             (recents        . 5)
+;;                             (projects       . 5))))
+;;   (dashboard-setup-startup-hook))
 
 ;;https://github.com/Fuco1/dired-hacks
 (use-package dired-filter)
@@ -740,7 +742,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 	      (require 'outline-magic)
 	      (define-key outline-minor-mode-map (kbd "C-<tab>") 'outline-cycle))))
 
-https://github.com/purcell/page-break-lines
+;;; https://github.com/purcell/page-break-lines
 (use-package page-break-lines)
 
 ;; ________________________________________________________________________
@@ -906,6 +908,7 @@ https://github.com/purcell/page-break-lines
 
 ;; via https://www.veripool.org/projects/verilog-mode/wiki/Installing
 ;; relies on ~/.emacs.d/user_elisp/verilog-mode.el
+;; it appears emacs27 will include verilog-mode
 (autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
 (add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode))
 
@@ -921,7 +924,6 @@ https://github.com/purcell/page-break-lines
 ;;; https://github.com/blak3mill3r/vmd-mode
 ;;npm install -g vmd
 ;; ubuntu: sudo apt-get install -y libgconf-2-4
-
 ;; ;;; Issue with previewing files edited over TRAMP session
 ;; ;; https://github.com/blak3mill3r/vmd-mode/issues/16
 ;; (use-package vmd-mode
@@ -946,6 +948,7 @@ https://github.com/purcell/page-break-lines
 
 ;; (add-to-list 'company-backends 'vmd-company-backend)
 
+
 ;; (use-package undo-tree
 ;;   :config
 ;;   ;; Remember undo history
@@ -955,7 +958,7 @@ https://github.com/purcell/page-break-lines
 ;;   (global-undo-tree-mode 1))
 
 ;; https://wakatime.com/emacs
-;;     pip install wakatime
+;;     pip3 install wakatime
 (use-package wakatime-mode
   :config
   ;; (setq wakatime-api-key "...") ;; moved to ~/.wakatime.cfg
@@ -981,27 +984,30 @@ https://github.com/purcell/page-break-lines
 ;;   ("C-x <right>" . windmove-right))
 
 ;;; https://github.com/deb0ch/emacs-winum
+;; Key binding	Description
+;; C-x w <n>	select window <n>, where <n> ranges from 0 to 9. A negative argument deletes the window.
+;; C-x w `		select window by number. Number can be given as prefix arg or will be read from minibuffer.
 (use-package winum
   :config
   ;; https://github.com/TheBB/spaceline#winum
   (setq winum-auto-setup-mode-line nil)
   (winum-mode))
 
+;;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
   :config
   (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
   (add-hook 'yaml-mode-hook #'ansible-doc-mode)
   )
 
+;;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
   :diminish yas-minor-mode
   :config
   (yas-global-mode 1))
 
 ;;; https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  :after yasnippet
-  :config(yasnippet-snippets-initialize))
+(use-package yasnippet-snippets)
 
 (provide 'base-extensions)
 
