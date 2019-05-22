@@ -36,6 +36,7 @@
 
 ;; https://github.com/zellio/ansible-vault-mode#automatic-enabling-based-on-file-contents
 (defun ansible-vault-mode-maybe ()
+  "Turn on `ansible-vault-mode' if the current buffer is an encrypted `ansible-vault' file."
   (when (ansible-vault--is-vault-file)
     (ansible-vault-mode 1)))
 
@@ -44,18 +45,19 @@
   :config
   (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" private-dir)))
 
-
 ;; see https://www.slideshare.net/kaz_yos/search-and-replacement-techniques-in-emacs-avy-swiper-multiplecursor-ag-and-wgrep
 (use-package avy
   :bind (("C-c SPC" . avy-goto-char)
          (:map isearch-mode-map
 	           (("C-'" . avy-isearch)))
+         ;; swiper-avy also bound to "C-'"
          )
   :config
-  (setq
-   avy-background t
-   avy-highlight-first t
-   avy-style 'at-full))
+  (setq avy-background t
+        avy-highlight-first t
+        avy-style 'at-full))
+
+
 
 ;;; https://github.com/manateelazycat/aweshell
 ;;; https://github.com/zwild/eshell-prompt-extras
@@ -195,7 +197,7 @@
   (dashboard-setup-startup-hook))
 
 
-;;  dashboard-project-status is broken
+;;  dashboard-project-status is broken with recent dashboard's
 ;;; https://github.com/functionreturnfunction/dashboard-project-status/issues/2
 ;; (use-package dashboard
 ;;   :config
@@ -209,19 +211,25 @@
 ;;                             (projects       . 5))))
 ;;   (dashboard-setup-startup-hook))
 
-;;https://github.com/Fuco1/dired-hacks
+;;; https://github.com/Fuco1/dired-hacks
 (use-package dired-filter)
+;; (use-package dired-rainbow)
 ;; (use-package dired-subtree)
+;; (use-package dired-ranger)
+;; (use-package dired-narrow)
+;; (use-package dired-list)
+(use-package dired-collapse)
 
-
-;; https://github.com/Silex/docker.el
+;;; https://github.com/Silex/docker.el
 (use-package docker)
 
-;; https://github.com/emacs-pe/docker-tramp.el
+;;; https://github.com/emacs-pe/docker-tramp.el
 (use-package docker-tramp)
 
+;;; https://github.com/spotify/dockerfile-mode
 (use-package dockerfile-mode)
 
+;;; built-in
 (use-package ediff
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -396,6 +404,10 @@
       "rename")))
   )
 
+;;; swiper-isearch
+;; (global-set-key (kbd "C-s") 'swiper-isearch)
+
+
 ;;; https://github.com/abo-abo/swiper/wiki/Hiding-dired-buffers
 ;; hide dired buffers in ivy-switch-buffer
 (defun idc/ignore-dired-buffers (str)
@@ -411,6 +423,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package ivy-hydra
   :after (ivy hydra))
 
+;;; https://github.com/Yevgnen/ivy-rich
 (use-package ivy-rich
   :requires (counsel)
   :config
@@ -441,13 +454,15 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (counsel-mode))
 
-;; https://github.com/ericdanan/counsel-projectile
+;;; https://github.com/ericdanan/counsel-projectile
 (use-package counsel-projectile
   :bind
   (("C-x C-a" . counsel-projectile))
   ;; ("C-x c p" . counsel-projectile-ag) ;; default binding is 'C-c p s s'
   :config
   (counsel-projectile-mode +1))
+
+
 
 ;; https://github.com/nathankot/counsel-dash
 ;; Browse Dash docsets using Ivy.
@@ -752,6 +767,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package projectile
   :delight '(:eval (concat " " (projectile-project-name)))
   :config
+  ;; requires explicit mapping since projectile v1.1
+  ;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (setq projectile-known-projects-file
         (expand-file-name "projectile-bookmarks.eld" temp-dir))
   (setq projectile-completion-system 'ivy)
