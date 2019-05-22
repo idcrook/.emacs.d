@@ -1,7 +1,6 @@
 Higher priority
 ===============
 
--	https://github.com/saf-dmitry/taskpaper-mode
 -	https://github.com/tigersoldier/company-lsp
 -	https://github.com/emacs-lsp/lsp-python-ms - emacs lsp-mode client for Microsoft's python language server
 -	[ ] apple/sourcekit-lsp: Language Server Protocol implementation for Swift and C-based languages

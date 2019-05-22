@@ -732,7 +732,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-bullets-mode))
 
-;;; https://killring.org/2016/01/23/effective-restclient-in-emacs/
+;;; https://www.killring.org/effective-restclient-in-emacs
 (use-package outline-magic
   :config
   (add-hook 'outline-minor-mode-hook
@@ -740,6 +740,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 	      (require 'outline-magic)
 	      (define-key outline-minor-mode-map (kbd "C-<tab>") 'outline-cycle))))
 
+https://github.com/purcell/page-break-lines
 (use-package page-break-lines)
 
 ;; ________________________________________________________________________
@@ -775,13 +776,22 @@ This function is intended for use with `ivy-ignore-buffers'."
       ))
   (recentf-mode 1))
 
+;;; https://github.com/pashky/restclient.el
+;; see also: outline-magic
 (use-package restclient)
 
-(use-package scad-preview)
+;;; https://github.com/Fuco1/smartparens
+;; https://ebzzry.io/en/emacs-pairs/
+;; https://github.com/Fuco1/smartparens/wiki
+;; (use-package smartparens
+;;   :init
+;;   (require 'smartparens-config)
+;;   :config
+;;   (progn (show-smartparens-global-mode t))
+;;   (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+;;   (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+;;   )
 
-(use-package smartparens
-  :config
-  (require 'smartparens-config))
 
 ;; (use-package ssh-config-mode)
 
@@ -800,24 +810,34 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package systemd
   :hook (systemd-mode . company-mode))
 
-
+;;; https://github.com/saf-dmitry/taskpaper-mode
 ;; taskpaper-mode - Major mode for working with TaskPaper files
 (use-package taskpaper-mode
   ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
   )
 
-;; ;; https://github.com/davidshepherd7/terminal-here
-;; (use-package terminal-here
-;;   :bind
-;;   (("C-<f5>" .  #'terminal-here-launch)
-;;    ("C-<f6>" .  #'terminal-here-project-launch)))
+;;; https://github.com/davidshepherd7/terminal-here
+(use-package terminal-here
+  :config
+  (cond
+   ((eq system-type 'darwin)
+    ;; this works on macOS local for iTerm
+    (setq terminal-here-terminal-command (list "open" "-a" "iTerm.app" "."))
+    ;; ;; this works on tramp session to a ubuntu remote
+    ;; (setq terminal-here-terminal-command (list "/Users/dpc/bin/macos/emacs_term_here_iterm_ssh.py"))
+    ))
+  :bind
+  (("C-<f5>" .  #'terminal-here-launch)
+   ("C-<f6>" .  #'terminal-here-project-launch)))
 
-;; ;; https://github.com/xuchunyang/threes.el
-;; (use-package threes)
+;; https://github.com/koekeishiya/khd/issues/73#issuecomment-298112103
+;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile'
+;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile command "vim"'
 
 ;;; https://github.com/randymorris/tramp-term.el
 ;; Automatic setup of directory tracking in ssh sessions.
-;;(use-package tramp-term)
+;; FIXME : Doesn't seem to work with my fancy BASH prompt
+;; (use-package tramp-term)
 
 ;;; https://github.com/snosov1/toc-org
 ;;  add table of contents to org-mode files (formerly, org-toc)
@@ -831,6 +851,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; Prefer neotree over treemacs, so comment out treemacs
 ;; https://github.com/Alexander-Miller/treemacs
+;; TODO: take another look at treemacs
 ;; (use-package treemacs
 ;;   :init
 ;;   (with-eval-after-load 'winum
