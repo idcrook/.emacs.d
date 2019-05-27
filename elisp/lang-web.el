@@ -54,11 +54,11 @@
       (flycheck-select-checker 'jsxhint-checker)
       (flycheck-mode)))
 
-  ;; editing enhancements for web-mode
-  ;; https://github.com/jtkDvlp/web-mode-edit-element
-  (use-package web-mode-edit-element
-    :diminish web-mode-edit-element-minor-mode
-    :config (add-hook 'web-mode-hook 'web-mode-edit-element-minor-mode))
+  ;; ;; editing enhancements for web-mode
+  ;; ;; https://github.com/jtkDvlp/web-mode-edit-element
+  ;; (use-package web-mode-edit-element
+  ;;   :diminish web-mode-edit-element-minor-mode
+  ;;   :config (add-hook 'web-mode-hook 'web-mode-edit-element-minor-mode))
 
   ;; snippets for HTML
   ;; https://github.com/smihica/emmet-mode
