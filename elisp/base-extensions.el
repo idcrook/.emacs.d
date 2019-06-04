@@ -59,26 +59,6 @@
 
 
 
-;;; https://github.com/manateelazycat/aweshell
-;;; https://github.com/zwild/eshell-prompt-extras
-;;; https://github.com/peterwvj/eshell-up
-(use-package aweshell
-  :straight (:type git :host github
-                   :repo "manateelazycat/aweshell")
-  :init
-  (with-eval-after-load "esh-opt"
-    (autoload 'epe-theme-lambda "eshell-prompt-extras")
-    (setq eshell-highlight-prompt nil
-          eshell-prompt-function 'epe-theme-lambda))
-  :config
-  (setq epe-path-style 'full)
-  (setq eshell-up-ignore-case nil)
-  (setq eshell-up-print-parent-dir t)
-  )
-
-
-(use-package bash-completion)
-
 ;; https://github.com/Malabarba/beacon
 (use-package beacon
   :diminish beacon-mode
@@ -153,10 +133,6 @@
 (use-package copy-as-format)
 (global-set-key (kbd "C-c w s") 'copy-as-format-slack)
 (global-set-key (kbd "C-c w g") 'copy-as-format-github)
-
-;; https://opensource.apple.com/source/tcsh/tcsh-27.1/tcsh/csh-mode.el
-;; installed manually/locally into ~/.emacs.d/user_elisp/csh-mode.el
-(require 'csh-mode)
 
 ;; ;; https://github.com/josteink/csharp-mode
 ;; (use-package csharp-mode)
@@ -275,29 +251,10 @@
           ("stackoverflow\\.com" . markdown-mode)
           ("reddit\\.com" . markdown-mode))))
 
-;; # https://github.com/purcell/exec-path-from-shell
-(use-package exec-path-from-shell
-  :config
-  ;; (setq exec-path-from-shell-check-startup-files nil)
-  ;; Add GOPATH and PYTHONPATH to emacs shell
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-copy-env "GOPATH")
-    (exec-path-from-shell-copy-env "PYTHONPATH")
-    (exec-path-from-shell-initialize)))
 
 (use-package expand-region
   :bind
   (("C-=" . er/expand-region)))
-
-;; fish shell style completion
-(use-package fish-completion
-  :config
-  (when (and (executable-find "fish")
-	         (require 'fish-completion nil t))
-    (global-fish-completion-mode)))
-
-;; https://github.com/wwwjfy/emacs-fish
-(use-package fish-mode)
 
 ;; https://www.flycheck.org/en/latest/
 (use-package flycheck

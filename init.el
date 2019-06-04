@@ -58,6 +58,8 @@
 (require 'base-extensions)
 (require 'base-global-keys)
 
+(require 'lang-shell)
+
 (require 'lang-python)
 
 (require 'lang-ruby)
