@@ -149,6 +149,15 @@
 ;;   (interactive)
 ;;   (set-buffer-file-coding-system 'undecided-mac nil))
 
+;;; https://www.emacswiki.org/emacs/UnfillParagraph
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+(defun unfill-paragraph (&optional region)
+  "Take multi-line paragraph(s) (or REGION) and turn into a single lines of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
 
 
 (provide 'base-functions)

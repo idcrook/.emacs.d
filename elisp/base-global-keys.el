@@ -15,6 +15,10 @@
 ;; https://github.com/vidjuheffex/dotemacs/blob/master/emacs.org#replace-beginning-of-line-with-context-dependent-jump-to-beginning
 (global-set-key (kbd "C-a") 'back-to-indentation-or-beginning)
 
+;;; https://www.emacswiki.org/emacs/UnfillParagraph
+(define-key global-map "\M-Q" 'unfill-paragraph)
+
+
 (provide 'base-global-keys)
 
 ;;; base-global-keys.el ends here
