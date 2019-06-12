@@ -47,7 +47,7 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
-;; masos : brew cask install font-fira-mono-for-powerline
+;; macos : brew cask install font-fira-mono-for-powerline
 ;;       : brew cask install font-ubuntu-mono-derivative-powerline
 ;;       : brew cask install font-inconsolata-for-powerline
 ;; ubuntu : sudo apt-get install fonts-powerline
