@@ -44,23 +44,25 @@
 
 ;; # https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
-  :config
+  ;; :init
   ;; (setq exec-path-from-shell-check-startup-files nil)
+  ;; setting this seems to have no effect
+  :config
   ;; Add GOPATH and PYTHONPATH to emacs shell
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-copy-env "GOPATH")
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-initialize)))
 
-;; fish shell style completion
-(use-package fish-completion
-  :config
-  (when (and (executable-find "fish")
-	         (require 'fish-completion nil t))
-    (global-fish-completion-mode)))
+;; ;; fish shell style completion
+;; (use-package fish-completion
+;;   :config
+;;   (when (and (executable-find "fish")
+;; 	         (require 'fish-completion nil t))
+;;     (global-fish-completion-mode)))
 
-;; https://github.com/wwwjfy/emacs-fish
-(use-package fish-mode)
+;; ;; https://github.com/wwwjfy/emacs-fish
+;; (use-package fish-mode)
 
 
 
