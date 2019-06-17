@@ -934,7 +934,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (global-undo-tree-mode 1))
 
 ;; https://wakatime.com/emacs
-;;     pip2 install --user wakatime
+;;     pip3 install wakatime  (macOS with Homebrew / python)
+;;     pip3 install --user wakatime
 (use-package wakatime-mode
   :config
   ;; (setq wakatime-api-key "...") ;; moved to ~/.wakatime.cfg
