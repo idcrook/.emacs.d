@@ -739,6 +739,9 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (rxt-global-mode))
 
+;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
+(use-package scad-mode)
+
 (use-package recentf
   :demand
   :init
