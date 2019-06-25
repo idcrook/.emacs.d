@@ -5,6 +5,12 @@
 ;;; Code:
 
 
+;; to install it as a minor mode just for JavaScript linting,
+(if (version< emacs-version "27.0")
+    (message "is before emacs 27.0")
+    (add-hook 'js-mode-hook 'js2-minor-mode))
+
+
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
   :bind (:map js2-mode-map
@@ -12,9 +18,9 @@
                ("C-M-x" . js-send-last-sexp-and-go)
                ("C-c C-b" . js-send-buffer-and-go)
                ("C-c C-l" . js-load-file-and-go)))
-  :mode
-  ("\\.js$" . js2-mode)
-  ("\\.json$" . js2-jsx-mode)
+  ;; :mode
+  ;; ("\\.js$" . js2-mode)
+  ;; ("\\.json$" . js2-jsx-mode)
   :config
   ;; (custom-set-variables '(js2-strict-inconsistent-return-warning nil))
   ;; (custom-set-variables '(js2-strict-missing-semi-warning nil))
@@ -73,25 +79,27 @@
     (js2r-add-keybindings-with-prefix "C-c j r"))
   (add-hook 'js2-mode-hook 'js2-refactor-mode))
 
-;;; https://github.com/ananthakumaran/tide - TypeScript support
-(use-package tide)
+;; ;;; https://github.com/ananthakumaran/tide - TypeScript support
+;; (use-package tide)
 
 ;;ts-comint - TypeScript  Run a Typescript interpreter in an inferior process window.
 
-(defun setup-tide-mode ()
-  "Configure TypeScript support."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1))
+;; (defun setup-tide-mode ()
+;;   "Configure TypeScript support."
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (company-mode +1))
 
-;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
+;; ;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
+;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+
 
 (provide 'lang-javascript)
 
