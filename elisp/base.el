@@ -163,15 +163,9 @@
 ;; localize it for safety.
 (make-variable-buffer-local 'backup-inhibited)
 
-;; create the autosave dir if necessary, since emacs won't.
-(make-directory (concat temp-dir "/autosaves/") t)
-
+;; Backups
 (setq
  make-backup-files   t
- auto-save-default   t
- auto-save-list-file-name           (concat temp-dir "/autosave")
- auto-save-list-file-prefix         (concat temp-dir "/autosaves/autosave-")
- auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/autosaves/\\1") t))
  backup-directory-alist            `((".*" . ,(concat temp-dir "/backup/")))
  backup-by-copying   t      ; don't clobber symlinks
  backup-by-copying-when-mismatch t
@@ -185,6 +179,24 @@
  ;; backup-inhibited                   t
  ;; make-backup-files                  nil
  )
+
+
+;; autosaves
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory (concat temp-dir "/autosaves/") t)
+
+(setq
+ auto-save-default   t
+ auto-save-list-file-name           (concat temp-dir "/autosave")
+ auto-save-list-file-prefix         (concat temp-dir "/autosaves/autosave-")
+ auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/autosaves/\\1") t))
+ ;;auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/auto-save-list/") t))
+ )
+
+;;(unless (file-exists-p (concat temp-dir "/autosave-save-list"))
+;;  (make-directory (concat temp-dir "/autosave-save-list") :parents))
+
 
 ;; For faster initial connection times, TRAMP stores previous
 ;; connection properties in this file
