@@ -47,21 +47,18 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
-;; macos : brew cask install font-fira-mono-for-powerline
-;;       : brew cask install font-ubuntu-mono-derivative-powerline
+;; macos : brew cask install font-ubuntu-mono-derivative-powerline
 ;;       : brew cask install font-inconsolata-for-powerline
+;;       : brew cask install font-dejavu-sans-mono-for-powerline
 ;; ubuntu : sudo apt-get install fonts-powerline
-
-;; Nerd Fonts : https://github.com/ryanoasis/nerd-fonts
-;; macos : brew tap homebrew/cask-fonts
-;;         brew cask install font-hack-nerd-font font-inconsolata-nerd-font
-;;:family "Inconsolata Nerd Font"
-;;:family "Hack Nerd Font"
+;;        : sudo apt-get install fonts-ubuntu
+;;        : sudo apt-get install fonts-hack
+;;        : sudo apt-get install fonts-dejavu
 
 (defun inconsolata ()
   "Set the default font to Inconsolata."
   (interactive)
-  (set-frame-font "Inconsolata for Powerline"))
+  (set-frame-font "Inconsolata"))
 
 (defun dpc-setup-main-fonts (default-height variable-pitch-height modeline-height)
   "Set up default fonts.
@@ -69,39 +66,44 @@
 Use DEFAULT-HEIGHT for default face, VARIABLE-PITCH-HEIGHT for
 variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (set-face-attribute 'default nil
-                      :family "Inconsolata for Powerline"
+                      :family "Inconsolata"
                       :height default-height)
   (set-face-attribute 'variable-pitch nil
-                      :family "Ubuntu Mono derivative Powerline"
+                      :family "Ubuntu Mono"
                       :height variable-pitch-height
                       :weight 'regular)
   (set-face-attribute 'mode-line nil
-                      :family "Fira Mono for Powerline"
+                      :family "DejaVu Sans Mono"
                       :height modeline-height
                       :weight 'regular))
 
 ;; defaults
 (set-face-attribute 'default nil
-                    :family "Inconsolata for Powerline"
+                    :family "Inconsolata"
                     :height 160
                     :weight 'normal)
-(set-face-attribute 'mode-line nil :family "Fira Mono for Powerline" :height 140 :weight 'regular)
+(set-face-attribute 'mode-line nil :family "DejaVu Sans Mono" :height 140 :weight 'regular)
 
-;; adapt font sizes to display resolution
+
+
+;; adapt font sizes to display resolution - should probably consult
+;; (x-display-mm-width)  ;; 1600
+;; (x-display-mm-height) ;; 1000
+
 (when (display-graphic-p)
-  ;; fixme: 1080p 24" too large
   (if (> (x-display-pixel-width) 1800)
-      (if ;; very large display. side-by-side?
+      (if ;; very large number of pixels in display. side-by-side?
           (> (x-display-pixel-width) 5000)
 	      (dpc-setup-main-fonts 160 160 140)
-        ;; set font on large display...
-        (if
-            (and  ;; specific display - should probably consult
-             ;; (x-display-mm-width)  ;; 1600
-             ;; (x-display-mm-height) ;; 1000
-             (= (x-display-pixel-width) 2560)
-             (= (x-display-pixel-height) 1600))
+        (if (or
+             (and             ;; specific display
+              (= (x-display-pixel-width) 2560)
+              (= (x-display-pixel-height) 1600))
+             (and ;; another specific display setup
+              (= (x-display-pixel-width) 3840)
+              (= (x-display-pixel-height) 1080)))
             (dpc-setup-main-fonts 140 140 120)
+
           ;; other large display
 	      (dpc-setup-main-fonts 180 180 160)
           ))
@@ -141,7 +143,6 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
        (setq emacsw32-style-frame-title t))
       (linux-p ;; Linux-specific code goes here.
        ;;; https://github.com/dunn/company-emoji
-       ;; sudo apt install ttf-ancient-fonts-symbola
        ;; sudo apt install fonts-symbola
        (set-fontset-font t 'symbol (font-spec :family "Symbola") nil 'prepend))
       (macos-p ;; macOS-specific code goes here.
