@@ -65,6 +65,8 @@
 ;; macOS: brew install pyenv
 ;; ubuntu: https://github.com/pyenv/pyenv-installer
 (use-package pyenv-mode
+  :if
+  (executable-find "pyenv")
   :init
   (add-to-list 'exec-path "~/.pyenv/shims")
   (setenv "WORKON_HOME" "~/.pyenv/versions/")
@@ -116,7 +118,7 @@
   ;; symlinked to ~/bin/macos/Microsoft.Python.LanguageServer
   )
 
-;;; ___ Cython
+;;; Cython
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; pip install Cython
