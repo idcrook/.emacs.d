@@ -55,10 +55,31 @@
 ;;        : sudo apt-get install fonts-hack
 ;;        : sudo apt-get install fonts-dejavu
 
+;; my various font family variables
+(defvar  dpc-font-default)
+(defvar  dpc-font-variable)
+(defvar  dpc-font-modeline)
+
+(setq
+ ;; "powerline" fonts override plain font names in Linux
+ dpc-font-default "Inconsolata"
+ dpc-font-variable "Ubuntu Mono"
+ dpc-font-modeline "DejaVu Sans Mono")
+
+;; fonts appear with slightly different names on macOS than Ubuntu/Debian
+(when (string= "darwin" system-type)
+  (setq
+   dpc-font-default "Inconsolata for Powerline"
+   dpc-font-variable "Ubuntu Mono derivative Powerline"
+   dpc-font-modeline "DejaVu Sans Mono for Powerline"))
+
+
 (defun inconsolata ()
   "Set the default font to Inconsolata."
   (interactive)
-  (set-frame-font "Inconsolata"))
+  (if (string= "darwin" system-type)
+      (set-frame-font "Inconsolata for Powerline")
+    (set-frame-font "Inconsolata")))
 
 (defun dpc-setup-main-fonts (default-height variable-pitch-height modeline-height)
   "Set up default fonts.
@@ -66,23 +87,23 @@
 Use DEFAULT-HEIGHT for default face, VARIABLE-PITCH-HEIGHT for
 variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (set-face-attribute 'default nil
-                      :family "Inconsolata"
+                      :family dpc-font-default
                       :height default-height)
   (set-face-attribute 'variable-pitch nil
-                      :family "Ubuntu Mono"
+                      :family dpc-font-variable
                       :height variable-pitch-height
                       :weight 'regular)
   (set-face-attribute 'mode-line nil
-                      :family "DejaVu Sans Mono"
+                      :family dpc-font-modeline
                       :height modeline-height
                       :weight 'regular))
 
 ;; defaults
 (set-face-attribute 'default nil
-                    :family "Inconsolata"
+                    :family dpc-font-default
                     :height 160
                     :weight 'normal)
-(set-face-attribute 'mode-line nil :family "DejaVu Sans Mono" :height 140 :weight 'regular)
+(set-face-attribute 'mode-line nil :family dpc-font-modeline :height 140 :weight 'regular)
 
 
 
