@@ -20,7 +20,7 @@
 (if (display-graphic-p)
     ;; (load-theme 'abyss 'no-confirm)
     (load-theme 'zerodark 'no-confirm)
-  (load-theme 'wheatgrass))  ;; wheatgrass included in emacs
+  (load-theme 'tango-dark))  ;; tango-dark included in emacs
 
 ;;; https://github.com/TheBB/spaceline
 ;; powerline mode-line
