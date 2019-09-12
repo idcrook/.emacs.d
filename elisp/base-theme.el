@@ -16,11 +16,17 @@
    ;; (zerodark-setup-modeline-format)
   )
 
+
+;;; https://github.com/n3mo/cyberpunk-theme.el
+(use-package cyberpunk-theme
+  )
+
 ;; in non-window (tty/console) use a different theme (manoj-dark)
 (if (display-graphic-p)
     ;; (load-theme 'abyss 'no-confirm)
     (load-theme 'zerodark 'no-confirm)
-  (load-theme 'tango-dark))  ;; tango-dark included in emacs
+;;  (load-theme 'tango-dark))  ;; tango-dark included in emacs
+  (load-theme 'cyberpunk))  ;;
 
 ;;; https://github.com/TheBB/spaceline
 ;; powerline mode-line
