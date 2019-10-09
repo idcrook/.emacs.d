@@ -462,7 +462,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (push 'company-lsp company-backends))
 
 ;; http://immerrr.github.io/lua-mode/
-(use-package lua-mode)
+;;; (use-package lua-mode)
 
 (use-package magit
   :config
