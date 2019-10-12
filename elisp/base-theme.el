@@ -26,7 +26,8 @@
     ;; (load-theme 'abyss 'no-confirm)
     (load-theme 'zerodark 'no-confirm)
 ;;  (load-theme 'tango-dark))  ;; tango-dark included in emacs
-  (load-theme 'cyberpunk))  ;;
+  (load-theme 'cyberpunk))
+;;  (load-theme 'wheatgrass))  ;;
 
 ;;; https://github.com/TheBB/spaceline
 ;; powerline mode-line

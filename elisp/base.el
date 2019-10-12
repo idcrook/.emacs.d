@@ -78,6 +78,10 @@
  highlight-nonselected-windows      nil
  )
 
+ ;; load the custom file
+(load custom-file 'noerror)
+ 
+
 ;; Emacs 26 removed the default-SOMETHING
 (setq-default major-mode                 'text-mode
               fill-column                79)
