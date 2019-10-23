@@ -52,6 +52,7 @@
 ;;       : brew cask install font-dejavu-sans-mono-for-powerline
 ;; ubuntu : sudo apt-get install fonts-powerline
 ;;        : sudo apt-get install fonts-ubuntu
+;;        : sudo apt-get install fonts-inconsolata
 ;;        : sudo apt-get install fonts-hack
 ;;        : sudo apt-get install fonts-dejavu
 
