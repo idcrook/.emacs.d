@@ -1,0 +1,3 @@
+[submodule "user_elisp/github/sysinfo"]
+	path = user_elisp/github/sysinfo
+	url = https://github.com/idcrook/sysinfo.git

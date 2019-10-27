@@ -8,7 +8,17 @@
 
 
 ;; See ~/.emacs.d/user_elisp/README.md
-(add-to-list 'load-path (concat user-emacs-directory "user_elisp"))
+(setq dpc-user-elisp-dir (concat user-emacs-directory "user_elisp/"))
+(setq dpc-user-elisp-githubs-dir (concat dpc-user-elisp "github/"))
+
+(add-to-list 'load-path dpc-user-elisp-dir)
+;; Add all subdirs to load-path
+(let ((default-directory dpc-user-elisp-dir))
+  (normal-top-level-add-subdirs-to-load-path))
+;; Add all githubs (subdirs) to load-path
+(let ((default-directory dpc-user-elisp-githubs-dir))
+  (normal-top-level-add-subdirs-to-load-path))
+
 
 (defconst private-dir   (expand-file-name "private" user-emacs-directory)
   "Set aside per-user Emacs directory.")
@@ -80,7 +90,7 @@
 
  ;; load the custom file
 (load custom-file 'noerror)
- 
+
 
 ;; Emacs 26 removed the default-SOMETHING
 (setq-default major-mode                 'text-mode
