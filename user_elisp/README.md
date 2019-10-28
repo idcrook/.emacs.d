@@ -1,12 +1,27 @@
 `user_elisp`
 ============
 
-For gathering other external Emacs lisp packages
+For gathering external Emacs lisp packages, especially if they fall outside normal package manager use.
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
+**Table of Contents**
+
+-	[Manually downloaded library](#manually-downloaded-library)
+	-	[verilog-mode](#verilog-mode)
+	-	[csh-mode](#csh-mode)
+-	[Github](#github)
+	-	[sysinfo](#sysinfo)
+-	[Hacks](#hacks)
+
+<!-- markdown-toc end -->
 
 Manually downloaded library
 ===========================
 
-Download each into its own directory.
+Download each into its own (sub-)directory.
+
+Add to script `./recompile.sh` (and run to update compiled version if needed)
 
 verilog-mode
 ------------
@@ -35,3 +50,8 @@ sysinfo
 ```
 (cd github && git submodule add https://github.com/idcrook/sysinfo.git)
 ```
+
+Hacks
+=====
+
+Use `hacks` subdirectory to save one-time or one-off or experimental scripts.

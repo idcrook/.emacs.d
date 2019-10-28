@@ -541,8 +541,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/seagle0128/grip-mode
 ;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
+;;      macOS: (Homebrew): pip3 install grip
 ;;     ubuntu: pip3 install --user grip
-;;     macOS (Homebrew): pip3 install grip
+;;   raspbian: sudo pip3 install --upgrade grip
+;;
+;; Filed issue to see if grip-mode can work for Tramp files
+;;     https://github.com/seagle0128/grip-mode/issues/5
 (use-package grip-mode
   ;; was not finding MELPA recipe when I added
   :straight (grip-mode :type git :host github :repo "seagle0128/grip-mode")
@@ -558,7 +562,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/ardumont/markdown-toc
 ;; Compute the TOC and insert it at current position: M-x markdown-toc-generate-or-refresh-toc
 ;; Update the existing TOC: M-x markdown-toc-refresh-toc
-(use-package markdown-toc)
+(use-package markdown-toc
+  :config
+  ;; https://github.com/ardumont/markdown-toc#user-toc-manipulation
+  ;; drop the first element (since this is usually the title):
+  (custom-set-variables '(markdown-toc-user-toc-structure-manipulation-fn 'cdr))
+  )
 
 ;;; https://github.com/nlamirault/emacs-markdownfmt
 ;; install dependency:
