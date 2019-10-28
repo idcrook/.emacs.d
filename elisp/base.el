@@ -9,7 +9,7 @@
 
 ;; See ~/.emacs.d/user_elisp/README.md
 (setq dpc-user-elisp-dir (concat user-emacs-directory "user_elisp/"))
-(setq dpc-user-elisp-githubs-dir (concat dpc-user-elisp "github/"))
+(setq dpc-user-elisp-githubs-dir (concat dpc-user-elisp-dir "github/"))
 
 (add-to-list 'load-path dpc-user-elisp-dir)
 ;; Add all subdirs to load-path
