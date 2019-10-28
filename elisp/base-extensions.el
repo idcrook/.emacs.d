@@ -543,7 +543,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
 ;; pip3 install --user grip
 (use-package grip-mode
-  ;; for some reason straight.el couldn't find MELPA recipe when I added
+  ;; was not finding MELPA recipe when I added
   :straight (grip-mode :type git :host github :repo "seagle0128/grip-mode")
   ;; Make a keybinding: `C-c C-c g'
   :bind (:map markdown-mode-command-map
