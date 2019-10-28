@@ -539,6 +539,16 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
   )
 
+;;; https://github.com/seagle0128/grip-mode
+;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
+;; pip3 install --user grip
+(use-package grip-mode
+  ;; for some reason straight.el couldn't find MELPA recipe when I added
+  :straight (grip-mode :type git :host github :repo "seagle0128/grip-mode")
+  ;; Make a keybinding: `C-c C-c g'
+  :bind (:map markdown-mode-command-map
+         ("g" . grip-mode)))
+
 ;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server
 ;; Otherwise aliases to web-server package (emacs-web-server)
 (straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
