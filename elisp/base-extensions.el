@@ -541,7 +541,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/seagle0128/grip-mode
 ;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
-;; pip3 install --user grip
+;;     ubuntu: pip3 install --user grip
+;;     macOS (Homebrew): pip3 install grip
 (use-package grip-mode
   ;; was not finding MELPA recipe when I added
   :straight (grip-mode :type git :host github :repo "seagle0128/grip-mode")
