@@ -3,6 +3,14 @@ auxiliary utilities
 
 see [i-dotfiles emacs](https://github.com/idcrook/i-dotfiles/tree/master/emacs) for add'l details
 
+## git submodules
+
+External git libraries are now included
+
+```
+git submodule update --init --recursive
+```
+
 python
 ------
 
