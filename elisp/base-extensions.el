@@ -573,6 +573,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; install dependency:
 ;; go get -u github.com/shurcooL/markdownfmt
 (use-package markdownfmt
+  :init
+  (setq markdownfmt-bin "mdfmt")
   :config
   (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save))
 
