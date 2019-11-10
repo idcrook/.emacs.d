@@ -153,12 +153,13 @@
   :config
   (setq dashboard-items '((recents       . 5)
                           (projects      . 5)
-  ;;                         ;; (bookmarks . 5)
+                          (bookmarks . 5)
   ;;                         (projects . 5)
   ;;                         ;; (registers . 5)
                           ;; (agenda         . 10)
                             ))
   ;; (add-to-list 'dashboard-items '(agenda) t)
+  ;; (setq dashboard-set-navigator t)
 
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)
