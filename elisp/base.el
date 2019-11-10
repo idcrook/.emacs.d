@@ -54,8 +54,8 @@
  minibuffer-prompt-properties
  '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
 
- ;; alongside $PATH via exec-path-from-shell package
- exec-path                          (append exec-path '("/usr/local/bin/"))
+ ;; ;; alongside $PATH via exec-path-from-shell package
+ ;; exec-path                          (append exec-path '("/usr/local/bin/"))
 
  ;; I hate tabs!
  indent-tabs-mode                   nil
