@@ -14,3 +14,4 @@ tramp
 !TODO.md
 !*example
 flycheck_*.elc
+custom.el
