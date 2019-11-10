@@ -25,8 +25,10 @@
   )
 
 
-;;; https://github.com/szermatt/emacs-bash-completion
-(use-package bash-completion)
+;; ;;; https://github.com/szermatt/emacs-bash-completion
+;; (use-package bash-completion
+;;   :config
+;;   (bash-completion-setup))
 
 
 ;; zsh support (in sh-mode)
@@ -53,17 +55,6 @@
     (exec-path-from-shell-copy-env "GOPATH")
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-initialize)))
-
-;; ;; fish shell style completion
-;; (use-package fish-completion
-;;   :config
-;;   (when (and (executable-find "fish")
-;; 	         (require 'fish-completion nil t))
-;;     (global-fish-completion-mode)))
-
-;; ;; https://github.com/wwwjfy/emacs-fish
-;; (use-package fish-mode)
-
 
 
 (provide 'lang-shell)
