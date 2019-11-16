@@ -145,6 +145,14 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
     (add-hook 'after-init-hook 'server-start t))
   (require 'org-protocol))
 
+(defun --set-emoji-font (frame)
+  "Adjust the font settings of FRAME so Emacs can display emoji properly."
+  (if (eq system-type 'darwin)
+      ;; For NS/Cocoa
+      (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend)
+    ;; For Linux
+    (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+
 (cond
  ;; Windows-specific code goes here.
  (platform-windows-p
@@ -238,7 +246,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 
   ;;; https://github.com/dunn/company-emoji
   ;; sudo apt install fonts-symbola
-  (set-fontset-font t 'symbol (font-spec :family "Symbola") nil 'prepend)
+  ;; sudo apt-get install ttf-ancient-fonts
+  (--set-emoji-font nil)
+  (add-hook 'after-make-frame-functions '--set-emoji-font)
 
   ;; Treat clipboard input as UTF-8 string first; compound text
   ;; next, etc.
