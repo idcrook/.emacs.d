@@ -195,19 +195,30 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
     (set-fontset-font
      t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
+  ;; TODO: introduce a boolean switch for setting among macOS native or windows keyboards and bindings below
+
   ;;; https://stackoverflow.com/questions/45697790/how-to-enter-special-symbols-with-alt-in-emacs-under-mac-os-x
   ;; use the left alt/option key as meta
   (setq ns-alternate-modifier 'meta) ; Its default value is ‘meta’
-  ;;(setq ns-command-modifier 'meta) ; Its value is ‘super’
+  (setq ns-command-modifier 'super) ; Its default value is ‘super’
   ;;(setq ns-option-modifier nil)   ; alias for ns-alternate-modifier
 
-  ;;  Do not have emacs capture right alt/option key and command keys
-  (setq ns-right-command-modifier 'none)   ;; original value is 'left'
-  (setq ns-right-alternate-modifier 'none) ;; original value is 'left'
-  ;;  have emacs eat right alt/option key and command keys
+  ;;  'none: Do not have emacs capture (right-side) key for:
+  ;; (setq ns-right-command-modifier 'none)   ;; original value is 'left'
+  ;; setting to 'none allows "alternate" keyboard using a windows keyboard
+  (setq ns-right-alternate-modifier 'none) ;; original value is 'left' -
+
+  ;; can have emacs eat right alt/option key and command keys by setting to nil
   ;;(setq ns-right-command-modifier nil)   ;; original value is 'left'
   ;;(setq ns-right-alternate-modifier nil) ;; original value is 'left'
-  ;;(setq ns-right-option-modifier nil)      ;; alias for ns-right-alternate-modifier
+  ;;(setq ns-right-option-modifier nil)    ;; alias for ns-right-alternate-modifier
+  ;;(setq ns-function-modifier 'none) ; Its value is ‘none’
+
+  ;; On macOS, if you are using a PC keyboard, the ▤ Menu (aka Apps) key will send 【Ctrl+p】 by default.
+  ;; On windows, w32-apps-modifier is available
+  ;; You can observe this with `C-h k` and then tapping the key
+  ;; on macOS rebind this default key to the Menu key
+  (define-key key-translation-map (kbd "C-p") (kbd "<menu>")) ;; <menu> runs counsel-M-x (found in counsel-mode-map),
 
   ;;; dired conf ;;
   (require 'dired)
