@@ -213,6 +213,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   ;;(setq ns-right-alternate-modifier nil) ;; original value is 'left'
   ;;(setq ns-right-option-modifier nil)    ;; alias for ns-right-alternate-modifier
   ;;(setq ns-function-modifier 'none) ; Its value is ‘none’
+  ;;(setq ns-function-modifier 'hyper) ; Its value is ‘none’
 
   ;; On macOS, if you are using a PC keyboard, the ▤ Menu (aka Apps) key will send 【Ctrl+p】 by default.
   ;; On windows, w32-apps-modifier is available

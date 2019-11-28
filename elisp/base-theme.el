@@ -16,6 +16,8 @@
    ;; (zerodark-setup-modeline-format)
   )
 
+;;; https://github.com/popcorn4dinner/darkplus-emacs
+;; (straight-use-package '(darkplus :type git :host github :repo "popcorn4dinner/darkplus-emacs"))
 
 ;;; https://github.com/n3mo/cyberpunk-theme.el
 (use-package cyberpunk-theme
