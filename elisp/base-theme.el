@@ -9,27 +9,32 @@
 ;;   :ensure t)
 
 
-;;; https://github.com/NicolasPetton/zerodark-theme
-(use-package zerodark-theme
-   ;; :config
-   ;; ;; Optionally setup the modeline
-   ;; (zerodark-setup-modeline-format)
-  )
+;; ;;; https://github.com/NicolasPetton/zerodark-theme
+;; (use-package zerodark-theme
+;;    ;; :config
+;;    ;; ;; Optionally setup the modeline
+;;    ;; (zerodark-setup-modeline-format)
+;;   )
 
 ;;; https://github.com/popcorn4dinner/darkplus-emacs
 ;; (straight-use-package '(darkplus :type git :host github :repo "popcorn4dinner/darkplus-emacs"))
+
+;;; https://github.com/dracula/dracula-theme
+;; https://draculatheme.com/emacs/
+(use-package dracula-theme)
 
 ;;; https://github.com/n3mo/cyberpunk-theme.el
 (use-package cyberpunk-theme
   )
 
-;; in non-window (tty/console) use a different theme (manoj-dark)
+;; in non-window (tty/console) use a different theme (cyberpunk-theme)
 (if (display-graphic-p)
     ;; (load-theme 'abyss 'no-confirm)
-    (load-theme 'zerodark 'no-confirm)
+    ;; (load-theme 'zerodark 'no-confirm)
+    (load-theme 'dracula 'no-confirm)
 ;;  (load-theme 'tango-dark))  ;; tango-dark included in emacs
-  (load-theme 'cyberpunk))
 ;;  (load-theme 'wheatgrass))  ;;
+  (load-theme 'cyberpunk 'no-confirm))
 
 ;;; https://github.com/TheBB/spaceline
 ;; powerline mode-line
