@@ -124,8 +124,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 
 
 ;;; transparency ;;
-(set-frame-parameter (selected-frame) 'alpha '(97 85))
-(add-to-list 'default-frame-alist '(alpha 97 85))
+(set-frame-parameter (selected-frame) 'alpha '(100 95))
+(add-to-list 'default-frame-alist '(alpha 100 95))
 
 ;; (setq focus-follows-mouse t)
 ;; (setq focus-follows-mouse 'auto-raise)
