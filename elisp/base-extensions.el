@@ -412,6 +412,10 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (counsel-mode))
 
+;;; https://github.com/200ok-ch/counsel-jq
+;;; FIXME: check for jq in path?
+(straight-use-package '(counsel-jq :type git :host github :repo "200ok-ch/counsel-jq"))
+
 ;;; https://github.com/ericdanan/counsel-projectile
 (use-package counsel-projectile
   :bind
