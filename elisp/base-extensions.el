@@ -471,6 +471,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package magit
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
+  ;; When commiting enable verbose mode by default.
+  (setq magit-commit-arguments (quote ("--verbose")))
 
   :bind
   ;; Magit
