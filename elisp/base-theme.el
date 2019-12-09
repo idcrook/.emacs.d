@@ -17,6 +17,7 @@
 ;;   )
 
 ;;; https://github.com/popcorn4dinner/darkplus-emacs
+;;; error: eval-buffer: Symbol’s value as variable is void: fg3
 ;; (straight-use-package '(darkplus :type git :host github :repo "popcorn4dinner/darkplus-emacs"))
 
 ;;; https://github.com/dracula/dracula-theme
@@ -24,8 +25,7 @@
 (use-package dracula-theme)
 
 ;;; https://github.com/n3mo/cyberpunk-theme.el
-(use-package cyberpunk-theme
-  )
+(use-package cyberpunk-theme)
 
 ;; in non-window (tty/console) use a different theme (cyberpunk-theme)
 (if (display-graphic-p)

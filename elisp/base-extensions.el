@@ -413,8 +413,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (counsel-mode))
 
 ;;; https://github.com/200ok-ch/counsel-jq
-;;; FIXME: check for jq in path?
-(straight-use-package '(counsel-jq :type git :host github :repo "200ok-ch/counsel-jq"))
+(use-package counsel-jq)
 
 ;;; https://github.com/ericdanan/counsel-projectile
 (use-package counsel-projectile
@@ -494,14 +493,18 @@ This function is intended for use with `ivy-ignore-buffers'."
 (eval-after-load "magit"
   '(define-key magit-status-mode-map (kbd "Q") #'idc-magit-kill-buffers))
 
+;;; https://github.com/ragone/magit-diff-flycheck
+;; Run M-x magit-diff-flycheck in a magit-diff buffer to display a filtered
+;; list of Flycheck errors for the added/modified lines only.
+(use-package magit-diff-flycheck)
+
 ;; https://github.com/alphapapa/magit-todos
 ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
 ;;; brew reinstall --with-pcre2 git
 ;; in magit-status buffer "jT" to jump to TODOs
 (use-package magit-todos
   :init
-  (magit-todos-mode +1)
-  )
+  (magit-todos-mode +1))
 
 ;;; https://github.com/jrblevin/markdown-mode
 ;; C-c C-c p - markdown-preview - open preview in browser
@@ -553,8 +556,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; Filed issue to see if grip-mode can work for Tramp files
 ;;     https://github.com/seagle0128/grip-mode/issues/5
 (use-package grip-mode
-  ;; was not finding MELPA recipe when I added
-  :straight (grip-mode :type git :host github :repo "seagle0128/grip-mode")
   ;; Make a keybinding: `C-c C-c g'
   :bind (:map markdown-mode-command-map
          ("g" . grip-mode)))
