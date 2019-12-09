@@ -197,8 +197,8 @@
 ;; (use-package dired-list)
 (use-package dired-collapse)
 
-;;; https://github.com/Silex/docker.el
-(use-package docker)
+;; ;;; https://github.com/Silex/docker.el
+;; (use-package docker)
 
 ;;; https://github.com/emacs-pe/docker-tramp.el
 (use-package docker-tramp)
