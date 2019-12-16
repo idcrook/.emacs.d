@@ -437,10 +437,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; If the shell of the server is zsh it is recommended to connect with bash.
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
-;; not yet in MELPA ;;; https://github.com/mnewt/counsel-web
-(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
-
 (use-package counsel-web
+;; not yet in MELPA ;;; https://github.com/mnewt/counsel-web
   :straight (counsel-web :type git :host github :repo "mnewt/counsel-web")
   ;; (global-set-key (kbd "C-c w") #'counsel-web-suggest)
   ;; (global-set-key (kbd "C-c W") #'counsel-web-search)
