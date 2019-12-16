@@ -415,6 +415,52 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/200ok-ch/counsel-jq
 (use-package counsel-jq)
 
+;;; https://github.com/masasam/emacs-counsel-tramp
+(use-package counsel-tramp
+  :bind
+  ("C-c s" . counsel-tramp)
+  :config
+  (setq counsel-tramp-custom-connections
+        '(;; /ssh:rpih1|sudo:root@rpih1:/etc/shairport-sync.conf
+          ;; /ssh:rpih1|sudo:root@rpih1:/etc/mosquitto/credentials/aclfile
+          /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
+          )))
+
+;; If you want to speed up tramp
+(add-hook 'counsel-tramp-pre-command-hook '(lambda () ;; (global-aggressive-indent-mode 0)
+				     (projectile-mode 0)
+				     (editorconfig-mode 0)))
+(add-hook 'counsel-tramp-quit-hook '(lambda () ;; (global-aggressive-indent-mode 1)
+			      (projectile-mode 1)
+			      (editorconfig-mode 1)))
+
+;; If the shell of the server is zsh it is recommended to connect with bash.
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+
+;; not yet in MELPA ;;; https://github.com/mnewt/counsel-web
+(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
+
+(use-package counsel-web
+  :straight (counsel-web :type git :host github :repo "mnewt/counsel-web")
+  ;; (global-set-key (kbd "C-c w") #'counsel-web-suggest)
+  ;; (global-set-key (kbd "C-c W") #'counsel-web-search)
+  ;; (global-set-key (kbd "C-c C-w") #'counsel-web-thing-at-point)
+  :bind
+  (("C-c w" . counsel-web-suggest)
+   ("C-c W" . counsel-web-search)
+   ("C-c C-w" . counsel-web-thing-at-point))
+  :config
+  ;; use google instead of the default duck duck go
+  (setq counsel-web-suggest-function       #'counsel-web-suggest--google
+        counsel-web-search-function        #'counsel-web-search--google
+        ;; update with each key press
+        counsel-web-search-dynamic-update  t
+        ;; use system browser
+        counsel-web-search-action          #'browse-url
+        )
+  )
+
+
 ;;; https://github.com/ericdanan/counsel-projectile
 (use-package counsel-projectile
   :bind
@@ -423,12 +469,9 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (counsel-projectile-mode +1))
 
-
-
 ;; https://github.com/nathankot/counsel-dash
-;; Browse Dash docsets using Ivy.
-;; Requires helm-dash (use-package counsel-dash)
-
+;; Browse Dash docsets using Ivy.  Requires helm-dash (use-package
+;; counsel-dash), so do not use as of now because of that dependency
 
 ;;;________________________________________________________________________
 ;; end of counsel / ivy stuff
