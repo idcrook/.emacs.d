@@ -5,12 +5,12 @@
 
 ;;; Code:
 
-;;; elpy : https://github.com/jorgenschaefer/elpy
+;;; emacs elpy : https://github.com/jorgenschaefer/elpy
+;; # rope
+;; # code checks - flake8
 ;; # completion and code navigation - jedi
 ;; # automatic formatting - black autopep8 yapf
-;; # code checks - flake8
-;; pip3 install --user jedi flake8 black autopep8 yapf
-;; python3 -m pip install --user --upgrade jedi flake8 black autopep8 yapf
+;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
 
 (use-package python
   :mode ("\\.py$" . python-mode)
@@ -23,8 +23,8 @@
     :init
     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
     :config
-    (setq elpy-rpc-backend "jedi")
-    (setq elpy-rpc-python-command "python3")
+    ;; (setq elpy-rpc-backend "jedi")
+    ;; (setq elpy-rpc-python-command "python3")
 
     :bind (:map elpy-mode-map
 	      ("M-." . elpy-goto-definition)
@@ -57,10 +57,12 @@
   :init
   (add-hook 'python-mode-hook 'yapf-mode))
 
-;; ;; https://github.com/proofit404/blacken
-;; (use-package blacken
-;;   :init
-;;   (add-hook 'python-mode-hook 'blacken-mode))
+;; https://github.com/proofit404/blacken
+(use-package blacken
+  :init
+  (add-hook 'python-mode-hook 'blacken-mode)
+  :config
+  (setq blacken-skip-string-normalization t))
 
 ;; macOS: brew install pyenv
 ;; ubuntu: https://github.com/pyenv/pyenv-installer

@@ -592,9 +592,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/seagle0128/grip-mode
 ;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
-;;      macOS: (Homebrew): pip3 install grip
-;;     ubuntu: pip3 install --user grip
-;;   raspbian: sudo pip3 install --upgrade grip
+;; macOS/ubuntu:      pip3 install --user grip
+;;     raspbian: sudo pip3 install --upgrade grip
 ;;
 ;; Filed issue to see if grip-mode can work for Tramp files
 ;;     https://github.com/seagle0128/grip-mode/issues/5
@@ -1008,7 +1007,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (global-undo-tree-mode 1))
 
 ;; https://wakatime.com/emacs
-;;     pip3 install wakatime  (macOS with Homebrew / python)
 ;;     pip3 install --user wakatime
 (use-package wakatime-mode
   :config
