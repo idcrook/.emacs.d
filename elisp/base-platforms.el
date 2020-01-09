@@ -111,6 +111,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
               (= (x-display-pixel-height) 1600))
              (and ;; another specific display setup
               (= (x-display-pixel-width) 3840)
+              (= (x-display-pixel-height) 1080))
+             (and ;; another specific display setup
+              (= (x-display-pixel-width) 1920)
               (= (x-display-pixel-height) 1080)))
             (dpc-setup-main-fonts 140 140 120)
 
