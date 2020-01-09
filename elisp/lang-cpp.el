@@ -53,6 +53,8 @@
 ;; irony-server provides the libclang interface to irony-mode. It uses a simple protocol based on S-expression. This server, written in C++ and requires the following packages to be installed on your system:
 ;; - CMake >= 2.8.3
 ;; - libclang
+;; ubuntu: sudo apt install irony-server elpa-irony # didn't work
+;; ubuntu: sudo apt install cmake libclang1 libclang-dev # worked as pre-req for build/install
 (use-package irony)
 
 ;; https://github.com/ikirill/irony-eldoc
