@@ -462,7 +462,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/ericdanan/counsel-projectile
 (use-package counsel-projectile
   :bind
-  (("C-x C-a" . counsel-projectile))
+  ;; (("C-x C-a" . counsel-projectile))
   ;; ("C-x c p" . counsel-projectile-ag) ;; default binding is 'C-c p s s'
   :config
   (counsel-projectile-mode +1))

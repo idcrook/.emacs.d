@@ -7,7 +7,7 @@
 ;;; Code:
 
 ;; https://github.com/stardiviner/arduino-mode
-(use-package arduino-mode)
+;; (use-package arduino-mode)
 
 ;; https://github.com/yuutayamada/company-arduino
 ;; (use-package company-arduino)  ;; requires:  irony-mode, company-irony and company-c-headers
@@ -46,7 +46,7 @@
 ;;     'company-backends '(company-irony-c-headers company-irony)))
 
 ;; https://github.com/ZachMassia/platformio-mode
-(use-package platformio-mode)
+;; (use-package platformio-mode)
 
 ;; https://github.com/Sarcasm/irony-mode
 ;; Prerequisites
@@ -70,8 +70,8 @@
 ;; when needed (platformio.ini present in project root).
 (add-hook 'c++-mode-hook (lambda ()
                            (irony-mode)
-                           (irony-eldoc)
-                           (platformio-conditionally-enable)))
+                           (irony-eldoc)))
+                           ;;(platformio-conditionally-enable)))
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
@@ -79,10 +79,10 @@
 
 ;; company-ardunio configuration for irony.el
 ;; Add arduino's include options to irony-mode's variable.
-(add-hook 'irony-mode-hook 'company-arduino-turn-on)
+;; (add-hook 'irony-mode-hook 'company-arduino-turn-on)
 
 ;; Activate irony-mode on arduino-mode
-(add-hook 'arduino-mode-hook 'irony-mode)
+;; (add-hook 'arduino-mode-hook 'irony-mode)
 
 ; Use irony's completion functions.
 (add-hook 'irony-mode-hook
