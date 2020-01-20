@@ -595,12 +595,20 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; macOS/ubuntu:      pip3 install --user grip
 ;;     raspbian: sudo pip3 install --upgrade grip
 ;;
+;; :hook ((markdown-mode org-mode) . grip-mode)
+;;
 ;; Filed issue to see if grip-mode can work for Tramp files
-;;     https://github.com/seagle0128/grip-mode/issues/5
+;;     https://github.com/seagle0128/grip-mode/issues/5 <- UPDATED!
 (use-package grip-mode
+  :init
+  ;; user name and password from ~/.authinfo ;; FORMAT:
+  ;; machine api.github.com login YOU password YOURPASSWORD
+  (let ((credential (auth-source-user-and-password "api.github.com")))
+    (setq grip-github-user (car credential)
+          grip-github-password (cadr credential)))
   ;; Make a keybinding: `C-c C-c g'
   :bind (:map markdown-mode-command-map
-         ("g" . grip-mode)))
+              ("g" . grip-mode)))
 
 ;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server
 ;; Otherwise aliases to web-server package (emacs-web-server)

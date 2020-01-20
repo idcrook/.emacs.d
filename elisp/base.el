@@ -26,6 +26,11 @@
 (defconst temp-dir (format "%s/cache" private-dir)
   "Location of package bookkeeping temp directories.")
 
+;;; https://www.gnu.org/software/emacs/manual/html_node/auth/Help-for-users.html
+;; default: (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
+;; add ~/.emacs.d/private/authinfo.secrets
+(add-to-list 'auth-sources (expand-file-name "authinfo.secrets" private-dir))
+
 ;; Core settings
 ;; UTF-8 please
 (set-charset-priority 'unicode)
