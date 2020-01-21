@@ -180,11 +180,11 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (setq scroll-step 1) ;; keyboard scroll one line at a timer
 
-  (require 'browse-url)
+  ;; (require 'browse-url)
   ;; use system browser
-  (setq browse-url-browser-function (quote browse-url-default-macosx-browser))
-  (setq browse-url-firefox-new-window-is-tab t)
-  (setq browse-url-new-window-flag t)
+  (setq browse-url-browser-function (quote browse-url-generic))
+  (setq browse-url-generic-program "open")
+  ;; (setq browse-url-browser-function (quote browse-url-default-macos-browser))
 
   ;; always use find-file-other-window to open dropped files
   (setq dnd-open-file-other-window t)

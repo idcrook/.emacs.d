@@ -160,6 +160,21 @@
     (fill-paragraph nil region)))
 
 
+
+;;; https://www.emacswiki.org/emacs/BrowseUrl#toc26
+(defun browse-url-default-macos-browser (url &optional new-window)
+  "Open URL in default macOS browser.
+
+In instances where you want to force a new Safari window for
+URL, set NEW-WINDOW to non-nil."
+  (interactive (browse-url-interactive-arg "URL: "))
+  (if (and new-window (>= emacs-major-version 23))
+      (ns-do-applescript
+       (format (concat "tell application \"Safari\" to make document with properties {URL:\"%s\"}\n"
+		       "tell application \"Safari\" to activate") url))
+    (start-process (concat "open " url) nil "open" url)))
+
+
 (provide 'base-functions)
 
 ;;; base-functions.el ends here

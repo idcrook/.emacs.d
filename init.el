@@ -53,8 +53,8 @@
 
 (require 'base)
 (require 'base-theme)
-(require 'base-platforms)
 (require 'base-functions)
+(require 'base-platforms)
 (require 'base-extensions)
 (require 'base-global-keys)
 
