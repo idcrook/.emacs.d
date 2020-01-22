@@ -6,6 +6,10 @@
 
 ;;; Code:
 
+
+;;; https://github.com/Lindydancer/cmake-font-lock
+(use-package cmake-font-lock)
+
 ;; https://github.com/stardiviner/arduino-mode
 ;; (use-package arduino-mode)
 
@@ -48,14 +52,31 @@
 ;; https://github.com/ZachMassia/platformio-mode
 ;; (use-package platformio-mode)
 
-;; https://github.com/Sarcasm/irony-mode
-;; Prerequisites
-;; irony-server provides the libclang interface to irony-mode. It uses a simple protocol based on S-expression. This server, written in C++ and requires the following packages to be installed on your system:
+;;; https://github.com/Sarcasm/irony-mode
+;;
+;; Prerequisites:
+;;
+;; irony-server provides the libclang interface to irony-mode. It uses a simple
+;; protocol based on S-expression. This server, written in C++ and requires the
+;; following packages to be installed on your system:
+;;
 ;; - CMake >= 2.8.3
-;; - libclang
-;; ubuntu: sudo apt install irony-server elpa-irony # didn't work
-;; ubuntu: sudo apt install cmake libclang1 libclang-dev # worked as pre-req for build/install
+;; - libclang # provided by llvm via Xcode on macOS, need to install libclang
+;;              headers (see below)
+
 (use-package irony)
+
+;; ubuntu: sudo apt install cmake libclang1 libclang-dev
+;; macos: brew install cmake
+;;
+;; Note: since relies on Homebrew, assumes macOS user already owns /usr/local
+;;
+;;     cp -p "`xcode-select --print-path`"/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib /usr/local/lib
+;;     cd /tmp
+;;     svn export http://llvm.org/svn/llvm-project/cfe/trunk/include/clang-c/
+;;     cp -RP clang-c /usr/local/include
+;;
+;; M-x irony-install-server
 
 ;; https://github.com/ikirill/irony-eldoc
 (use-package irony-eldoc)
