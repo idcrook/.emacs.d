@@ -805,8 +805,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; requires explicit mapping since projectile v1.1
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (setq projectile-known-projects-file
-        (expand-file-name "projectile-bookmarks.eld" temp-dir))
+  ;; (setq projectile-known-projects-file
+  ;;       (expand-file-name "projectile-bookmarks.eld" temp-dir))
   (setq projectile-completion-system 'ivy)
   ;; ignore Archive dirs (similar to .git, .svn, etc.)
   (add-to-list 'projectile-globally-ignored-directories "*Archive")
