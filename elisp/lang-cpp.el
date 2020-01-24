@@ -10,6 +10,16 @@
 ;;; https://github.com/Lindydancer/cmake-font-lock
 (use-package cmake-font-lock)
 
+;;; https://github.com/chachi/cuda-mode
+(use-package cuda-mode)
+;; (push 'cuda-mode irony-supported-major-modes)
+
+;; add path manually; FIXME: alternatively obtain from CMake database .json
+(add-hook 'cuda-mode-hook
+          (lambda () (setq flycheck-cuda-include-path
+                           (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/")
+                                 "."))))
+
 ;; https://github.com/stardiviner/arduino-mode
 ;; (use-package arduino-mode)
 
@@ -91,8 +101,8 @@
 ;; when needed (platformio.ini present in project root).
 (add-hook 'c++-mode-hook (lambda ()
                            (irony-mode)
-                           (irony-eldoc)))
-                           ;;(platformio-conditionally-enable)))
+                           (irony-eldoc)
+                           (setq flycheck-gcc-language-standard "c++11")))
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
