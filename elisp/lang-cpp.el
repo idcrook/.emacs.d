@@ -16,9 +16,9 @@
 
 ;; add path manually; FIXME: alternatively obtain from CMake database .json
 (add-hook 'cuda-mode-hook
-          (lambda () (setq flycheck-cuda-include-path
-                           (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/")
-                                 "."))))
+          (lambda ()
+            ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/") ".")
+                   flycheck-cuda-explicitly-specify-cuda-language t)))
 
 ;; https://github.com/stardiviner/arduino-mode
 ;; (use-package arduino-mode)
@@ -97,8 +97,9 @@
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
-;; Enable irony for all c++ files, and platformio-mode only
-;; when needed (platformio.ini present in project root).
+;; ubuntu: sudo apt install clang
+
+;; Enable irony for all c++ files
 (add-hook 'c++-mode-hook (lambda ()
                            (irony-mode)
                            (irony-eldoc)
