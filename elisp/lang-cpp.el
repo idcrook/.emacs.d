@@ -7,6 +7,15 @@
 ;;; Code:
 
 
+(require 'cc-vars)
+
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "linux")))  ;; default value of "gnu"
+
+(setq-default c-basic-offset                     4)
+(setq         c-basic-offset                     4)
+
 ;;; https://github.com/Lindydancer/cmake-font-lock
 (use-package cmake-font-lock)
 
@@ -15,10 +24,44 @@
 ;; (push 'cuda-mode irony-supported-major-modes)
 
 ;; add path manually; FIXME: alternatively obtain from CMake database .json
+;; (add-hook 'cuda-mode-hook
+;;           (lambda ()
+;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/") ".")
+;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
+
+;; (remove-hook 'cuda-mode-hook
+;;           (lambda ()
+;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/") ".")
+;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
+
+;; (add-hook 'cuda-mode-hook
+;;           (lambda ()
+;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/rt_cuda/src/") ".")
+;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
+
+;; (remove-hook 'cuda-mode-hook
+;;           (lambda ()
+;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/rt_cuda/src/") ".")
+;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
+
+
 (add-hook 'cuda-mode-hook
           (lambda ()
-            ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/") ".")
+            ( setq c-basic-offset              4
+                   flycheck-cuda-include-path (list
+                                               "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
+                                               (expand-file-name "~/projects/learning/rt/rt_optix/src/")
+                                               ".")
                    flycheck-cuda-explicitly-specify-cuda-language t)))
+
+;; (add-hook 'cuda-mode-hook
+;;           (lambda ()
+;;             ( setq c-basic-offset              4
+;;                    flycheck-cuda-include-path (list
+;;                                                "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
+;;                                                (expand-file-name "~/projects/learning/rt/rt_optix/src/")
+;;                                                ".")
+;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
 
 ;; https://github.com/stardiviner/arduino-mode
 ;; (use-package arduino-mode)

@@ -115,9 +115,6 @@
 (setq bookmark-save-flag                 t
       bookmark-default-file              (concat temp-dir "/bookmarks"))
 
-(require 'cc-vars)
-(setq c-basic-offset                     2)
-
 ;; overwrite of selection
 (require 'delsel)
 (delete-selection-mode t)
