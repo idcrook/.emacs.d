@@ -23,87 +23,17 @@
 (use-package cuda-mode)
 ;; (push 'cuda-mode irony-supported-major-modes)
 
+(setq cuda-mode-hook nil)
+
 ;; add path manually; FIXME: alternatively obtain from CMake database .json
-;; (add-hook 'cuda-mode-hook
-;;           (lambda ()
-;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/") ".")
-;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
-
-;; (remove-hook 'cuda-mode-hook
-;;           (lambda ()
-;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/weeker_raytracer/src/") ".")
-;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
-
-;; (add-hook 'cuda-mode-hook
-;;           (lambda ()
-;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/rt_cuda/src/") ".")
-;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
-
-;; (remove-hook 'cuda-mode-hook
-;;           (lambda ()
-;;             ( setq flycheck-cuda-include-path (list (expand-file-name "~/projects/learning/rt/rt_cuda/src/") ".")
-;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
-
-
 (add-hook 'cuda-mode-hook
           (lambda ()
             ( setq c-basic-offset              4
                    flycheck-cuda-include-path (list
                                                "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
-                                               (expand-file-name "~/projects/learning/rt/rt_optix/src/")
+                                               (expand-file-name "~/projects/learning/rt/rt_optix/src/OptiX/TheNextWeek")
                                                ".")
                    flycheck-cuda-explicitly-specify-cuda-language t)))
-
-;; (add-hook 'cuda-mode-hook
-;;           (lambda ()
-;;             ( setq c-basic-offset              4
-;;                    flycheck-cuda-include-path (list
-;;                                                "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
-;;                                                (expand-file-name "~/projects/learning/rt/rt_optix/src/")
-;;                                                ".")
-;;                    flycheck-cuda-explicitly-specify-cuda-language t)))
-
-;; https://github.com/stardiviner/arduino-mode
-;; (use-package arduino-mode)
-
-;; https://github.com/yuutayamada/company-arduino
-;; (use-package company-arduino)  ;; requires:  irony-mode, company-irony and company-c-headers
-;; Note
-;; This package's default configuration is set for Linux environment, which I'm currently using, so if you are using different environment (Mac or Windows), please change the Arduino's directory paths accordingly. Related variables: company-arduino-sketch-directory-regex, company-arduino-home, company-arduino-header, company-arduino-includes-dirs and irony-arduino-includes-options.
-
-;; ;; https://github.com/randomphrase/company-c-headers
-;; (use-package company-c-headers)
-
-;; ;; Configuration for company-c-headers.el
-;; ;; The `company-arduino-append-include-dirs' function appends
-;; ;; Arduino's include directories to the default directories
-;; ;; if `default-directory' is inside `company-arduino-home'. Otherwise
-;; ;; just returns the default directories.
-;; ;; Please change the default include directories accordingly.
-;; ;; macOS: gcc -x c++ -v -E /dev/null
-;; ;;  /usr/local/include
-;; ;;  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
-;; ;;  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include
-;; ;;  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
-;; ;;  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include
-;; (defun my-company-c-headers-get-system-path ()
-;;   "Return the system include path for the current buffer."
-;;   (let ((default '("/usr/include/" "/usr/local/include/")))
-;;     (company-arduino-append-include-dirs default t)))
-;; (setq company-c-headers-path-system 'my-company-c-headers-get-system-path)
-
-;; (eval-after-load 'company
-;;   (add-to-list 'company-backends 'company-c-headers))
-
-;; ;; https://github.com/hotpxl/company-irony-c-headers
-;; (use-package company-irony-c-headers)
-;; ;; Load with `irony-mode` as a grouped backend
-;; (eval-after-load 'company
-;;   '(add-to-list
-;;     'company-backends '(company-irony-c-headers company-irony)))
-
-;; https://github.com/ZachMassia/platformio-mode
-;; (use-package platformio-mode)
 
 ;;; https://github.com/Sarcasm/irony-mode
 ;;
@@ -131,17 +61,6 @@
 ;;
 ;; M-x irony-install-server
 
-;; https://github.com/ikirill/irony-eldoc
-(use-package irony-eldoc)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
-;; https://github.com/Sarcasm/company-irony
-(use-package company-irony)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-;; ubuntu: sudo apt install clang
-
 ;; Enable irony for all c++ files
 (add-hook 'c++-mode-hook (lambda ()
                            (irony-mode)
@@ -150,7 +69,58 @@
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
+
+(defun dpc-irony-mode-hook ()
+  "Change the \\<C-M-i> binding to counsel-irony."
+  (define-key irony-mode-map
+    [remap completion-at-point] 'counsel-irony)
+  (define-key irony-mode-map
+    [remap complete-symbol] 'counsel-irony))
+
+; Use irony's completion functions.
+(add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+;; (add-hook 'irony-mode-hook
+;;           (lambda ()
+;;             (define-key irony-mode-map [remap completion-at-point]
+;;               'irony-completion-at-point-async)
+;;             (define-key irony-mode-map [remap complete-symbol]
+;;               'irony-completion-at-point-async)
+;;             (irony-cdb-autosetup-compile-options)
+;;             ))
+
+;; https://github.com/Sarcasm/flycheck-irony
+(use-package flycheck-irony)
+
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+;; https://github.com/ikirill/irony-eldoc
+(use-package irony-eldoc)
+(add-hook 'irony-mode-hook #'irony-eldoc)
+
+;; ubuntu: sudo apt install clang
+;; https://github.com/Sarcasm/company-irony
+(use-package company-irony)
+;;; load grouped with company-irony-c-headers below
+;; (eval-after-load 'company
+;;   '(add-to-list 'company-backends 'company-irony))
+
+;; https://github.com/hotpxl/company-irony-c-headers
+(use-package company-irony-c-headers)
+;; Load with `irony-mode` as a grouped backend
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends '(company-irony-c-headers company-irony)))
+
+;; Sometimes when the compiler options change, you need to manually reload
+;; header completion cache by invoking
+;; company-irony-c-headers-reload-compiler-output.
+
+
+;; https://github.com/stardiviner/arduino-mode
+;; (use-package arduino-mode)
 
 ;; company-ardunio configuration for irony.el
 ;; Add arduino's include options to irony-mode's variable.
@@ -159,22 +129,39 @@
 ;; Activate irony-mode on arduino-mode
 ;; (add-hook 'arduino-mode-hook 'irony-mode)
 
-; Use irony's completion functions.
-(add-hook 'irony-mode-hook
-          (lambda ()
-            (define-key irony-mode-map [remap completion-at-point]
-              'irony-completion-at-point-async)
+;; https://github.com/yuutayamada/company-arduino
+;; (use-package company-arduino)  ;; requires:  irony-mode, company-irony and company-c-headers
+;; Note
+;; This package's default configuration is set for Linux environment, which I'm currently using, so if you are using different environment (Mac or Windows), please change the Arduino's directory paths accordingly. Related variables: company-arduino-sketch-directory-regex, company-arduino-home, company-arduino-header, company-arduino-includes-dirs and irony-arduino-includes-options.
 
-            (define-key irony-mode-map [remap complete-symbol]
-              'irony-completion-at-point-async)
+;; https://github.com/randomphrase/company-c-headers
+;; (use-package company-c-headers)
 
-            (irony-cdb-autosetup-compile-options)))
+;; ;; Configuration for company-c-headers.el
+;; ;; The `company-arduino-append-include-dirs' function appends
+;; ;; Arduino's include directories to the default directories
+;; ;; if `default-directory' is inside `company-arduino-home'. Otherwise
+;; ;; just returns the default directories.
+;; ;; Please change the default include directories accordingly.
+;; ;; macOS: gcc -x c++ -v -E /dev/null
+;; ;;  /usr/local/include
+;; ;;  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
+;; ;;  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include
+;; ;;  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+;; ;;  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include
+;; (defun my-company-c-headers-get-system-path ()
+;;   "Return the system include path for the current buffer."
+;;   (let ((default '("/usr/include/" "/usr/local/include/")))
+;;     (company-arduino-append-include-dirs default t)))
+;; (setq company-c-headers-path-system 'my-company-c-headers-get-system-path)
 
-;; https://github.com/Sarcasm/flycheck-irony
-(use-package flycheck-irony)
+;; (eval-after-load 'company
+;;   (add-to-list 'company-backends 'company-c-headers))
 
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;; https://github.com/ZachMassia/platformio-mode
+;; (use-package platformio-mode)
+
+
 
 (provide 'lang-cpp)
 
