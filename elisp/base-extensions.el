@@ -627,7 +627,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/nlamirault/emacs-markdownfmt
 ;; install dependency:
-;; go get -u github.com/shurcooL/markdownfmt
+;; # does not support front matter # go get -u github.com/shurcooL/markdownfmt
+;; # supports frontmatter #  GO111MODULE=on  go get -v github.com/moorereason/mdfmt
 (use-package markdownfmt
   :init
   (setq markdownfmt-bin "mdfmt")

@@ -35,8 +35,10 @@ npm install --global js-beautify
 golang
 ------
 
-```
-go get -u github.com/shurcooL/markdownfmt
+```shell
+# doesn't support front matter # go get -u github.com/shurcooL/markdownfmt
+# or
+GO111MODULE=on go get -v github.com/moorereason/mdfmt
 ```
 
 See also [moorereason/mdfmt: Like gofmt, but for Markdown with front matter.](https://github.com/moorereason/mdfmt)
