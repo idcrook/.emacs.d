@@ -52,6 +52,9 @@
 ;;        : sudo apt-get install fonts-inconsolata
 ;;        : sudo apt-get install fonts-hack
 ;;        : sudo apt-get install fonts-dejavu
+;;        : sudo apt-get install fonts-ibm-plex
+;;        : sudo apt-get install fonts-roboto
+;;  roboto mono: https://fonts.google.com/specimen/Roboto+Mono
 ;;        : sudo apt install fonts-symbola
 
 ;; my various font family variables
@@ -61,7 +64,11 @@
 
 (setq
  ;; "powerline" fonts override plain font names in Linux
- dpc-font-default "Inconsolata"
+ ;;dpc-font-default "IBM Plex Mono"
+ ;;dpc-font-default "Inconsolata"
+ ;;dpc-font-default "Hack"
+ ;;dpc-font-default "Bitstream Vera Sans Mono"
+ dpc-font-default "Roboto Mono"
  dpc-font-variable "Ubuntu Mono"
  dpc-font-modeline "DejaVu Sans Mono")
 
@@ -79,7 +86,8 @@ Use DEFAULT-HEIGHT for default face, VARIABLE-PITCH-HEIGHT for
 variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (set-face-attribute 'default nil
                       :family dpc-font-default
-                      :height default-height)
+                      :height default-height
+                      :weight 'regular)
   (set-face-attribute 'variable-pitch nil
                       :family dpc-font-variable
                       :height variable-pitch-height
@@ -103,7 +111,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 (when (display-graphic-p)
   (if (> (x-display-pixel-width) 1800)
       (if ;; very large number of pixels in display. side-by-side?
-          (> (x-display-pixel-width) 5000)
+          (and
+           (> (x-display-pixel-width) 5000)
+           (< (x-display-pixel-width) 6400))
 	      (dpc-setup-main-fonts 160 160 140)
         (if (or
              (and             ;; specific display
@@ -112,14 +122,16 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
              (and ;; another specific display setup
               (= (x-display-pixel-width) 3840)
               (= (x-display-pixel-height) 1080))
-             (and ;; another specific display setup
-              (= (x-display-pixel-width) 1920)
-              (= (x-display-pixel-height) 1080)))
+             )
             (dpc-setup-main-fonts 140 140 120)
-
-          ;; other large display
-	      (dpc-setup-main-fonts 180 180 160)
-          ))
+          (if (or
+               (and ;; another specific display setup
+                (= (x-display-pixel-width) 1920)
+                (= (x-display-pixel-height) 1080)))
+              (dpc-setup-main-fonts 100 100 100)
+            ;; other large display
+	        (dpc-setup-main-fonts 180 180 160)))
+        )
 	(dpc-setup-main-fonts 140 140 120)))
 
 
