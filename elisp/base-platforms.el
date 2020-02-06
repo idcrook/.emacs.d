@@ -68,7 +68,8 @@
  ;;dpc-font-default "Inconsolata"
  ;;dpc-font-default "Hack"
  ;;dpc-font-default "Bitstream Vera Sans Mono"
- dpc-font-default "Roboto Mono"
+ dpc-font-default "Inconsolata"
+ ;;dpc-font-default "Roboto Mono"
  dpc-font-variable "Ubuntu Mono"
  dpc-font-modeline "DejaVu Sans Mono")
 
@@ -112,7 +113,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (if (> (x-display-pixel-width) 1800)
       (if ;; very large number of pixels in display. side-by-side?
           (and
-           (> (x-display-pixel-width) 5000)
+           (> (x-display-pixel-width) 5120)
            (< (x-display-pixel-width) 6400))
 	      (dpc-setup-main-fonts 160 160 140)
         (if (or
@@ -127,8 +128,11 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
           (if (or
                (and ;; another specific display setup
                 (= (x-display-pixel-width) 1920)
-                (= (x-display-pixel-height) 1080)))
-              (dpc-setup-main-fonts 100 100 100)
+                (= (x-display-pixel-height) 1080))
+               (and ;; another specific display setup
+                (= (x-display-pixel-width) 5120)
+                (= (x-display-pixel-height) 1440)))
+              (dpc-setup-main-fonts 120 120 110)
             ;; other large display
 	        (dpc-setup-main-fonts 180 180 160)))
         )
