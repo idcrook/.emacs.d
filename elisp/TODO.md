@@ -9,19 +9,16 @@ Higher priority
 Interesting
 ===========
 
--	https://github.com/dbordak/telephone-line A new implementation of Powerline for Emacs
--	https://gitlab.com/jabranham/system-packages (wrap homebrew, apt)
+-	https://github.com/avillafiorita/todotxt-mode - Emacs Major Mode for TODO.TXT files
 -	https://github.com/nibrahim/Hyde - manage jekyll blogs
 -	https://github.com/skeeto/emacs-aio - async/await for Emacs Lisp
--	github-explorer - https://github.com/TxGVNN/github-explorer
 -	jq
 	-	https://github.com/ljos/jq-mode (edit jq queries)
 	-	https://github.com/wbolster/emacs-jq-format (reformatter)
 -	https://github.com/aaronjensen/company-flow
 	-	https://flow.org Flow static type checker for javascript
--	https://github.com/Mic92/company-tmux
--	[ ] https://github.com/ahendriksen/ob-tmux - allows org mode to evaluate code blocks in a tmux session.
--	Investigate https://github.com/Silex/docker.el (Manage docker from Emacs)
+-	https://github.com/ahendriksen/ob-tmux - allows org mode to evaluate code blocks in a tmux session.
+-	https://github.com/Silex/docker.el (Manage docker from Emacs)
 
 ROS
 ===
