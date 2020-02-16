@@ -183,7 +183,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 
  ;; Linux-specific code goes here.
  (platform-linux-p
-  ())
+  (add-to-list 'default-frame-alist '(height . 66))
+  (add-to-list 'default-frame-alist '(width . 100)))
 
  ;; macOS-specific code goes here.
  (platform-macos-p

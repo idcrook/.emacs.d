@@ -220,6 +220,11 @@
   (add-hook 'prog-mode-hook (editorconfig-mode 1))
   (add-hook 'text-mode-hook (editorconfig-mode 1)))
 
+(add-hook 'editorconfig-hack-properties-functions
+          '(lambda (props)
+             (when (derived-mode-p 'makefile-mode)
+               (puthash 'indent_style "tab" props))))
+
 ;; https://github.com/10sr/editorconfig-custom-majormode-el
 (with-eval-after-load 'editorconfig
   (use-package editorconfig-custom-majormode
