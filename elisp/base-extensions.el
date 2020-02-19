@@ -517,8 +517,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package magit
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
-  ;; When commiting enable verbose mode by default.
-  (setq magit-commit-arguments (quote ("--verbose")))
+  ;; ;; When commiting enable verbose mode by default.
+  ;; (setq magit-commit-arguments (quote ("--verbose")))
 
   :bind
   ;; Magit
@@ -611,6 +611,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   (let ((credential (auth-source-user-and-password "api.github.com")))
     (setq grip-github-user (car credential)
           grip-github-password (cadr credential)))
+  (setq grip-update-after-change nil)
+  (setq grip-preview-use-webkit nil)
   ;; Make a keybinding: `C-c C-c g'
   :bind (:map markdown-mode-command-map
               ("g" . grip-mode)))
