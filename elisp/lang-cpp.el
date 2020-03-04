@@ -61,11 +61,14 @@
 ;;
 ;; M-x irony-install-server
 
+
 ;; Enable irony for all c++ files
 (add-hook 'c++-mode-hook (lambda ()
                            (irony-mode)
                            (irony-eldoc)
-                           (setq flycheck-gcc-language-standard "c++11")))
+                           (setq flycheck-gcc-language-standard "c++11")
+                           (setq flycheck-clang-language-standard "c++17")))
+;;(setq c++-mode-hook nil)
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
