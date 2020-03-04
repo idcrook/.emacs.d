@@ -19,6 +19,11 @@
 ;;; https://github.com/Lindydancer/cmake-font-lock
 (use-package cmake-font-lock)
 
+
+;;; https://github.com/jimhourihan/glsl-mode
+(use-package glsl-mode)
+;; TODO: add flycheck support for glsl
+
 ;;; https://github.com/chachi/cuda-mode
 (use-package cuda-mode)
 ;; (push 'cuda-mode irony-supported-major-modes)
@@ -30,7 +35,7 @@
           (lambda ()
             ( setq c-basic-offset              4
                    flycheck-cuda-include-path (list
-                                               "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
+                                               ;; "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
                                                ;; (expand-file-name "~/projects/learning/rt/rt_optix/src/OptiX/RestOfLife")
                                                ".")
                    flycheck-cuda-explicitly-specify-cuda-language t)))
