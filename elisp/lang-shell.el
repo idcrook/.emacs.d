@@ -40,6 +40,11 @@
                 (sh-set-shell "zsh"))))
 
 
+;;; https://github.com/Alexander-Miller/company-shell
+(use-package company-shell
+  :config
+  (add-to-list 'company-backends '(company-shell company-shell-env)))
+
 ;; https://opensource.apple.com/source/tcsh/tcsh-27.1/tcsh/csh-mode.el
 ;; installed manually/locally into ~/.emacs.d/user_elisp/csh-mode.el
 (require 'csh-mode)

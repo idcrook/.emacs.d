@@ -72,6 +72,8 @@
 
 (require 'lang-cpp)
 
+(require 'lang-rust)
+
 (require 'lang-javascript)
 
 (require 'lang-web)

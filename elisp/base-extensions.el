@@ -106,7 +106,7 @@
   (add-to-list 'company-backends 'company-ansible)
   (add-to-list 'company-backends 'company-emoji)
   (add-to-list 'company-backends 'company-restclient)
-  (add-to-list 'company-backends '(company-shell company-shell-env))
+  ;; move to lang-shell ;; (add-to-list 'company-backends '(company-shell company-shell-env))
   (add-hook 'after-init-hook 'global-company-mode))
 
 ;;; https://github.com/krzysztof-magosa/company-ansible
@@ -125,9 +125,6 @@
 
 ;;; https://github.com/iquiw/company-restclient
 (use-package company-restclient)
-
-;;; https://github.com/Alexander-Miller/company-shell
-(use-package company-shell)
 
 ;;; https://github.com/sshaw/copy-as-format
 (use-package copy-as-format)
