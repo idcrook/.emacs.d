@@ -12,7 +12,11 @@
 ;; https://github.com/rust-lang/rust-mode
 (use-package rust-mode
   :bind ( :map rust-mode-map
-         (("C-c C-t" . racer-describe)))
+               (("C-c C-t" . racer-describe)
+                ([?\t] .  company-indent-or-complete-common)))
+      ;;(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+      ;; :bind-keymap
+      ;; ([?\t] .  company-indent-or-complete-common)
   :config
   (progn
     ;; add flycheck support for rust (reads in cargo stuff)
@@ -28,12 +32,18 @@
 
     ;; racer-mode for getting IDE like features for rust-mode
     ;; https://github.com/racer-rust/emacs-racer
+    ;;
+    ;; ;; https://github.com/racer-rust/emacs-racer#installation
+    ;; rustup toolchain add nightly
+    ;; rustup component add rust-src
+    ;; cargo +nightly install racer
+    ;;
     (use-package racer
       :hook (rust-mode . racer-mode)
       :config
       (progn
-        ;; set racer rust source path environment variable
-        (setq racer-rust-src-path (getenv "RUST_SRC_PATH"))
+        ;; package does this by default ;; set racer rust source path environment variable
+        ;; (setq racer-rust-src-path (getenv "RUST_SRC_PATH"))
         (defun my-racer-mode-hook ()
           (set (make-local-variable 'company-backends)
                '((company-capf company-files))))
