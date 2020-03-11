@@ -8,6 +8,11 @@
 
 ;; rust-mode, racer, cargo
 
+;; macOS rust installation
+;;     brew install rustup-init
+;;     rustup-init  # accept defaults
+;;     # (revert dotfile edits)
+
 ;; rust-mode
 ;; https://github.com/rust-lang/rust-mode
 (use-package rust-mode
