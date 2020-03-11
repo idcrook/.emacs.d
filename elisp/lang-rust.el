@@ -30,7 +30,17 @@
       :bind
       ("C-c C-c C-n" . cargo-process-new))
 
-    ;; racer-mode for getting IDE like features for rust-mode
+    ;; TODO: investigate LSP
+    ;; https://www.reddit.com/r/rust/comments/au3z5j/emacs_lately/
+    ;; rls
+    ;;
+    ;; error: 'rls' is not installed for the toolchain
+    ;; 'stable-x86_64-unknown-linux-gnu'
+    ;; To install, run `rustup component add rls --toolchain
+    ;; stable-x86_64-unknown-linux-gnu`
+
+
+    ;;; racer-mode for getting IDE like features for rust-mode
     ;; https://github.com/racer-rust/emacs-racer
     ;;
     ;; ;; https://github.com/racer-rust/emacs-racer#installation
@@ -46,11 +56,14 @@
         ;; (setq racer-rust-src-path (getenv "RUST_SRC_PATH"))
         (defun my-racer-mode-hook ()
           (set (make-local-variable 'company-backends)
-               '((company-capf company-files))))
+               '((company-capf company-files)))
+          (setq company-minimum-prefix-length 1))
 
-        ;; enable company and eldoc minor modes in rust-mode
-        (add-hook 'racer-mode-hook 'company-mode)
-        (add-hook 'racer-mode-hook 'eldoc-mode)))
+        (add-hook 'racer-mode-hook 'my-racer-mode-hook)
+
+        ;; enable company and eldoc minor modes in rust-mode (racer-mode)
+        (add-hook 'racer-mode-hook #'company-mode)
+        (add-hook 'racer-mode-hook #'eldoc-mode)))
 
     (add-hook 'rust-mode-hook 'flycheck-mode)
     (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)

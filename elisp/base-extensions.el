@@ -101,6 +101,7 @@
 
 (use-package company
   :config
+  (setq company-idle-delay 0.2)
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
   (add-to-list 'company-backends 'company-ansible)
