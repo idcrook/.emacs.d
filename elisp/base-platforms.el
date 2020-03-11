@@ -113,7 +113,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (if (> (x-display-pixel-width) 1800)
       (if ;; very large number of pixels in display. side-by-side?
           (and
-           (> (x-display-pixel-width) 5120)
+           (>= (x-display-pixel-width) 5120)
            (< (x-display-pixel-width) 6400))
 	      (dpc-setup-main-fonts 160 160 140)
         (if (or
