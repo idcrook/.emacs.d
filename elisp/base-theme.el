@@ -5,8 +5,16 @@
 ;;; Code:
 
 ;; ;; https://github.com/mgrbyte/emacs-abyss-theme
-;; (use-package abyss-theme
-;;   :ensure t)
+;; (use-package abyss-theme)
+
+;; ;; https://github.com/osener/emacs-afternoon-theme
+;; (use-package afternoon-theme)
+
+;; ;;; https://github.com/purcell/color-theme-sanityinc-tomorrow
+(use-package color-theme-sanityinc-tomorrow)
+;; ;; sanityinc-tomorrow-blue is like Wordperfect
+;; ;; sanityinc-tomorrow-bright is actually a dark theme
+
 
 
 ;; ;;; https://github.com/NicolasPetton/zerodark-theme
@@ -22,7 +30,15 @@
 
 ;;; https://github.com/dracula/dracula-theme
 ;; https://draculatheme.com/emacs/
-(use-package dracula-theme)
+;; (use-package dracula-theme)
+
+;; ;;; https://github.com/rexim/gruber-darker-theme
+;; (use-package gruber-darker-theme)
+
+;;; https://github.com/alezost/alect-themes
+;; (use-package alect-themes)
+;; (setq alect-display-class '((class color) (min-colors 256)))
+
 
 ;;; https://github.com/n3mo/cyberpunk-theme.el
 (use-package cyberpunk-theme)
@@ -31,7 +47,9 @@
 (if (display-graphic-p)
     ;; (load-theme 'abyss 'no-confirm)
     ;; (load-theme 'zerodark 'no-confirm)
-    (load-theme 'dracula 'no-confirm)
+    ;; (load-theme 'dracula 'no-confirm)
+    ;; (load-theme 'gruber-darker 'no-confirm)
+    (load-theme 'sanityinc-tomorrow-bright 'no-confirm)
 ;;  (load-theme 'tango-dark))  ;; tango-dark included in emacs
 ;;  (load-theme 'wheatgrass))  ;;
   (load-theme 'cyberpunk 'no-confirm))
@@ -45,17 +63,24 @@
   ;; segments
   (spaceline-spacemacs-theme)
   ;; (spaceline-emacs-theme)
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-toggle-buffer-id-on)
-  (spaceline-toggle-remote-host-on)
-  (spaceline-toggle-buffer-position-off)
-  (spaceline-toggle-line-column-on)
-  (spaceline-toggle-hud-off)
+  (spaceline-toggle-buffer-size-off) ;; size of buffer
+  (spaceline-toggle-buffer-id-on) ;; name of buffer
+  (spaceline-toggle-remote-host-on) ;; Hostname for remote buffers
+  (spaceline-toggle-buffer-position-off) ;; "The current approximate buffer position, in percent."
+  (spaceline-toggle-line-column-on) ;; current line and column numbers
+  (spaceline-toggle-selection-info-on) ;; info on currently active selection, if any
+  (spaceline-toggle-hud-off) ;; shows currently visible part of buffer
+  (spaceline-toggle-buffer-encoding-abbrev-on) ;; line ending convention
+  (spaceline-toggle-buffer-encoding-off) ;; line ending convention
+  (spaceline-toggle-version-control-on) ;; version control information
   (spaceline-toggle-projectile-root-on)
+  ;; window numbers
   (spaceline-toggle-window-number-on)
-  ;; numbers
-  (setq spaceline-window-numbers-unicode t)
-  (setq spaceline-workspace-numbers-unicode t))
+  (setq spaceline-window-numbers-unicode t) ;; see also: winum
+  ;;(setq spaceline-highlight-face-func 'spaceline-highlight-face-default) ;; orange, all the time
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified) ;; based on (unmodified, modified, RO)
+  ;; default ;; (setq spaceline-minor-modes-separator "|")
+  )
 
 
 (provide 'base-theme)
