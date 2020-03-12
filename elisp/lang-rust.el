@@ -8,6 +8,9 @@
 
 ;; rust-mode, racer, cargo
 
+;; investigate polymode for editting doc comments
+;; investigate lsp
+
 ;; macOS rust installation
 ;;     brew install rustup-init
 ;;     rustup-init  # accept defaults
@@ -33,10 +36,18 @@
     (use-package cargo
       :hook (rust-mode . cargo-minor-mode)
       :bind
-      ("C-c C-c C-n" . cargo-process-new))
+      ("C-c C-c C-n" . cargo-process-new)) ;; global binding
 
-    ;; TODO: investigate LSP
-    ;; https://www.reddit.com/r/rust/comments/au3z5j/emacs_lately/
+    ;;; separedit ;; via https://github.com/twlz0ne/separedit.el
+    (use-package separedit
+      :straight (separedit :type git :host github :repo "idcrook/separedit.el")
+      :config
+      (progn
+        (define-key prog-mode-map (kbd "C-c '") #'separedit)
+        (setq separedit-default-mode 'markdown-mode)))
+
+
+    ;;; https://www.reddit.com/r/rust/comments/au3z5j/emacs_lately/
     ;; rls
     ;;
     ;; error: 'rls' is not installed for the toolchain
@@ -62,7 +73,8 @@
         (defun my-racer-mode-hook ()
           (set (make-local-variable 'company-backends)
                '((company-capf company-files)))
-          (setq company-minimum-prefix-length 1))
+          (setq company-minimum-prefix-length 1)
+          (setq indent-tabs-mode nil))
 
         (add-hook 'racer-mode-hook 'my-racer-mode-hook)
 
