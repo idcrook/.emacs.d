@@ -25,6 +25,10 @@
 ;;  '(flycheck-objc-clang-modules t) ; The modules feature is disabled by default
 ;;  '(flycheck-objc-clang-arc t))    ; The objc arc feature is disabled by default
 
+;; Investigate
+;; https://github.com/danielmartin/swift-helpful
+;; https://github.com/emacs-lsp/lsp-sourcekit
+
 ;; https://github.com/swift-emacs/swift-mode
 (use-package swift-mode
   :config

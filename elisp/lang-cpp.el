@@ -14,10 +14,11 @@
                         (other . "linux")))  ;; default value of "gnu"
 
 (setq-default c-basic-offset                     4)
-(setq         c-basic-offset                     4)
+;; (setq         c-basic-offset                     4)
 
 ;;; https://github.com/Lindydancer/cmake-font-lock
 (use-package cmake-font-lock)
+
 
 
 ;;; https://github.com/jimhourihan/glsl-mode
@@ -26,19 +27,15 @@
 
 ;;; https://github.com/chachi/cuda-mode
 (use-package cuda-mode)
-;; (push 'cuda-mode irony-supported-major-modes)
 
-(setq cuda-mode-hook nil)
+;; (setq cuda-mode-hook nil)
 
-;; add path manually; FIXME: alternatively obtain from CMake database .json
+;; add path manually;
 (add-hook 'cuda-mode-hook
           (lambda ()
             ( setq c-basic-offset              4
-                   flycheck-cuda-include-path (list
-                                               ;; "/usr/local/nvidia/NVIDIA-OptiX-SDK-6.5.0-linux64/include"
-                                               ;; (expand-file-name "~/projects/learning/rt/rt_optix/src/OptiX/RestOfLife")
-                                               ".")
-                   flycheck-cuda-explicitly-specify-cuda-language t)))
+                   flycheck-cuda-include-path (list "."))
+            ))
 
 ;;; https://github.com/Sarcasm/irony-mode
 ;;
@@ -77,6 +74,17 @@
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
+(push 'cuda-mode irony-supported-major-modes)
+
+\
+;; (add-hook 'irony-mode-hook
+;;           (lambda ()
+;;             (define-key irony-mode-map [remap completion-at-point]
+;;               'irony-completion-at-point-async)
+;;             (define-key irony-mode-map [remap complete-symbol]
+;;               'irony-completion-at-point-async)
+;;             (irony-cdb-autosetup-compile-options)
+;;             ))
 
 (defun dpc-irony-mode-hook ()
   "Change the \\<C-M-i> binding to counsel-irony."
@@ -87,16 +95,9 @@
 
 ; Use irony's completion functions.
 (add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;; (add-hook 'irony-mode-hook
-;;           (lambda ()
-;;             (define-key irony-mode-map [remap completion-at-point]
-;;               'irony-completion-at-point-async)
-;;             (define-key irony-mode-map [remap complete-symbol]
-;;               'irony-completion-at-point-async)
-;;             (irony-cdb-autosetup-compile-options)
-;;             ))
+;; use compile_commands.json obtained from CMake -D CMAKE_EXPORT_COMPILE_COMMANDS=O
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; https://github.com/Sarcasm/flycheck-irony
 (use-package flycheck-irony)
@@ -125,7 +126,6 @@
 ;; Sometimes when the compiler options change, you need to manually reload
 ;; header completion cache by invoking
 ;; company-irony-c-headers-reload-compiler-output.
-
 
 ;; https://github.com/stardiviner/arduino-mode
 ;; (use-package arduino-mode)
