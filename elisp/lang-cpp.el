@@ -76,7 +76,6 @@
 (add-hook 'objc-mode-hook 'irony-mode)
 (push 'cuda-mode irony-supported-major-modes)
 
-\
 ;; (add-hook 'irony-mode-hook
 ;;           (lambda ()
 ;;             (define-key irony-mode-map [remap completion-at-point]
