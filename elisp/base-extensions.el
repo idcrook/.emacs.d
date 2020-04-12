@@ -558,6 +558,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . gfm-mode)
+         ("\\.md.html\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :config
   ;; for generated html, try to emulate Github README.md previews
@@ -638,7 +639,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   :init
   (setq markdownfmt-bin "mdfmt")
   :config
-  (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save))
+  ;; uncomment to autoformat ;; (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save)
+  (define-key markdown-mode-map (kbd "C-c C-c f") #'markdownfmt-format-buffer))
 
 (use-package multiple-cursors
   :bind
