@@ -31,6 +31,24 @@
 	      ("M-," . pop-tag-mark)))
   (elpy-enable))
 
+;; ;; (setq elpy-rpc-python-command "python3")
+
+;; (use-package elpy
+;;   ;; :after flycheck
+;;   ;; :delight highlight-indentation-mode
+;;   :init
+;;   ;; (setq elpy-rpc-backend "jedi")
+;;   (setq elpy-rpc-python-command "python3")
+;;   (elpy-enable)
+
+;;   ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+;;   ;; (advice-add 'python-mode :before 'elpy-enable)
+;;   ;; :config
+
+;;   :bind (:map elpy-mode-map
+;; 	          ("M-." . elpy-goto-definition)
+;; 	          ("M-," . pop-tag-mark))
+;;   )
 
 ;;; https://github.com/syohex/emacs-company-jedi
 ;; company-mode completion back-end for Python JEDI.
@@ -104,21 +122,21 @@
 ;;; emacs lsp-mode client for Microsoft's python language server
 ;; https://github.com/andrew-christianson/lsp-python-ms
 
-(use-package lsp-python-ms
-  :straight (:host github :repo "andrew-christianson/lsp-python-ms")
+;; (use-package lsp-python-ms
+;;   :straight (:host github :repo "andrew-christianson/lsp-python-ms")
 
-  :hook (python-mode . lsp)
-  :config
+;;   :hook (python-mode . lsp)
+;;   :config
 
-  ;; for dev build of language server
-  (setq lsp-python-ms-dir
-        ;; (expand-file-name "~/python-language-server/output/bin/Release/"))
-        (expand-file-name "~/.emacs.d/user_elisp/github/python-language-server/output/bin/Release/"))
-  ;; for executable of language server, if it's not symlinked on your PATH
-  ;; (setq lsp-python-ms-executable
-  ;;       "~/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer"))
-  ;; symlinked to ~/bin/macos/Microsoft.Python.LanguageServer
-  )
+;;   ;; for dev build of language server
+;;   (setq lsp-python-ms-dir
+;;         ;; (expand-file-name "~/python-language-server/output/bin/Release/"))
+;;         (expand-file-name "~/.emacs.d/user_elisp/github/python-language-server/output/bin/Release/"))
+;;   ;; for executable of language server, if it's not symlinked on your PATH
+;;   ;; (setq lsp-python-ms-executable
+;;   ;;       "~/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer"))
+;;   ;; symlinked to ~/bin/macos/Microsoft.Python.LanguageServer
+;;   )
 
 ;;; Cython
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
