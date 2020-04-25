@@ -12,6 +12,8 @@
 ;; # automatic formatting - black autopep8 yapf
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
 
+(setq elpy-rpc-python-command "python3")
+
 (use-package python
   :mode ("\\.py$" . python-mode)
   :config
@@ -31,7 +33,6 @@
 	      ("M-," . pop-tag-mark)))
   (elpy-enable))
 
-;; ;; (setq elpy-rpc-python-command "python3")
 
 ;; (use-package elpy
 ;;   ;; :after flycheck
