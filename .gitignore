@@ -15,3 +15,4 @@ tramp
 !*example
 flycheck_*.elc
 custom.el
+/elpy
