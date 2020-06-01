@@ -477,7 +477,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;;________________________________________________________________________
 ;; end of counsel / ivy stuff
 
-(use-package jinja2-mode)
+;; commenting out due to bug with severe effects
+;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
+;; (use-package jinja2-mode)
 
 ;; Emacs 26.1 added this (replaces linum-mode)
 (when (version<= "26.0.50" emacs-version )
