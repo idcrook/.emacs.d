@@ -5,11 +5,21 @@
 ;;; Code:
 
 
-;; to install it as a minor mode just for JavaScript linting,
-(if (version< emacs-version "27.0")
-    (message "is before emacs 27.0")
-    (add-hook 'js-mode-hook 'js2-minor-mode))
+;; https://github.com/joshwnj/json-mode
+;; for flycheck:  npm install jsonlint -g
+(use-package json-mode
+  :init
+  (setq json-reformat:indent-width 2)
+  :config
+  (add-hook 'json-mode-hook #'flycheck-mode))
 
+
+;; comment out for now as it activates for JSON mode and reports spurious errors
+;; FIXME: do not do js2-minor-mode for JSON
+;; ;; to install it as a minor mode just for JavaScript linting,
+;; (if (version< emacs-version "27.0")
+;;     (message "is before emacs 27.0")
+;;     (add-hook 'js-mode-hook 'js2-minor-mode))
 
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
@@ -18,54 +28,54 @@
                ("C-M-x" . js-send-last-sexp-and-go)
                ("C-c C-b" . js-send-buffer-and-go)
                ("C-c C-l" . js-load-file-and-go)))
-  ;; :mode
-  ;; ("\\.js$" . js2-mode)
-  ;; ("\\.json$" . js2-jsx-mode)
+  :init
+  (custom-set-variables '(js-indent-level 2))
+  ;; (setq js-indent-level 2)
+  (setq js2-basic-offset 2)
+
   :config
   ;; (custom-set-variables '(js2-strict-inconsistent-return-warning nil))
   ;; (custom-set-variables '(js2-strict-missing-semi-warning nil))
   (setq js2-strict-inconsistent-return-warning nil)
   (setq js2-strict-missing-semi-warning nil)
 
-  (setq js-indent-level 2)
-  (setq js2-basic-offset 2)
 
-  ;; tern :- IDE like features for javascript and completion
-  ;; http://ternjs.net/doc/manual.html#emacs
+;;   ;; tern :- IDE like features for javascript and completion
+;;   ;; http://ternjs.net/doc/manual.html#emacs
 
-  ;;tern-django -  Create tern projects for django applications.
+;;   ;;tern-django -  Create tern projects for django applications.
 
-  ;; on macOS
-  ;;   npm install tern -g
-  ;; on Linux (Ubuntu)
-  ;;   sudo npm install tern -g
-  (use-package tern
-    :config
-    (defun my-js-mode-hook ()
-      "Hook for `js-mode'."
-      (set (make-local-variable 'company-backends)
-           '((company-tern company-files))))
+;;   ;; on macOS
+;;   ;;   npm install tern -g
+;;   ;; on Linux (Ubuntu)
+;;   ;;   sudo npm install tern -g
+;;   (use-package tern
+;;     :config
+;;     (defun my-js-mode-hook ()
+;;       "Hook for `js-mode'."
+;;       (set (make-local-variable 'company-backends)
+;;            '((company-tern company-files))))
 
-    ;; finish js2 config
-    (add-hook 'js2-mode-hook 'my-js-mode-hook)
-    (add-hook 'js2-mode-hook 'company-mode)
-    (add-hook 'js2-mode-hook 'tern-mode))
+;;     ;; finish js2 config
+    ;; (add-hook 'js2-mode-hook #'my-js-mode-hook)
+    ;; (add-hook 'js2-mode-hook 'company-mode)
+;;     (add-hook 'js2-mode-hook 'tern-mode))
 
-  ;; Enable JavaScript completion between <script>...</script> etc.
-  (defadvice company-tern (before web-mode-set-up-ac-sources activate)
-    "Set `tern-mode' based on current language before running company-tern."
-    (message "advice")
-    (if (equal major-mode 'web-mode)
-	(let ((web-mode-cur-language
-	       (web-mode-language-at-pos)))
-	  (if (or (string= web-mode-cur-language "javascript")
-		  (string= web-mode-cur-language "jsx"))
-	      (unless tern-mode (tern-mode))
-	    (if tern-mode (tern-mode -1))))))
+;;   ;; Enable JavaScript completion between <script>...</script> etc.
+;;   (defadvice company-tern (before web-mode-set-up-ac-sources activate)
+;;     "Set `tern-mode' based on current language before running company-tern."
+;;     (message "advice")
+;;     (if (equal major-mode 'web-mode)
+;; 	(let ((web-mode-cur-language
+;; 	       (web-mode-language-at-pos)))
+;; 	  (if (or (string= web-mode-cur-language "javascript")
+;; 		  (string= web-mode-cur-language "jsx"))
+;; 	      (unless tern-mode (tern-mode))
+;; 	    (if tern-mode (tern-mode -1))))))
 
-  ;; company backend for tern
-  ;; http://ternjs.net/doc/manual.html#emacs
-  (use-package company-tern)
+;;   ;; company backend for tern
+;;   ;; http://ternjs.net/doc/manual.html#emacs
+;;   (use-package company-tern)
 
   ;; Run a JavaScript interpreter in an inferior process window
   ;; https://github.com/redguardtoo/js-comint
@@ -76,8 +86,9 @@
   (use-package js2-refactor
     :diminish js2-refactor-mode
     :config
+    (add-hook 'js2-mode-hook 'js2-refactor-mode)
     (js2r-add-keybindings-with-prefix "C-c j r"))
-  (add-hook 'js2-mode-hook 'js2-refactor-mode))
+  )
 
 ;; ;;; https://github.com/ananthakumaran/tide - TypeScript support
 ;; (use-package tide)
