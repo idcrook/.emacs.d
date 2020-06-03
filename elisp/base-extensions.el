@@ -45,19 +45,48 @@
   :config
   (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" private-dir)))
 
-;; see https://www.slideshare.net/kaz_yos/search-and-replacement-techniques-in-emacs-avy-swiper-multiplecursor-ag-and-wgrep
 (use-package avy
   :bind (("C-c SPC" . avy-goto-char)
-         (:map isearch-mode-map
-	           (("C-'" . avy-isearch)))
+         :map isearch-mode-map
+	           ("C-'" . avy-isearch))
          ;; swiper-avy also bound to "C-'"
-         )
   :config
   (setq avy-background t
         avy-highlight-first t
         avy-style 'at-full))
 
+;; see https://www.slideshare.net/kaz_yos/search-and-replacement-techniques-in-emacs-avy-swiper-multiplecursor-ag-and-wgrep
+;; (use-package avy :demand :bind (:map isearch-mode-map ("C-’" . avy-isearch))
+;;   :config
+;;   ;; Darken background.
+;;   (setq avy-background t)
+;;   ;; Highlight the first decision char with ‘avy-lead-face-0’.
+;;   ;; https://github.com/abo-abo/avy/wiki/defcustom#avy-highlight-first
+;;   (setq avy-highlight-first t)
+;;   ;; The default method of displaying the overlays.
+;;   ;; https://github.com/abo-abo/avy/wiki/defcustom#avy-style
+;;   (setq avy-style 'at-full)
+;;   ;; Keys to be used. Use a-z.
+;;   (setq avy-keys (loop for c from ?a to ?z collect c))
+;;   ;; Time out for *-timer functions
+;;   (setq avy-timeout-seconds 0.3)
+;;   ;;
+;;   ;; one-step activation https://github.com/cjohansen/.emacs.d/commit/65efe88
+;;   (defun add-keys-to-avy (prefix c &optional mode)
+;;     (define-key global-map (read-kbd-macro (concat prefix (string c)))
+;;       '(lambda ()
+;;          (interactive)
+;;          (funcall (cond ;; Word beginning
+;;                    ((eq ',mode 'word) #'avy-goto-word-1)
+;;                    ;; Anywhere
+;;                    (t #'avy-goto-char))
+;;                   ,c ))))
 
+;;   ;; Assing key bindings for all characters
+;;   ;; eg, M-s-a will activate (avy-goto-char ?a), ie, all occurrence of a
+;;   (loop for c from ?! to ?~ do (add-keys-to-avy "M-s-" c))
+;;   ;; eg, C-M-s-a will activate (avy-goto-word-1 ?a), ie, all words starting with a
+;;   (loop for c from ?! to ?~ do (add-keys-to-avy "C-M-s-" c 'word)))
 
 ;; https://github.com/Malabarba/beacon
 (use-package beacon
@@ -137,7 +166,7 @@
 
 ;; https://github.com/stanaka/dash-at-point
 (use-package dash-at-point
-  :commands dash-at-point dash-at-point-with-docset
+  :commands (dash-at-point dash-at-point-with-docset)
   :bind
   (("C-c d" . dash-at-point)
    ("C-c e" . dash-at-point-with-docset))
@@ -293,10 +322,12 @@
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
-  :diminish git-gutter-mode "gg"
+  ;; :diminish git-gutter-mode "gg"
+  :diminish git-gutter-mode
   ;; suggested bindings : https://github.com/syohex/emacs-git-gutter#sample-configuration
   ;; other custom : https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
-  )
+  :bind
+  (("C-x C-g" . git-gutter)))
 
 (use-package gitignore-mode)
 
@@ -1027,6 +1058,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; https://wakatime.com/emacs
 ;;     pip3 install --user wakatime
 (use-package wakatime-mode
+  :diminish wakatime-mode
   :config
   ;; (setq wakatime-api-key "...") ;; moved to ~/.wakatime.cfg
   (global-wakatime-mode +1)
