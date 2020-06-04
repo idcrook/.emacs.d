@@ -87,6 +87,7 @@
 ;;; https://github.com/jorgenschaefer/pyvenv
 (use-package pyvenv
   :init
+  (setq pyvenv-default-virtual-env-name "env")
   (setenv "WORKON_HOME" "~/.pyenv/versions/")
   :bind
   ("C-x C-y v" . pyvenv-activate))
