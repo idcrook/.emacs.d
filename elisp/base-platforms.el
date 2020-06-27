@@ -44,17 +44,25 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
-;; macos : brew cask install font-ubuntu-mono-derivative-powerline
+;; macos : (svn) font-ubuntu-mono-derivative-powerline
+;;       : (svn) font-fira-mono-for-powerline
+;;       : (svn) font-source-code-pro-for-powerline
+;;       : (svn) font-roboto-mono-for-powerline
+;;       : (svn) font-droid-sans-mono-for-powerline
+;;       : (svn) font-monofur-for-powerline
+;;       : (svn) font-noto-mono-for-powerline
+;;       : (svn) font-liberation-mono-for-powerline
+;;       : (svn) font-anonymice-powerline
 ;;       : brew cask install font-inconsolata-for-powerline
-;;       : brew cask install font-dejavu-sans-mono-for-powerline
+;; ;;       : brew cask install font-consolas-for-powerline
+;;       : brew cask install font-cascadia-mono-pl
+;;       : brew cask install font-meslo-for-powerline
 ;; ubuntu : sudo apt-get install fonts-powerline
 ;;        : sudo apt-get install fonts-ubuntu
 ;;        : sudo apt-get install fonts-inconsolata
 ;;        : sudo apt-get install fonts-hack
 ;;        : sudo apt-get install fonts-dejavu
-;;        : sudo apt-get install fonts-ibm-plex
-;;        : sudo apt-get install fonts-roboto
-;;  roboto mono: https://fonts.google.com/specimen/Roboto+Mono
+;;        : sudo apt-get install fonts-cascadia-code
 ;;        : sudo apt install fonts-symbola
 
 ;; my various font family variables
@@ -64,8 +72,6 @@
 
 (setq
  ;; "powerline" fonts override plain font names in Linux
- ;;dpc-font-default "IBM Plex Mono"
- ;;dpc-font-default "Inconsolata"
  ;;dpc-font-default "Hack"
  ;;dpc-font-default "Bitstream Vera Sans Mono"
  dpc-font-default "Inconsolata"
@@ -77,8 +83,11 @@
 (when platform-macos-p
   (setq
    dpc-font-default "Inconsolata for Powerline"
-   dpc-font-variable "Ubuntu Mono derivative Powerline"
-   dpc-font-modeline "DejaVu Sans Mono for Powerline"))
+   dpc-font-variable "Meslo for Powerline"
+;;   dpc-font-modeline "Consolas for Powerline"
+   dpc-font-modeline "Cascadia Mono PL"
+;;   dpc-font-modeline "Menlo for Powerline"
+  ))
 
 (defun dpc-setup-main-fonts (default-height variable-pitch-height modeline-height)
   "Set up default fonts.
