@@ -44,25 +44,22 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
-;; macos : (svn) font-ubuntu-mono-derivative-powerline
-;;       : (svn) font-fira-mono-for-powerline
-;;       : (svn) font-source-code-pro-for-powerline
-;;       : (svn) font-roboto-mono-for-powerline
-;;       : (svn) font-droid-sans-mono-for-powerline
-;;       : (svn) font-monofur-for-powerline
-;;       : (svn) font-noto-mono-for-powerline
-;;       : (svn) font-liberation-mono-for-powerline
-;;       : (svn) font-anonymice-powerline
-;;       : brew cask install font-inconsolata-for-powerline
-;; ;;       : brew cask install font-consolas-for-powerline
+;; macos :
 ;;       : brew cask install font-cascadia-mono-pl
+;;       : brew cask install font-dejavusansmono-nerd-font
+;;       : brew cask install font-hack-nerd-font
+;;       : brew cask install font-inconsolata-for-powerline
+;;       : brew cask install font-inconsolata-nerd-font
+;;       : brew cask install font-menlo-for-powerline
 ;;       : brew cask install font-meslo-for-powerline
-;; ubuntu : sudo apt-get install fonts-powerline
-;;        : sudo apt-get install fonts-ubuntu
-;;        : sudo apt-get install fonts-inconsolata
-;;        : sudo apt-get install fonts-hack
-;;        : sudo apt-get install fonts-dejavu
-;;        : sudo apt-get install fonts-cascadia-code
+;;       : brew cask install font-ubuntumono-nerd-font
+;; ubuntu
+;;        : sudo apt install fonts-powerline
+;;        : sudo apt install fonts-hack
+;;        : sudo apt install fonts-ubuntu
+;;        : sudo apt install fonts-inconsolata
+;;        : sudo apt install fonts-dejavu
+;;        : sudo apt install fonts-cascadia-code
 ;;        : sudo apt install fonts-symbola
 
 ;; my various font family variables
@@ -82,11 +79,13 @@
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
   (setq
-   dpc-font-default "Inconsolata for Powerline"
-   dpc-font-variable "Meslo for Powerline"
-;;   dpc-font-modeline "Consolas for Powerline"
-   dpc-font-modeline "Cascadia Mono PL"
+;;   dpc-font-default "Inconsolata for Powerline"
+   dpc-font-default "Inconsolata Nerd Font"
+;;   dpc-font-variable "Meslo for Powerline"
+   dpc-font-variable "UbuntuMono Nerd Font"
+;;   dpc-font-modeline "Cascadia Mono PL"
 ;;   dpc-font-modeline "Menlo for Powerline"
+   dpc-font-modeline "DejaVuSansMono Nerd Font"
   ))
 
 (defun dpc-setup-main-fonts (default-height variable-pitch-height modeline-height)
