@@ -227,8 +227,8 @@
 ;; ;;; https://github.com/Silex/docker.el
 ;; (use-package docker)
 
-;;; https://github.com/emacs-pe/docker-tramp.el
-(use-package docker-tramp)
+;; ;;; https://github.com/emacs-pe/docker-tramp.el
+;; (use-package docker-tramp)
 
 ;;; https://github.com/spotify/dockerfile-mode
 (use-package dockerfile-mode)
@@ -449,27 +449,27 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/200ok-ch/counsel-jq
 (use-package counsel-jq)
 
-;;; https://github.com/masasam/emacs-counsel-tramp
-(use-package counsel-tramp
-  :bind
-  ("C-c s" . counsel-tramp)
-  :config
-  (setq counsel-tramp-custom-connections
-        '(;; /ssh:rpih1|sudo:root@rpih1:/etc/shairport-sync.conf
-          ;; /ssh:rpih1|sudo:root@rpih1:/etc/mosquitto/credentials/aclfile
-          /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
-          )))
+;; ;;; https://github.com/masasam/emacs-counsel-tramp
+;; (use-package counsel-tramp
+;;   :bind
+;;   ("C-c s" . counsel-tramp)
+;;   :config
+;;   (setq counsel-tramp-custom-connections
+;;         '(;; /ssh:rpih1|sudo:root@rpih1:/etc/shairport-sync.conf
+;;           ;; /ssh:rpih1|sudo:root@rpih1:/etc/mosquitto/credentials/aclfile
+;;           /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
+;;           )))
 
-;; If you want to speed up tramp
-(add-hook 'counsel-tramp-pre-command-hook '(lambda () ;; (global-aggressive-indent-mode 0)
-				     (projectile-mode 0)
-				     (editorconfig-mode 0)))
-(add-hook 'counsel-tramp-quit-hook '(lambda () ;; (global-aggressive-indent-mode 1)
-			      (projectile-mode 1)
-			      (editorconfig-mode 1)))
+;; ;; If you want to speed up tramp
+;; (add-hook 'counsel-tramp-pre-command-hook '(lambda () ;; (global-aggressive-indent-mode 0)
+;; 				     (projectile-mode 0)
+;; 				     (editorconfig-mode 0)))
+;; (add-hook 'counsel-tramp-quit-hook '(lambda () ;; (global-aggressive-indent-mode 1)
+;; 			      (projectile-mode 1)
+;; 			      (editorconfig-mode 1)))
 
-;; If the shell of the server is zsh it is recommended to connect with bash.
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+;; ;; If the shell of the server is zsh it is recommended to connect with bash.
+;; (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
 (use-package counsel-web
 ;; not yet in MELPA ;;; https://github.com/mnewt/counsel-web
