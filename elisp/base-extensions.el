@@ -133,17 +133,17 @@
   (setq company-idle-delay 0.2)
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
-  (add-to-list 'company-backends 'company-ansible)
-  (add-to-list 'company-backends 'company-emoji)
+  ;; (add-to-list 'company-backends 'company-ansible)
+  ;; (add-to-list 'company-backends 'company-emoji)
   (add-to-list 'company-backends 'company-restclient)
   ;; move to lang-shell ;; (add-to-list 'company-backends '(company-shell company-shell-env))
   (add-hook 'after-init-hook 'global-company-mode))
 
-;;; https://github.com/krzysztof-magosa/company-ansible
-(use-package company-ansible)
+;; ;;; https://github.com/krzysztof-magosa/company-ansible
+;; (use-package company-ansible)
 
-;;; https://github.com/dunn/company-emoji
-(use-package company-emoji)
+;; ;;; https://github.com/dunn/company-emoji
+;; (use-package company-emoji)
 
 ;;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
@@ -772,58 +772,93 @@ This function is intended for use with `ivy-ignore-buffers'."
         (neotree-select-up-node)))))
 
 ;; straight.el relies on internal kludge to build org-mode
-(use-package org
-  :straight org-plus-contrib
-  :mode (("\\.org$" . org-mode))
+;; https://github.com/raxod502/straight.el#integration-with-org
+;; (use-package org
+;;   ;; :straight org-plus-contrib
+;;   ;; :mode (("\\.org$" . org-mode))
+;;   :bind
+;;   (("C-c l" . org-store-link)
+;;    ("C-c a" . org-agenda)
+;;    ("C-c c" . org-capture))
+;;   :config
+;;   ;; (setq org-directory "~/.org-files"
+;;   ;;       org-default-notes-file (concat org-directory "/todo.org"))
+;;   (progn
+;;    (org-babel-do-load-languages
+;;     'org-babel-load-languages
+;;     '((python . t)
+;;       (ruby . t)
+;;       (shell . t)
+;;       (sql . t)
+;;       )))
+;;    ;; (setq org-export-with-sub-superscripts (quote {}))
+;;    ;; (setq (org-src-fontify-natively t)
+;;    )
+
+
+;;; https://github.com/raxod502/straight.el/issues/352#issuecomment-460069774
+;; (straight-use-package '(org-plus-contrib :includes (org)))
+(use-package org-plus-contrib
+  :straight (org-plus-contrib
+             :repo "https://code.orgmode.org/bzg/org-mode.git"
+             :local-repo "org"
+             :includes (org))
   :bind
   (("C-c l" . org-store-link)
-   ("C-c a" . org-agenda))
-  :config
-  (setq org-directory "~/.org-files"
-        org-default-notes-file (concat org-directory "/todo.org"))
-  (progn
-   (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((python . t)
-      (ruby . t)
-      (shell . t)
-      (sql . t)
-      )))
-   ;; (setq org-export-with-sub-superscripts (quote {}))
-   ;; (setq (org-src-fontify-natively t)
-   )
+   ("C-c a" . org-agenda)
+   ("C-c c" . org-capture)))
+
+;; TODO investiage
+;; - ivy-todo
+;; - magit-org-todos
+;; - ob-rust, ob-uart
+;; - org-capture-pop-frame
+;; - org-kanban, org-mobile-sync , org-trello
+;; - org-protocol-jekyll, org2jekyll, org2issue
+;; - org-shoplist, org-rtm
+;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
+
+;; org-plus-contrib
 
 ;; see https://github.com/IvanMalison/org-projectile#use-package
 (use-package org-projectile
-  :bind (("C-c n p" . org-projectile-project-todo-completing-read)
-         ("C-c c" . org-capture))
+  :bind (("C-c n p" . org-projectile-project-todo-completing-read))
   :config
   (progn
     (org-projectile-per-project)
-    (setq
-     org-projectile-per-project-filepath "TODO.org"
-     org-agenda-files (append org-agenda-files (org-projectile-todo-files)))))
-
-;;; https://github.com/alf/ob-restclient.el
-(use-package ob-restclient)
+    (setq org-projectile-per-project-filepath "TODO.org")
+    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))))
 
 ;;; https://github.com/larstvei/ox-gfm
 (use-package ox-gfm)
 
+;; (eval-after-load "org"
+;;   '(require 'ox-gfm nil t))
+
 ;;; https://github.com/yjwen/org-reveal
-(use-package ox-reveal)
+;; (use-package ox-reveal)
 
 ;; https://github.com/abo-abo/org-download
 ;; Drag and drop images to Emacs org-mode
-(use-package org-download
-  :init
-  (add-hook 'dired-mode-hook 'org-download-enable))
+;; (use-package org-download
+;;   :init
+;;   (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; https://github.com/emacsorphanage/org-bullets
 (use-package org-bullets
   :config
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-bullets-mode))
+
+;;; https://github.com/snosov1/toc-org
+;;  add table of contents to org-mode files (formerly, org-toc)
+;; (use-package toc-org
+;;   :config
+;;   (add-hook 'org-mode-hook 'toc-org-enable))
+
+;;; https://github.com/alf/ob-restclient.el
+(use-package ob-restclient)
+
 
 ;;; https://www.killring.org/effective-restclient-in-emacs
 (use-package outline-magic
@@ -938,13 +973,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; Automatic setup of directory tracking in ssh sessions.
 ;; FIXME : Doesn't seem to work with my fancy BASH prompt
 ;; (use-package tramp-term)
-
-;;; https://github.com/snosov1/toc-org
-;;  add table of contents to org-mode files (formerly, org-toc)
-(use-package toc-org
-  :config
-  (add-hook 'org-mode-hook 'toc-org-enable))
-
 
 ;; .toml https://github.com/dryman/toml-mode.el
 (use-package toml-mode)
@@ -1082,6 +1110,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   ("C-x <left>" . windmove-left)
 ;;   ("C-x <right>" . windmove-right))
 
+;;; https://orgmode.org/manual/Conflicts.html#Conflicts
+;; ;; Make windmove work in Org mode:
+;; (add-hook 'org-shiftup-final-hook 'windmove-up)
+;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
+;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
+;; (add-hook 'org-shiftright-final-hook 'windmove-right)
+
 ;;; https://github.com/deb0ch/emacs-winum
 ;; Key binding	Description
 ;; C-x w <n>	select window <n>, where <n> ranges from 0 to 9. A negative argument deletes the window.
@@ -1104,6 +1139,19 @@ This function is intended for use with `ivy-ignore-buffers'."
   :diminish yas-minor-mode
   :config
   (yas-global-mode 1))
+
+;; yasnippet org-mode conflict
+;;; https://orgmode.org/manual/Conflicts.html#Conflicts
+
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            (define-key yas/keymap [tab] 'yas/next-field)))
 
 ;;; https://github.com/AndreaCrotti/yasnippet-snippets
 (use-package yasnippet-snippets)
