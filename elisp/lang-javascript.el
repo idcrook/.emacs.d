@@ -16,9 +16,9 @@
 
 ;; comment out for now as it activates for JSON mode and reports spurious errors
 ;; FIXME: do not do js2-minor-mode for JSON
-;; ;; to install it as a minor mode just for JavaScript linting,
+;; ;; to install it as a minor mode just for JavaScript linting, JSX handling
 ;; (if (version< emacs-version "27.0")
-;;     (message "is before emacs 27.0")
+;;     (message "before emacs 27.0")
 ;;     (add-hook 'js-mode-hook 'js2-minor-mode))
 
 ;; https://github.com/mooz/js2-mode
@@ -34,8 +34,6 @@
   (setq js2-basic-offset 2)
 
   :config
-  ;; (custom-set-variables '(js2-strict-inconsistent-return-warning nil))
-  ;; (custom-set-variables '(js2-strict-missing-semi-warning nil))
   (setq js2-strict-inconsistent-return-warning nil)
   (setq js2-strict-missing-semi-warning nil)
 
@@ -77,18 +75,19 @@
 ;;   ;; http://ternjs.net/doc/manual.html#emacs
 ;;   (use-package company-tern)
 
-  ;; Run a JavaScript interpreter in an inferior process window
-  ;; https://github.com/redguardtoo/js-comint
-  (use-package js-comint)
-
-  ;; js2-refactor :- refactoring options for emacs
-  ;; https://github.com/magnars/js2-refactor.el
-  (use-package js2-refactor
-    :diminish js2-refactor-mode
-    :config
-    (add-hook 'js2-mode-hook 'js2-refactor-mode)
-    (js2r-add-keybindings-with-prefix "C-c j r"))
   )
+
+;; Run a JavaScript interpreter in an inferior process window
+;; https://github.com/redguardtoo/js-comint
+(use-package js-comint)
+
+;; js2-refactor :- refactoring options for emacs
+;; https://github.com/magnars/js2-refactor.el
+(use-package js2-refactor
+  :diminish js2-refactor-mode
+  :config
+  (add-hook 'js2-mode-hook 'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c j r"))
 
 ;; ;;; https://github.com/ananthakumaran/tide - TypeScript support
 ;; (use-package tide)
