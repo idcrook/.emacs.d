@@ -927,8 +927,14 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
 ;;   )
 
+;; ;;; https://github.com/emacs-berlin/syntactic-close
+;; (use-package syntactic-close
+;;   ;; :bind
+;;   :config
+;;   (global-set-key (kbd "C-]") 'syntactic-close)
+;;   )
 
-;; (use-package ssh-config-mode)
+(use-package ssh-config-mode)
 
 ;; ;; https://github.com/cjohansson/emacs-ssh-deploy
 ;; (use-package ssh-deploy)
