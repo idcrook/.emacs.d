@@ -114,8 +114,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 (set-face-attribute 'mode-line nil :family dpc-font-modeline :height 140 :weight 'regular)
 
 ;; adapt font sizes to display resolution - should probably consult
-;; (x-display-mm-width)  ;; 1600
-;; (x-display-mm-height) ;; 1000
+;; (x-display-mm-width)  ;; macOS 2560px 706 mm
+;; (x-display-mm-height) ;; macOS 1600px 441 mm
 
 (when (display-graphic-p)
   (if (> (x-display-pixel-width) 1800)
@@ -132,7 +132,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
               (= (x-display-pixel-width) 3840)
               (= (x-display-pixel-height) 1080))
              )
-            (dpc-setup-main-fonts 140 140 120)
+            ;; (dpc-setup-main-fonts 140 140 120)
+            (dpc-setup-main-fonts 160 160 140)
           (if (or
                (and ;; another specific display setup
                 (= (x-display-pixel-width) 1920)
