@@ -73,7 +73,7 @@
   (spaceline-toggle-buffer-encoding-abbrev-on) ;; line ending convention
   (spaceline-toggle-buffer-encoding-off) ;; line ending convention
   (spaceline-toggle-version-control-on) ;; version control information
-  (spaceline-toggle-projectile-root-on)
+  ;; (spaceline-toggle-projectile-root-on)
   ;; window numbers
   (spaceline-toggle-window-number-on)
   (setq spaceline-window-numbers-unicode t) ;; see also: winum

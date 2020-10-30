@@ -179,7 +179,6 @@
 (use-package dashboard
   :config
   (setq dashboard-items '((recents       . 5)
-                          (projects      . 5)
                           (bookmarks . 5)
   ;;                         (projects . 5)
   ;;                         ;; (registers . 5)
@@ -493,13 +492,13 @@ This function is intended for use with `ivy-ignore-buffers'."
   )
 
 
-;;; https://github.com/ericdanan/counsel-projectile
-(use-package counsel-projectile
-  :bind
-  ;; (("C-x C-a" . counsel-projectile))
-  ;; ("C-x c p" . counsel-projectile-ag) ;; default binding is 'C-c p s s'
-  :config
-  (counsel-projectile-mode +1))
+;; ;;; https://github.com/ericdanan/counsel-projectile
+;; (use-package counsel-projectile
+;;   :bind
+;;   ;; (("C-x C-a" . counsel-projectile))
+;;   ;; ("C-x c p" . counsel-projectile-ag) ;; default binding is 'C-c p s s'
+;;   :config
+;;   (counsel-projectile-mode +1))
 
 ;; https://github.com/nathankot/counsel-dash
 ;; Browse Dash docsets using Ivy.  Requires helm-dash (use-package
@@ -692,84 +691,85 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; neotree uses
 (use-package all-the-icons)
 
-;; sidebar and dired in one
-(use-package neotree
-  :bind
-  (("<f8>" . neotree-toggle))
-  :config
-  ;; needs package all-the-icons
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;; ;; sidebar and dired in one
+;; (use-package neotree
+;;   :bind
+;;   (("<f8>" . neotree-toggle))
+;;   :config
+;;   ;; needs package all-the-icons
+;;   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
-  ;; Disable line-numbers minor mode for neotree
-  (add-hook 'neo-after-create-hook
-            (lambda (&rest _) (display-line-numbers-mode -1)))
+;;   ;; Disable line-numbers minor mode for neotree
+;;   (add-hook 'neo-after-create-hook
+;;             (lambda (&rest _) (display-line-numbers-mode -1)))
 
-  ;; Every time when the neotree window is opened, let it find current
-  ;; file and jump to node.
-  (setq neo-smart-open t)
+;;   ;; Every time when the neotree window is opened, let it find current
+;;   ;; file and jump to node.
+;;   (setq neo-smart-open t)
 
-  (setq ;; neo-mode-line-type 'none
-        neo-autorefresh nil
-        neo-window-width 25
-        neo-banner-message nil
-        ;; neo-show-hidden-files nil
-        ;; neo-keymap-style 'concise
-        neo-hidden-regexp-list
+;;   (setq ;; neo-mode-line-type 'none
+;;         neo-autorefresh nil
+;;         neo-window-width 25
+;;         neo-banner-message nil
+;;         ;; neo-show-hidden-files nil
+;;         ;; neo-keymap-style 'concise
+;;         neo-hidden-regexp-list
 
-        '(;; hidden directories? does not work since does not include '/'
-          ;; "^\\..*/$"
-          ;; vcs folders
-          "^\\.\\(git\\|hg\\|svn\\)$"
-          ;; compiled files
-          "\\.\\(pyc\\|o\\|elc\\|lock\\|css.map\\)$"
-          ;; generated files, caches or local pkgs
-          "^\\(node_modules\\|vendor\\|.\\(project\\|cask\\|yardoc\\|sass-cache\\)\\)$"
-          ;; org-mode folders
-          "^\\.\\(sync\\|export\\|attach\\)$"
-          "~$"
-          "^#.*#$"))
+;;         '(;; hidden directories? does not work since does not include '/'
+;;           ;; "^\\..*/$"
+;;           ;; vcs folders
+;;           "^\\.\\(git\\|hg\\|svn\\)$"
+;;           ;; compiled files
+;;           "\\.\\(pyc\\|o\\|elc\\|lock\\|css.map\\)$"
+;;           ;; generated files, caches or local pkgs
+;;           "^\\(node_modules\\|vendor\\|.\\(project\\|cask\\|yardoc\\|sass-cache\\)\\)$"
+;;           ;; org-mode folders
+;;           "^\\.\\(sync\\|export\\|attach\\)$"
+;;           "~$"
+;;           "^#.*#$"))
 
-  ;; track ‘projectile-switch-project’ (C-c p p),
-  (setq projectile-switch-project-action 'neotree-projectile-action))
+;;   ;; ;; track ‘projectile-switch-project’ (C-c p p),
+;;   ;; (setq projectile-switch-project-action 'neotree-projectile-action)
+;;   )
 
-;; NeoTree can be opened (toggled) at projectile project root
-(defun idc/neotree-project-dir ()
-    "Open NeoTree using the git root."
-    (interactive)
-    (let ((project-dir (projectile-project-root))
-          (file-name (buffer-file-name)))
-      (neotree-toggle)
-      (if project-dir
-          (if (neo-global--window-exists-p)
-              (progn
-                (neotree-dir project-dir)
-                (neotree-find file-name)))
-        (message "Could not find git project root."))))
+;; ;; NeoTree can be opened (toggled) at projectile project root
+;; (defun idc/neotree-project-dir ()
+;;     "Open NeoTree using the git root."
+;;     (interactive)
+;;     (let ((project-dir (projectile-project-root))
+;;           (file-name (buffer-file-name)))
+;;       (neotree-toggle)
+;;       (if project-dir
+;;           (if (neo-global--window-exists-p)
+;;               (progn
+;;                 (neotree-dir project-dir)
+;;                 (neotree-find file-name)))
+;;         (message "Could not find git project root."))))
 
-;; need another one for python stuff, since this gets re-bound
-(global-set-key (kbd "C-c C-p") 'idc/neotree-project-dir)
+;; ;; need another one for python stuff, since this gets re-bound
+;; (global-set-key (kbd "C-c C-p") 'idc/neotree-project-dir)
 
-(defun idc/neotree-collapse ()
-  "Collapse a neotree node."
-  (interactive)
-  (let ((node (neo-buffer--get-filename-current-line)))
-    (when node
-      (when (file-directory-p node)
-        (neo-buffer--set-expand node nil)
-        (neo-buffer--refresh t))
-      (when neo-auto-indent-point
-        (neo-point-auto-indent)))))
+;; (defun idc/neotree-collapse ()
+;;   "Collapse a neotree node."
+;;   (interactive)
+;;   (let ((node (neo-buffer--get-filename-current-line)))
+;;     (when node
+;;       (when (file-directory-p node)
+;;         (neo-buffer--set-expand node nil)
+;;         (neo-buffer--refresh t))
+;;       (when neo-auto-indent-point
+;;         (neo-point-auto-indent)))))
 
-(defun idc/neotree-collapse-or-up ()
-  "Collapse an expanded directory node or go to the parent node."
-  (interactive)
-  (let ((node (neo-buffer--get-filename-current-line)))
-    (when node
-      (if (file-directory-p node)
-          (if (neo-buffer--expanded-node-p node)
-              (idc/neotree-collapse)
-            (neotree-select-up-node))
-        (neotree-select-up-node)))))
+;; (defun idc/neotree-collapse-or-up ()
+;;   "Collapse an expanded directory node or go to the parent node."
+;;   (interactive)
+;;   (let ((node (neo-buffer--get-filename-current-line)))
+;;     (when node
+;;       (if (file-directory-p node)
+;;           (if (neo-buffer--expanded-node-p node)
+;;               (idc/neotree-collapse)
+;;             (neotree-select-up-node))
+;;         (neotree-select-up-node)))))
 
 ;; straight.el relies on internal kludge to build org-mode
 ;; https://github.com/raxod502/straight.el#integration-with-org
@@ -820,14 +820,14 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; org-plus-contrib
 
-;; see https://github.com/IvanMalison/org-projectile#use-package
-(use-package org-projectile
-  :bind (("C-c n p" . org-projectile-project-todo-completing-read))
-  :config
-  (progn
-    (org-projectile-per-project)
-    (setq org-projectile-per-project-filepath "TODO.org")
-    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))))
+;; ;; see https://github.com/IvanMalison/org-projectile#use-package
+;; (use-package org-projectile
+;;   :bind (("C-c n p" . org-projectile-project-todo-completing-read))
+;;   :config
+;;   (progn
+;;     (org-projectile-per-project)
+;;     (setq org-projectile-per-project-filepath "TODO.org")
+;;     (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))))
 
 ;;; https://github.com/larstvei/ox-gfm
 (use-package ox-gfm)
@@ -874,24 +874,24 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; ________________________________________________________________________
 ;; projectile-related configs
 
-;; https://github.com/bbatsov/projectile
-(use-package projectile
-  :delight '(:eval (concat " " (projectile-project-name)))
-  :config
-  ;; requires explicit mapping since projectile v1.1
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  ;; (setq projectile-known-projects-file
-  ;;       (expand-file-name "projectile-bookmarks.eld" temp-dir))
-  (setq projectile-completion-system 'ivy)
-  ;; ignore Archive dirs (similar to .git, .svn, etc.)
-  (add-to-list 'projectile-globally-ignored-directories "*Archive")
-  (add-to-list 'projectile-globally-ignored-directories "*repos")
-  (projectile-mode))
+;; ;; https://github.com/bbatsov/projectile
+;; (use-package projectile
+;;   :delight '(:eval (concat " " (projectile-project-name)))
+;;   :config
+;;   ;; requires explicit mapping since projectile v1.1
+;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;   ;; (setq projectile-known-projects-file
+;;   ;;       (expand-file-name "projectile-bookmarks.eld" temp-dir))
+;;   (setq projectile-completion-system 'ivy)
+;;   ;; ignore Archive dirs (similar to .git, .svn, etc.)
+;;   (add-to-list 'projectile-globally-ignored-directories "*Archive")
+;;   (add-to-list 'projectile-globally-ignored-directories "*repos")
+;;   (projectile-mode))
 
-(use-package pcre2el
-  :config
-  (rxt-global-mode))
+;; (use-package pcre2el
+;;   :config
+;;   (rxt-global-mode))
 
 ;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
 (use-package scad-mode)
@@ -969,7 +969,9 @@ This function is intended for use with `ivy-ignore-buffers'."
     ))
   :bind
   (("C-<f5>" .  #'terminal-here-launch)
-   ("C-<f6>" .  #'terminal-here-project-launch)))
+   ;; ("C-<f6>" .  #'terminal-here-project-launch)
+   )
+  )
 
 ;; https://github.com/koekeishiya/khd/issues/73#issuecomment-298112103
 ;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile'

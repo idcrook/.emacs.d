@@ -213,9 +213,9 @@
 ;;(unless (file-exists-p (concat temp-dir "/autosave-save-list"))
 ;;  (make-directory (concat temp-dir "/autosave-save-list") :parents))
 
-;; set early since emacs startup is creating an empty one
-(setq projectile-known-projects-file
-      (expand-file-name "projectile-bookmarks.eld" temp-dir))
+;; ;; set early since emacs startup is creating an empty one
+;; (setq projectile-known-projects-file
+;;       (expand-file-name "projectile-bookmarks.eld" temp-dir))
 
 
 ;; For faster initial connection times, TRAMP stores previous
