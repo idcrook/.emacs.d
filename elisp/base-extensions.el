@@ -473,24 +473,25 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package counsel-web
 ;; not yet in MELPA ;;; https://github.com/mnewt/counsel-web
   :straight (counsel-web :type git :host github :repo "mnewt/counsel-web")
-  ;; (global-set-key (kbd "C-c w") #'counsel-web-suggest)
-  ;; (global-set-key (kbd "C-c W") #'counsel-web-search)
-  ;; (global-set-key (kbd "C-c C-w") #'counsel-web-thing-at-point)
-  :bind
-  (("C-c w" . counsel-web-suggest)
-   ("C-c W" . counsel-web-search)
-   ("C-c C-w" . counsel-web-thing-at-point))
+  ;; :bind
+  ;; (("C-c w" . counsel-web-suggest)
+  ;;  ("C-c W" . counsel-web-search)
+  ;;  ("C-c C-w" . counsel-web-thing-at-point))
   :config
-  ;; use google instead of the default duck duck go
-  (setq counsel-web-suggest-function       #'counsel-web-suggest--google
-        counsel-web-search-function        #'counsel-web-search--google
-        ;; update with each key press
+  ;; Define "C-c w" as a prefix key.
+  (defvar counsel-web-map
+    (let ((map (make-sparse-keymap "counsel-web")))
+      (define-key map (kbd "w") #'counsel-web-suggest)
+      (define-key map (kbd "s") #'counsel-web-search)
+      (define-key map (kbd ".") #'counsel-web-thing-at-point)
+      map))
+  (global-set-key (kbd "C-c w") counsel-web-map)
+  ;; use google instead of the default DuckDuckGo
+  (setq counsel-web-engine 'google)
+  (setq ;; update with each key press
         counsel-web-search-dynamic-update  t
         ;; use system browser
-        counsel-web-search-action          #'browse-url
-        )
-  )
-
+        counsel-web-search-action          #'browse-url))
 
 ;; ;;; https://github.com/ericdanan/counsel-projectile
 ;; (use-package counsel-projectile
@@ -914,6 +915,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/pashky/restclient.el
 ;; see also: outline-magic
 (use-package restclient)
+
+
+(use-package request
+  :config
+  (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
+  )
 
 ;;; https://github.com/Fuco1/smartparens
 ;; https://ebzzry.io/en/emacs-pairs/
