@@ -54,6 +54,9 @@
 ;;  (load-theme 'wheatgrass))  ;;
   (load-theme 'cyberpunk 'no-confirm))
 
+;;; M-x describe-face fill-column-indicator
+;; (set-face-attribute 'fill-column-indicator nil :foreground "grey10")
+
 ;;; https://github.com/TheBB/spaceline
 ;; powerline mode-line
 (use-package spaceline
