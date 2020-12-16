@@ -29,8 +29,7 @@
                ("C-c C-b" . js-send-buffer-and-go)
                ("C-c C-l" . js-load-file-and-go)))
   :init
-  (custom-set-variables '(js-indent-level 2))
-  ;; (setq js-indent-level 2)
+  (setq js-indent-level 2)
   (setq js2-basic-offset 2)
 
   :config
