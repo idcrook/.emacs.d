@@ -51,15 +51,22 @@
 
 ;; # https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
-  ;; :init
-  ;; (setq exec-path-from-shell-check-startup-files nil)
-  ;; setting this seems to have no effect
+  :init
+  ;; Its (original) value is '("PATH" "MANPATH")
+  ;;(setq-default exec-path-from-shell-variables '("PATH" "GOPATH" "PYTHONPATH"))
+
+  ;; Its (original) value is '("-l" "-i")
+  ;; do not run an interactive shell (faster execution)
+  (setq-default exec-path-from-shell-arguments '("--login" ))
+
   :config
   ;; Add GOPATH and PYTHONPATH to emacs shell
   (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-copy-env "GOPATH")
-    (exec-path-from-shell-copy-env "PYTHONPATH")
-    (exec-path-from-shell-initialize)))
+    (setq exec-path-from-shell-debug +1)
+    ;; ;; only warn if delay exceeds 1000 ms
+    ;; (setq exec-path-from-shell-warn-duration-millis 1000)
+    (exec-path-from-shell-initialize))
+  )
 
 
 (provide 'lang-shell)
