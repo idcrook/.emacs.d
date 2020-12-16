@@ -175,6 +175,46 @@ URL, set NEW-WINDOW to non-nil."
     (start-process (concat "open " url) nil "open" url)))
 
 
+;; [Alex Gromnitsky's blog: Making high-resolution screenshots of Emacs frames](http://gromnitsky.blogspot.com/2020/12/making-high-resolution-screenshots-of.html)
+
+(defun my--screenshot-png(out)
+  "Save a screenshot of the current frame as a png file. Requires ghostscript."
+  (let ((ps (concat out ".tmp")))
+    (my--screenshot ps 'postscript)
+    (call-process "gs" nil (get-buffer-create "*Shell Command Output*") nil
+                  "-sDEVICE=png16m" "-dBATCH" "-dNOPAUSE"
+                  "-r300" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4"
+                  (concat "-sOutputFile=" out) ps)
+    (delete-file ps)
+    ))
+
+(defun my--screenshot(out format)
+  (let ((fontdef (face-attribute 'default :font)))
+    ;;(set-frame-font "Inconsolata 10")
+    (set-frame-font dpc-font-default)
+    (unwind-protect
+        (with-temp-file out
+          ;; x-export-frames not available in macOS version
+          ;;(fboundp 'x-export-frames)
+          (insert (x-export-frames nil format)))
+      (set-frame-font fontdef))
+    ))
+
+(defun my-ss()
+  "Save a screenshot of the current frame in a file"
+  (interactive)
+  (let* ((out (expand-file-name (read-file-name "Output file name: ")))
+         (ext (file-name-extension out)))
+    (cond
+     ((equal "png" ext)
+      (my--screenshot-png out))
+     ((equal "ps" ext)
+      (my--screenshot out 'postscript))
+     (t
+      (my--screenshot out (intern ext)))
+     )))
+
+
 (provide 'base-functions)
 
 ;;; base-functions.el ends here
