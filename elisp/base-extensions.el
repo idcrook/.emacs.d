@@ -1171,6 +1171,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/AndreaCrotti/yasnippet-snippets
 (use-package yasnippet-snippets)
 
+;;; https://github.com/sei40kr/gitignore-snippets
+(use-package gitignore-snippets)
+
+
 (provide 'base-extensions)
 
 ;;; base-extensions.el ends here
