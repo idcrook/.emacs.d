@@ -27,6 +27,7 @@
   "Location of package bookkeeping temp directories.")
 
 ;;; https://www.gnu.org/software/emacs/manual/html_node/auth/Help-for-users.html
+(require 'auth-source)
 ;; default: (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
 ;; add ~/.emacs.d/private/authinfo.secrets
 (add-to-list 'auth-sources (expand-file-name "authinfo.secrets" private-dir))
@@ -100,6 +101,9 @@
 ;; Emacs 26 removed the default-SOMETHING
 (setq-default major-mode                 'text-mode
               fill-column                79)
+
+(unless (version< emacs-version "27.0")
+  (global-display-fill-column-indicator-mode 1))
 
 ;;; many of the variable-wrapper functions below are intended to be
 ;;; called directly; i.e. do not set the underlying variable but

@@ -32,15 +32,21 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
-;;;;  package.el
-;;; so package-list-packages includes them
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+;; ;; ;;;;  package.el - so package-list-packages includes them
+;; (require 'package)
+;; (add-to-list 'package-archives
+;;              '("melpa" . "https://melpa.org/packages/"))
 
-;;;; Automatic repository management
-;;; https://github.com/raxod502/straight.el/blob/develop/README.md#automatic-repository-management
-;; M-x straight-normalize-all
+;; (when (< emacs-major-version 27)
+;;   (package-initialize))
+
+;;; https://github.com/raxod502/straight.el#updating-recipe-repositories
+;;
+;; updating a recipe repository (e.g. melpa) to get a newish PACKAGE-NAME
+;;
+;;     M-x straight-pull-package   melpa
+;;     M-x straight-use-package    PACKAGE-NAME
+
 
 ;; for faster emacs start-up; gets re-set later
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -49,7 +55,7 @@
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
 
 ;; https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
- (setq ad-redefinition-action 'accept)
+(setq ad-redefinition-action 'accept)
 
 (require 'base)
 (require 'base-theme)
