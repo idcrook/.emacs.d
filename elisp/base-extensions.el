@@ -99,10 +99,11 @@
 ;; for bison, yacc, lex grammars, jison mode
 (use-package bison-mode)
 
-;; https://github.com/walseb/blimp
-(use-package blimp
-  :config
-  (add-hook 'image-mode-hook 'blimp-mode))
+;; ;; https://github.com/walseb/blimp
+;; - a complete wrapper around all imagemagick commands (requires it)
+;; (use-package blimp
+;;   :config
+;;   (add-hook 'image-mode-hook 'blimp-mode))
 
 ;;; https://github.com/rmuslimov/browse-at-remote/tree/master
 ;; (browse-at-remote) should open up GitHub, etc. at file in dired, etc
