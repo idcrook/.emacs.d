@@ -254,14 +254,15 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (require 'dired)
   ;; set a fallback
   (setq ls-lisp-use-insert-directory-program t)
+  (require 'ls-lisp)
   ;;; https://github.com/n3mo/.emacs.d/blob/master/init.el
-  ;; (setq dired-use-ls-dired nil)
+  (setq dired-use-ls-dired nil)
   ;;; https://github.com/abo-abo/swiper/issues/184#issuecomment-127513387
   ;; requires Homebrew coreutils package; installs GNU tools
   ;; prefixed with 'g' character
-  (let ((gls "/usr/local/bin/gls"))
-    (when (file-exists-p gls)
-      (setq insert-directory-program gls)))
+  ;; (let ((gls "/usr/local/bin/gls"))
+  ;;   (when (file-exists-p gls)
+  ;;     (setq insert-directory-program gls)))
   ;; (setq insert-directory-program (executable-find "gls"))
 
   ;;; http://pragmaticemacs.com/emacs/automatically-copy-text-selected-with-the-mouse/
