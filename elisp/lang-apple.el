@@ -23,8 +23,8 @@
   :after lsp-mode
   :config
   ;; xcrun --find sourcekit-lsp
-  ;;(setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
-  (setq lsp-sourcekit-executable "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
+  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
+  ;; (setq lsp-sourcekit-executable "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
   )
 
 ;;; https://github.com/swift-emacs/swift-mode
@@ -32,7 +32,7 @@
   ;; enable lsp automatically when a .swift file is visited
   :hook (swift-mode . (lambda () (lsp)))
   :config
-  (setq swift-mode:basic-offset 4))
+  (setq swift-mode:basic-offset 2))
 
 ;;;________________________________________________________________________
 ;; Applescript

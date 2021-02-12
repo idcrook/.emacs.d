@@ -177,27 +177,79 @@
             (lambda () (setq-local dash-at-point-docset '("Emacs Lisp")))))
 
 ;;; https://github.com/rakanalh/emacs-dashboard
+;;  - needs package all-the-icons (and icons installed)
+
 (use-package dashboard
+  :after all-the-icons
   :config
   (setq dashboard-items '((recents       . 5)
                           (bookmarks . 5)
   ;;                         (projects . 5)
-  ;;                         ;; (registers . 5)
-                          ;; (agenda         . 10)
+  ;;                         (registers . 5)
+  ;;                        (agenda         . 10)
                             ))
   ;; (add-to-list 'dashboard-items '(agenda) t)
-  ;; (setq dashboard-set-navigator t)
+
+  ;; ;; To show info about the packages loaded and the init time:
+  ;; (setq dashboard-set-init-info t)
+
+  ;; To show navigator below the banner:
+  (setq dashboard-set-navigator t)
+
+  (setq dashboard-navigator-buttons
+      `(;; line1
+        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+         "Homepage"
+         "Browse homepage"
+         (lambda (&rest _) (browse-url "https://github.com/idcrook")))
+        ;; ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+        ;; ("?" "" "?/h" #'show-help nil "<" ">")
+        )
+         ;; line 2
+        ;; ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+        ;;   "Linkedin"
+        ;;   ""
+        ;;   (lambda (&rest _) (browse-url "homepage")))
+        ;;  ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))
+        ))
+
+  ;; ;; Format: "(icon title help action face prefix suffix)"
+  ;; (setq dashboard-navigator-buttons
+  ;;     `(;; line1
+  ;;       ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+  ;;        "Homepage"
+  ;;        "Browse homepage"
+  ;;        (lambda (&rest _) (browse-url "homepage")))
+  ;;       ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+  ;;       ("?" "" "?/h" #'show-help nil "<" ">"))
+  ;;        ;; line 2
+  ;;       ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+  ;;         "Linkedin"
+  ;;         ""
+  ;;         (lambda (&rest _) (browse-url "homepage")))
+  ;;        ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)
 
   (setq dashboard-set-heading-icons t)
-  ;; (setq dashboard-set-file-icons t)
+  (setq dashboard-set-file-icons t)
 
   ;; Set the title
   (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+
   ;; Set the banner
   (setq dashboard-startup-banner 'logo)
+
+  ;; A randomly selected footnote will be displayed. To disable it:
+  (setq dashboard-set-footer nil)
+
+  ;; (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+  ;; (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+  ;;                                                    :height 1.1
+  ;;                                                    :v-adjust -0.05
+  ;;                                                    :face 'font-lock-keyword-face))
+
   (dashboard-setup-startup-hook))
 
 
@@ -691,6 +743,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; https://github.com/domtronn/all-the-icons.el
 ;; M-x all-the-icons-install-fonts ; puts them in global area
 ;; neotree uses
+;; dashboard uses
 (use-package all-the-icons)
 
 ;; ;; sidebar and dired in one
