@@ -4,13 +4,13 @@
 # need to explicitly add new .el files to bytecomp.el
 
 if [[ x`uname -s` == x"Linux" ]] ; then
-   Emacs=emacs
+    Emacs=emacs
 else
-   Emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
+    #Emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
+    Emacs=/opt/homebrew/opt/emacs-plus/Emacs.app/Contents/MacOS/Emacs
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
 
 for subdir in csh-mode verilog-mode; do
 
