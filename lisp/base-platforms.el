@@ -162,19 +162,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 (if (display-graphic-p) nil
   (menu-bar-mode -1))
 
-;; start the emacs server (under X or Cocoa)
-;; (use-package server
-;;   :if (display-graphic-p)
-;;   :commands (server-running-p server-start)
-;;   :init
-;;   (server-mode 1)
-;;   :config
-;;   (unless (server-running-p)
-;;     (add-hook 'after-init-hook 'server-start t))
-;;   (require 'org-protocol))
-
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
+;;  - start the emacs server (under X or macOS)
 ;;----------------------------------------------------------------------------
 (add-hook 'after-init-hook
           (lambda ()
@@ -182,9 +172,6 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
             (if (display-graphic-p)
                 (unless (server-running-p)
                   (server-start)))))
-
-
-
 
 (defun --set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."
