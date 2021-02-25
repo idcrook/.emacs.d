@@ -18,6 +18,6 @@ for subdir in csh-mode verilog-mode; do
     cd "$DIR"/"${subdir}" || (echo error; exit 1)
 
     # compile these .el files as standalone elisp
-    $Emacs --batch --no-init-file --no-site-file --directory ~/.emacs.d/user_elisp/"${subdir}"/ -f batch-byte-compile *.el
+    $Emacs --batch --no-init-file --no-site-file --directory ~/.emacs.d/site-lisp/"${subdir}"/ -f batch-byte-compile *.el
 
 done

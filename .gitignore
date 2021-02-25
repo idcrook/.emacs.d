@@ -8,7 +8,7 @@ ido.last
 tramp
 /irony/
 /server/
-/elisp/ssh-config-keywords.txt
+/lisp/ssh-config-keywords.txt
 *.secrets*
 !README.md
 !TODO.md

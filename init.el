@@ -52,7 +52,7 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 
 ;; set load path
-(add-to-list 'load-path (concat user-emacs-directory "elisp"))
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
 
 ;; https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
 (setq ad-redefinition-action 'accept)

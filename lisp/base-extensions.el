@@ -1102,7 +1102,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; (use-package verify-url)
 
 ;; via https://www.veripool.org/projects/verilog-mode/wiki/Installing
-;; relies on ~/.emacs.d/user_elisp/verilog-mode.el
+;; relies on ~/.emacs.d/site-lisp/verilog-mode.el
 ;; it appears emacs27 will include verilog-mode
 (autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
 (add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode))
