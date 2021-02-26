@@ -6,7 +6,8 @@
 
 
 ;; Switch to https://github.com/idcrook/sysinfo
-(require 'sysinfo)
+(use-package sysinfo
+  :straight (:type git :host github :repo "idcrook/sysinfo"))
 
 (defconst platform-windows-p
     (eq sysinfo-os-family 'Windows)

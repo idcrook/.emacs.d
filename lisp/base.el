@@ -9,16 +9,11 @@
 
 ;; See ~/.emacs.d/site-lisp/README.md
 (setq dpc-user-elisp-dir (concat user-emacs-directory "site-lisp/"))
-(setq dpc-user-elisp-githubs-dir (concat dpc-user-elisp-dir "github/"))
 
 (add-to-list 'load-path dpc-user-elisp-dir)
-;; Add all subdirs to load-path
+;; Add all its subdirs to load-path
 (let ((default-directory dpc-user-elisp-dir))
   (normal-top-level-add-subdirs-to-load-path))
-;; Add all githubs (subdirs) to load-path
-(let ((default-directory dpc-user-elisp-githubs-dir))
-  (normal-top-level-add-subdirs-to-load-path))
-
 
 (defconst private-dir   (expand-file-name "private" user-emacs-directory)
   "Set aside per-user Emacs directory.")
