@@ -84,6 +84,8 @@
 
 (require 'lang-web)
 
+(require 'lang-hardware)
+
 (require 'base-finally)
 
 (provide 'init)

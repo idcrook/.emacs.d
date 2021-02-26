@@ -29,9 +29,8 @@ Add to script `./recompile.sh` (and run to update compiled version if needed)
 verilog-mode
 ------------
 
-```
-curl https://www.veripool.org/ftp/verilog-mode.el.gz | gzip -cd > verilog-mode/verilog-mode.el
-```
+Now in ELPA. See <https://github.com/veripool/verilog-mode/blob/master/README.adoc#INSTALLATION>
+
 
 csh-mode
 --------
