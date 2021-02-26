@@ -1,3 +1,0 @@
-[submodule "user_elisp/github/sysinfo"]
-	path = site-lisp/github/sysinfo
-	url = https://github.com/idcrook/sysinfo.git
