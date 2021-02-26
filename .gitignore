@@ -16,3 +16,4 @@ tramp
 flycheck_*.elc
 custom.el
 /elpy
+/user_elisp/
