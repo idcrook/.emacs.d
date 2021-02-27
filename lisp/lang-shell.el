@@ -60,10 +60,9 @@
   (setq-default exec-path-from-shell-arguments '("--login" ))
 
   :config
-  ;; Add GOPATH and PYTHONPATH to emacs shell
   (when (memq window-system '(mac ns x))
-    (setq exec-path-from-shell-debug +1)
-    ;; ;; only warn if delay exceeds 1000 ms
+    ;; DEBUG ;; (setq exec-path-from-shell-debug +1)
+    ;; warn if delay exceeds 1000 ms
     ;; (setq exec-path-from-shell-warn-duration-millis 1000)
     (exec-path-from-shell-initialize))
   )
