@@ -12,13 +12,14 @@
 ;; # automatic formatting - black autopep8 yapf
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
 
-(setq elpy-rpc-python-command "python3")
 
 (use-package python
   :mode ("\\.py$" . python-mode)
-  :config
+  :init
+  (setq elpy-rpc-python-command "python3")
   (setq python-shell-interpreter "python3"
         python-shell-interpreter-args "-i")
+  :config
   (use-package elpy
     :after flycheck
     :delight highlight-indentation-mode
@@ -55,7 +56,7 @@
 ;; company-mode completion back-end for Python JEDI.
 (use-package company-jedi
   :requires (company-mode)
-  :config
+  :init
   (add-to-list 'company-backends 'company-jedi))
 
 ;; major mode for editing pip requirements files.
@@ -84,13 +85,13 @@
   (setq blacken-skip-string-normalization t))
 
 
-;;; https://github.com/jorgenschaefer/pyvenv
-(use-package pyvenv
-  :init
-  (setq pyvenv-default-virtual-env-name "env")
-  (setenv "WORKON_HOME" "~/.pyenv/versions/")
-  :bind
-  ("C-x C-y v" . pyvenv-activate))
+;; ;;; https://github.com/jorgenschaefer/pyvenv
+;; (use-package pyvenv
+;;   :init
+;;   (setq pyvenv-default-virtual-env-name "env")
+;;   (setenv "WORKON_HOME" "~/.pyenv/versions/")
+;;   :bind
+;;   ("C-x C-y v" . pyvenv-activate))
 
 
 ;; ;;; https://github.com/pythonic-emacs/pyenv-mode
@@ -150,13 +151,12 @@
 ;;   ;; symlinked to ~/bin/macos/Microsoft.Python.LanguageServer
 ;;   )
 
-;;; Cython
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;----------------------------------------------------------------------------
+;; Cython
+;;----------------------------------------------------------------------------
 
-;; pip install Cython
-
+;; ;; pip install Cython
 ;; (use-package cython-mode)
-
 ;; (use-package flycheck-cython)
 ;; (add-hook 'cython-mode-hook 'flycheck-mode)
 
