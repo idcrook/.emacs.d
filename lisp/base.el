@@ -21,6 +21,10 @@
 (defconst temp-dir (format "%s/cache" private-dir)
   "Location of package bookkeeping temp directories.")
 
+;; pcache used by gist package
+;; (defvar pcache-directory (concat user-emacs-directory "var/pcache/"))
+(setq pcache-directory  (format "%s/var/pcache/" private-dir))
+
 ;;; https://www.gnu.org/software/emacs/manual/html_node/auth/Help-for-users.html
 (require 'auth-source)
 ;; default: (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
@@ -92,8 +96,6 @@
  ;; load the custom file
 (load custom-file 'noerror)
 
-
-;; Emacs 26 removed the default-SOMETHING
 (setq-default major-mode                 'text-mode
               fill-column                79)
 
@@ -137,10 +139,10 @@
 (setq save-place-file (concat temp-dir "/emacs-places"))
 (save-place-mode 1)
 
-;; Timestamps
-(require 'time-stamp)
-(add-hook 'write-file-hooks 'time-stamp)
-(setq time-stamp-pattern nil)
+;; ;; Timestamps
+;; (require 'time-stamp)
+;; (add-hook 'write-file-hooks 'time-stamp)
+;; (setq time-stamp-pattern nil)
 
 ;; Delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -149,11 +151,11 @@
 ;; (when (file-directory-p (expand-file-name "~/.local/bin"))
 ;;   (setq exec-path    (append exec-path (list (expand-file-name "~/.local/bin")))))
 
-;; Line highlighting in all buffers
-;;(global-hl-line-mode 1)
+;; ;; Line highlighting in all buffers
+;; (global-hl-line-mode 1)
 
 ;; Echo area display of Lisp objects at point
-;;(eldoc-mode 1)
+(eldoc-mode 1)
 
 ;; Alias to shorten prompts
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -212,11 +214,6 @@
 ;;(unless (file-exists-p (concat temp-dir "/autosave-save-list"))
 ;;  (make-directory (concat temp-dir "/autosave-save-list") :parents))
 
-;; ;; set early since emacs startup is creating an empty one
-;; (setq projectile-known-projects-file
-;;       (expand-file-name "projectile-bookmarks.eld" temp-dir))
-
-
 ;; For faster initial connection times, TRAMP stores previous
 ;; connection properties in this file
 (require 'tramp)
@@ -226,7 +223,6 @@
 ;; see base-platforms.el for
 ;;  - emacs server (used by emacsclient)
 ;;  - platform specific fonts, keybindings, workarounds
-
 
 (provide 'base)
 

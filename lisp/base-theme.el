@@ -4,18 +4,13 @@
 
 ;;; Code:
 
-;; ;; https://github.com/mgrbyte/emacs-abyss-theme
-;; (use-package abyss-theme)
-
-;; ;; https://github.com/osener/emacs-afternoon-theme
-;; (use-package afternoon-theme)
-
-;; ;;; https://github.com/purcell/color-theme-sanityinc-tomorrow
+;;; https://github.com/purcell/color-theme-sanityinc-tomorrow
 (use-package color-theme-sanityinc-tomorrow)
-;; ;; sanityinc-tomorrow-blue is like Wordperfect
-;; ;; sanityinc-tomorrow-bright is actually a dark theme
+;; sanityinc-tomorrow-blue is like Wordperfect
+;; sanityinc-tomorrow-bright is actually a dark theme
 
-
+;;; https://github.com/n3mo/cyberpunk-theme.el
+(use-package cyberpunk-theme)
 
 ;; ;;; https://github.com/NicolasPetton/zerodark-theme
 ;; (use-package zerodark-theme
@@ -23,6 +18,12 @@
 ;;    ;; ;; Optionally setup the modeline
 ;;    ;; (zerodark-setup-modeline-format)
 ;;   )
+
+;; ;; https://github.com/mgrbyte/emacs-abyss-theme
+;; (use-package abyss-theme)
+
+;; ;; https://github.com/osener/emacs-afternoon-theme
+;; (use-package afternoon-theme)
 
 ;;; https://github.com/popcorn4dinner/darkplus-emacs
 ;;; error: eval-buffer: Symbol’s value as variable is void: fg3
@@ -39,11 +40,7 @@
 ;; (use-package alect-themes)
 ;; (setq alect-display-class '((class color) (min-colors 256)))
 
-
-;;; https://github.com/n3mo/cyberpunk-theme.el
-(use-package cyberpunk-theme)
-
-;; in non-window (tty/console) use a different theme (cyberpunk-theme)
+;; use a different theme, depending on graphical window or (tty/console)
 (if (display-graphic-p)
     ;; (load-theme 'abyss 'no-confirm)
     ;; (load-theme 'zerodark 'no-confirm)
