@@ -1101,21 +1101,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; ;; https://github.com/lujun9972/verify-url
 ;; (use-package verify-url)
 
-;; via https://www.veripool.org/projects/verilog-mode/wiki/Installing
-;; relies on ~/.emacs.d/site-lisp/verilog-mode.el
-;; it appears emacs27 will include verilog-mode
-(autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
-(add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode))
-
-;; ;; https://github.com/csantosb/vhdl-tools/wiki/Install
-;; (use-package vhdl-tools
-;;   :init
-;;   (autoload 'vhdl-tools-mode "vhdl-tools")
-;;   (autoload 'vhdl-tools-vorg-mode "vhdl-tools"))
-
-;; (with-eval-after-load 'vhdl-tools
-;;   (require 'vhdl-tools-personal-configuration))
-
 ;;; https://github.com/blak3mill3r/vmd-mode
 ;;npm install -g vmd
 ;; ubuntu: sudo apt-get install -y libgconf-2-4
