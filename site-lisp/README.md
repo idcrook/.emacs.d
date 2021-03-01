@@ -4,14 +4,15 @@
 For gathering external Emacs lisp packages, especially if they fall outside normal package manager use. This is a place for 3rd party code which isn't available in MELPA or other package repositories. This directory and its immediate subdirectories will be added to load-path at start-up time.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
 **Table of Contents**
 
-- [Manually downloaded libraries](#manually-downloaded-libraries)
-    - [csh-mode](#csh-mode)
-- [Hacks](#hacks)
-- [Outdated](#outdated)
-    - [verilog-mode](#verilog-mode)
-    - [github](#github)
+-	[Manually downloaded libraries](#manually-downloaded-libraries)
+	-	[csh-mode](#csh-mode)
+-	[Hacks](#hacks)
+-	[Outdated](#outdated)
+	-	[verilog-mode](#verilog-mode)
+	-	[github](#github)
 
 <!-- markdown-toc end -->
 

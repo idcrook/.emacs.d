@@ -56,39 +56,6 @@
         avy-highlight-first t
         avy-style 'at-full))
 
-;; see https://www.slideshare.net/kaz_yos/search-and-replacement-techniques-in-emacs-avy-swiper-multiplecursor-ag-and-wgrep
-;; (use-package avy :demand :bind (:map isearch-mode-map ("C-’" . avy-isearch))
-;;   :config
-;;   ;; Darken background.
-;;   (setq avy-background t)
-;;   ;; Highlight the first decision char with ‘avy-lead-face-0’.
-;;   ;; https://github.com/abo-abo/avy/wiki/defcustom#avy-highlight-first
-;;   (setq avy-highlight-first t)
-;;   ;; The default method of displaying the overlays.
-;;   ;; https://github.com/abo-abo/avy/wiki/defcustom#avy-style
-;;   (setq avy-style 'at-full)
-;;   ;; Keys to be used. Use a-z.
-;;   (setq avy-keys (loop for c from ?a to ?z collect c))
-;;   ;; Time out for *-timer functions
-;;   (setq avy-timeout-seconds 0.3)
-;;   ;;
-;;   ;; one-step activation https://github.com/cjohansen/.emacs.d/commit/65efe88
-;;   (defun add-keys-to-avy (prefix c &optional mode)
-;;     (define-key global-map (read-kbd-macro (concat prefix (string c)))
-;;       '(lambda ()
-;;          (interactive)
-;;          (funcall (cond ;; Word beginning
-;;                    ((eq ',mode 'word) #'avy-goto-word-1)
-;;                    ;; Anywhere
-;;                    (t #'avy-goto-char))
-;;                   ,c ))))
-
-;;   ;; Assing key bindings for all characters
-;;   ;; eg, M-s-a will activate (avy-goto-char ?a), ie, all occurrence of a
-;;   (loop for c from ?! to ?~ do (add-keys-to-avy "M-s-" c))
-;;   ;; eg, C-M-s-a will activate (avy-goto-word-1 ?a), ie, all words starting with a
-;;   (loop for c from ?! to ?~ do (add-keys-to-avy "C-M-s-" c 'word)))
-
 ;; https://github.com/Malabarba/beacon
 (use-package beacon
   :diminish beacon-mode
@@ -165,24 +132,13 @@
 (global-set-key (kbd "C-c w s") 'copy-as-format-slack)
 (global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
-;; ;;; https://github.com/stanaka/dash-at-point
-;; (use-package dash-at-point
-;;   :commands (dash-at-point dash-at-point-with-docset)
-;;   :bind
-;;   (("C-c d" . dash-at-point)
-;;    ("C-c e" . dash-at-point-with-docset))
-;;   :config
-;;   (add-to-list 'dash-at-point-mode-alist '(web-mode . "html,svg,css,bootstrap,foundation,awesome,javascript,jquery,jqueryui,jquerym,angularjs,backbone,ember,extjs,react,vuejs"))
-;;   (add-hook 'emacs-lisp-mode-hook
-;;             (lambda () (setq-local dash-at-point-docset '("Emacs Lisp")))))
-
 ;;; https://github.com/rakanalh/emacs-dashboard
 ;;  - needs package all-the-icons (and icons installed)
 (use-package dashboard
   :after all-the-icons
   :config
   (setq dashboard-items '((recents       . 5)
-                          (bookmarks . 5)
+  ;;                        (bookmarks . 5)
   ;;                         (projects . 5)
   ;;                         (registers . 5)
   ;;                        (agenda         . 10)
@@ -212,22 +168,6 @@
         ;;  ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))
         ))
 
-  ;; ;; Format: "(icon title help action face prefix suffix)"
-  ;; (setq dashboard-navigator-buttons
-  ;;     `(;; line1
-  ;;       ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-  ;;        "Homepage"
-  ;;        "Browse homepage"
-  ;;        (lambda (&rest _) (browse-url "homepage")))
-  ;;       ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
-  ;;       ("?" "" "?/h" #'show-help nil "<" ">"))
-  ;;        ;; line 2
-  ;;       ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
-  ;;         "Linkedin"
-  ;;         ""
-  ;;         (lambda (&rest _) (browse-url "homepage")))
-  ;;        ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
-
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)
 
@@ -251,20 +191,6 @@
 
   (dashboard-setup-startup-hook))
 
-
-;;  dashboard-project-status is broken with recent dashboard's
-;;; https://github.com/functionreturnfunction/dashboard-project-status/issues/2
-;; (use-package dashboard
-;;   :config
-;;   (use-package dashboard-project-status
-;;    :config
-;;     (add-to-list 'dashboard-item-generators
-;;                  `(project-status . ,(dashboard-project-status  (expand-file-name "~/.dotfiles"))))
-;;     (add-to-list 'dashboard-items '(project-status) t)
-;;     (setq dashboard-items '((project-status . 10)
-;;                             (recents        . 5)
-;;                             (projects       . 5))))
-;;   (dashboard-setup-startup-hook))
 
 ;;; https://github.com/Fuco1/dired-hacks
 (use-package dired-filter)
@@ -349,16 +275,6 @@
 (use-package flycheck-pos-tip
   :init
   (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
-
-;; pip3 install --user yamllint
-
-;; ;; https://github.com/krzysztof-magosa/flycheck-yamllint
-;; BUILT-IN to flycheck
-;; (use-package flycheck-yamllint
-;;   :init
-;;   (progn
-;;     (eval-after-load 'flycheck
-;;       '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 
 ;; ;;; https://github.com/cadadr/elisp
 ;; (use-package forecast
@@ -532,23 +448,22 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package counsel-tramp
   :bind
   (("C-c s" . counsel-tramp))
+  :init
+  ;; to speed up tramp
+  (add-hook 'counsel-tramp-pre-command-hook '(lambda ()
+                                               ;;				     (projectile-mode 0)
+				                               (editorconfig-mode 0)))
+  (add-hook 'counsel-tramp-quit-hook '(lambda ()
+                                        ;;			      (projectile-mode 1)
+			                            (editorconfig-mode 1)))
+  ;; ;; If the shell of the server is zsh it is recommended to connect with bash.
+  ;; (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
   :config
   (setq counsel-tramp-custom-connections
         '(;; /ssh:rpih1|sudo:root@rpih1:/etc/shairport-sync.conf
           ;; /ssh:rpih1|sudo:root@rpih1:/etc/mosquitto/credentials/aclfile
           /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
           )))
-
-;; ;; If you want to speed up tramp
-(add-hook 'counsel-tramp-pre-command-hook '(lambda ()
-;;				     (projectile-mode 0)
-				     (editorconfig-mode 0)))
-(add-hook 'counsel-tramp-quit-hook '(lambda ()
-;;			      (projectile-mode 1)
-			      (editorconfig-mode 1)))
-
-;; ;; If the shell of the server is zsh it is recommended to connect with bash.
-;; (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
 ;;; https://github.com/mnewt/counsel-web
 (use-package counsel-web
@@ -572,20 +487,11 @@ This function is intended for use with `ivy-ignore-buffers'."
         ;; use system browser
         counsel-web-search-action          #'browse-url))
 
-;; ;;; https://github.com/ericdanan/counsel-projectile
-;; (use-package counsel-projectile
-;;   :bind
-;;   ;; (("C-x C-a" . counsel-projectile))
-;;   ;; ("C-x c p" . counsel-projectile-ag) ;; default binding is 'C-c p s s'
-;;   :config
-;;   (counsel-projectile-mode +1))
-
-
 ;;;________________________________________________________________________
 ;; end of counsel / ivy stuff
 
-;; commenting out due to bug with severe effects
-;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
+;;; https://github.com/paradoxxxzero/jinja2-mode/
+;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
 (use-package jinja2-mode)
 
 ;;;________________________________________________________________________
@@ -606,6 +512,10 @@ This function is intended for use with `ivy-ignore-buffers'."
   :commands company-lsp
   :config
   (push 'company-lsp company-backends))
+
+;;; https://github.com/redguardtoo/find-file-in-project
+;; in lieu of projectile, for example: #'ffip-get-project-root-directory
+(use-package find-file-in-project)
 
 ;;; http://immerrr.github.io/lua-mode/
 (use-package lua-mode
@@ -645,13 +555,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; list of Flycheck errors for the added/modified lines only.
 (use-package magit-diff-flycheck)
 
-;; ;;; https://github.com/alphapapa/magit-todos
-;; ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
-;; ;;; brew reinstall --with-pcre2 git
-;; ;; in magit-status buffer "jT" to jump to TODOs
-;; (use-package magit-todos
-;;   :init
-;;   (magit-todos-mode +1))
+;;; https://github.com/alphapapa/magit-todos
+;; displays keyword entries from source code comments and Org files in the Magit status buffer.
+;; - in magit-status buffer "jT" to jump to TODOs
+(use-package magit-todos
+  :init
+  (magit-todos-mode +1))
 
 ;;; https://github.com/jrblevin/markdown-mode
 ;; C-c C-c p - markdown-preview - open preview in browser
@@ -674,26 +583,38 @@ This function is intended for use with `ivy-ignore-buffers'."
 
   ;;; https://github.com/markedjs/marked
   ;; npm install -g marked  # for marked command
+  ;; /usr/local/bin/marked or nvm path
   ;; options emulate Github Flavored Markdown (GFM)
-  (setq markdown-command "marked --gfm --breaks --tables")  ; /usr/local/bin/marked
+  (setq markdown-command "marked --gfm --breaks --tables")
   (setq markdown-gfm-use-electric-backquote nil)
   ;; FIXME: broken under platforms other than macOS
   (setq markdown-open-command "~/bin/macos/marked2"))
 
 ;;; https://github.com/ancane/markdown-preview-mode
-;; uses markdown-command from markdown-mode
-;; dependency:
+  ;; uses markdown-command from markdown-mode
+;; dependencies:
+;; - markdown-mode
 ;; - https://github.com/eschulte/emacs-web-server
 ;; - https://github.com/ahyatt/emacs-websocket
 ;; markdown-preview-mode :  start mode and open preview window.
 (use-package markdown-preview-mode
+  ;; Make a keybinding: `C-c C-c l'
+  ;; - overrides markdown-live-preview-mode default binding
+  :bind (:map markdown-mode-command-map
+              ("l" . markdown-preview-mode))
   :config
   ;;; Use GFM-like CSS - https://github.com/sindresorhus/github-markdown-css
   (setq markdown-preview-stylesheets (list "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"))
-  ;; (add-to-list 'markdown-preview-stylesheets "https://raw.githubusercontent.com/richleland/pygments-css/master/emacs.css")
-
-  ;; (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
+  ;; Add extra css to default solarized dark theme
+  (add-to-list 'markdown-preview-stylesheets "https://raw.githubusercontent.com/richleland/pygments-css/master/emacs.css")
+  ;; Add MathJax
+  (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
   )
+
+;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server
+;; Otherwise aliases to web-server package (emacs-web-server)
+(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
+
 
 ;;; https://github.com/seagle0128/grip-mode
 ;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
@@ -717,10 +638,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   :bind (:map markdown-mode-command-map
               ("g" . grip-mode)))
 
-;; explicitly rename local repo name for https://github.com/skeeto/emacs-web-server
-;; Otherwise aliases to web-server package (emacs-web-server)
-(straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
-
 
 ;;; https://github.com/ardumont/markdown-toc
 ;; Compute the TOC and insert it at current position: M-x markdown-toc-generate-or-refresh-toc
@@ -739,9 +656,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package markdownfmt
   :init
   (setq markdownfmt-bin "mdfmt")
-  :config
-  ;; uncomment to autoformat ;; (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save)
-  (define-key markdown-mode-map (kbd "C-c C-c f") #'markdownfmt-format-buffer))
+  ;; make a binding "C-c C-c f"
+  :bind (:map markdown-mode-command-map
+              ("f" . markdownfmt-format-buffer))
+  ;; :config
+  ;; ;; uncomment to autoformat ;; (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save)
+  )
+  ;; (define-key markdown-mode-map (kbd "C-c C-c f") #'markdownfmt-format-buffer))
 
 (use-package multiple-cursors
   :bind
@@ -757,121 +678,20 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; https://github.com/domtronn/all-the-icons.el
 ;; M-x all-the-icons-install-fonts ; puts them in global area
-;; neotree uses
 ;; dashboard uses
 (use-package all-the-icons)
 
-;; ;; sidebar and dired in one
-;; (use-package neotree
-;;   :bind
-;;   (("<f8>" . neotree-toggle))
-;;   :config
-;;   ;; needs package all-the-icons
-;;   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
-;;   ;; Disable line-numbers minor mode for neotree
-;;   (add-hook 'neo-after-create-hook
-;;             (lambda (&rest _) (display-line-numbers-mode -1)))
-
-;;   ;; Every time when the neotree window is opened, let it find current
-;;   ;; file and jump to node.
-;;   (setq neo-smart-open t)
-
-;;   (setq ;; neo-mode-line-type 'none
-;;         neo-autorefresh nil
-;;         neo-window-width 25
-;;         neo-banner-message nil
-;;         ;; neo-show-hidden-files nil
-;;         ;; neo-keymap-style 'concise
-;;         neo-hidden-regexp-list
-
-;;         '(;; hidden directories? does not work since does not include '/'
-;;           ;; "^\\..*/$"
-;;           ;; vcs folders
-;;           "^\\.\\(git\\|hg\\|svn\\)$"
-;;           ;; compiled files
-;;           "\\.\\(pyc\\|o\\|elc\\|lock\\|css.map\\)$"
-;;           ;; generated files, caches or local pkgs
-;;           "^\\(node_modules\\|vendor\\|.\\(project\\|cask\\|yardoc\\|sass-cache\\)\\)$"
-;;           ;; org-mode folders
-;;           "^\\.\\(sync\\|export\\|attach\\)$"
-;;           "~$"
-;;           "^#.*#$"))
-
-;;   ;; ;; track ‘projectile-switch-project’ (C-c p p),
-;;   ;; (setq projectile-switch-project-action 'neotree-projectile-action)
-;;   )
-
-;; ;; NeoTree can be opened (toggled) at projectile project root
-;; (defun idc/neotree-project-dir ()
-;;     "Open NeoTree using the git root."
-;;     (interactive)
-;;     (let ((project-dir (projectile-project-root))
-;;           (file-name (buffer-file-name)))
-;;       (neotree-toggle)
-;;       (if project-dir
-;;           (if (neo-global--window-exists-p)
-;;               (progn
-;;                 (neotree-dir project-dir)
-;;                 (neotree-find file-name)))
-;;         (message "Could not find git project root."))))
-
-;; ;; need another one for python stuff, since this gets re-bound
-;; (global-set-key (kbd "C-c C-p") 'idc/neotree-project-dir)
-
-;; (defun idc/neotree-collapse ()
-;;   "Collapse a neotree node."
-;;   (interactive)
-;;   (let ((node (neo-buffer--get-filename-current-line)))
-;;     (when node
-;;       (when (file-directory-p node)
-;;         (neo-buffer--set-expand node nil)
-;;         (neo-buffer--refresh t))
-;;       (when neo-auto-indent-point
-;;         (neo-point-auto-indent)))))
-
-;; (defun idc/neotree-collapse-or-up ()
-;;   "Collapse an expanded directory node or go to the parent node."
-;;   (interactive)
-;;   (let ((node (neo-buffer--get-filename-current-line)))
-;;     (when node
-;;       (if (file-directory-p node)
-;;           (if (neo-buffer--expanded-node-p node)
-;;               (idc/neotree-collapse)
-;;             (neotree-select-up-node))
-;;         (neotree-select-up-node)))))
-
-;; straight.el relies on internal kludge to build org-mode
-;; https://github.com/raxod502/straight.el#integration-with-org
-;; (use-package org
-;;   ;; :straight org-plus-contrib
-;;   ;; :mode (("\\.org$" . org-mode))
-;;   :bind
-;;   (("C-c l" . org-store-link)
-;;    ("C-c a" . org-agenda)
-;;    ("C-c c" . org-capture))
-;;   :config
-;;   ;; (setq org-directory "~/.org-files"
-;;   ;;       org-default-notes-file (concat org-directory "/todo.org"))
-;;   (progn
-;;    (org-babel-do-load-languages
-;;     'org-babel-load-languages
-;;     '((python . t)
-;;       (ruby . t)
-;;       (shell . t)
-;;       (sql . t)
-;;       )))
-;;    ;; (setq org-export-with-sub-superscripts (quote {}))
-;;    ;; (setq (org-src-fontify-natively t)
-;;    )
-
-
-;;; https://github.com/raxod502/straight.el/issues/352#issuecomment-460069774
+;; org-plus-contrib (org-mode Plus)
+;;; https://orgmode.org/worg/org-contrib/
+;; :includes now in straight.el
+;; https://github.com/raxod502/straight.el/issues/352#issuecomment-460069774
+;; https://github.com/raxod502/straight.el/issues/352#issuecomment-772045575
 ;; (straight-use-package '(org-plus-contrib :includes (org)))
 (use-package org-plus-contrib
   :straight (org-plus-contrib
-             :repo "https://code.orgmode.org/bzg/org-mode.git"
-             :local-repo "org"
+             ;; :repo "https://code.orgmode.org/bzg/org-mode.git"
+             ;; :local-repo "org"
              :includes (org))
   :bind
   (("C-c l" . org-store-link)
@@ -888,28 +708,19 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; - org-shoplist, org-rtm
 ;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
 
-;; org-plus-contrib
-
-;; ;; see https://github.com/IvanMalison/org-projectile#use-package
-;; (use-package org-projectile
-;;   :bind (("C-c n p" . org-projectile-project-todo-completing-read))
-;;   :config
-;;   (progn
-;;     (org-projectile-per-project)
-;;     (setq org-projectile-per-project-filepath "TODO.org")
-;;     (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))))
 
 ;;; https://github.com/larstvei/ox-gfm
-(use-package ox-gfm)
-
+(use-package ox-gfm
+  :after org
+  )
 ;; (eval-after-load "org"
 ;;   '(require 'ox-gfm nil t))
 
-;;; https://github.com/yjwen/org-reveal
+;; ;;; https://github.com/yjwen/org-reveal
 ;; (use-package ox-reveal)
 
-;; https://github.com/abo-abo/org-download
-;; Drag and drop images to Emacs org-mode
+;; ;;; https://github.com/abo-abo/org-download
+;; ;; Drag and drop images to Emacs org-mode
 ;; (use-package org-download
 ;;   :init
 ;;   (add-hook 'dired-mode-hook 'org-download-enable))
@@ -920,15 +731,14 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-bullets-mode))
 
-;;; https://github.com/snosov1/toc-org
-;;  add table of contents to org-mode files (formerly, org-toc)
+;; ;;; https://github.com/snosov1/toc-org
+;; ;; add table of contents to org-mode files (formerly, org-toc)
 ;; (use-package toc-org
 ;;   :config
 ;;   (add-hook 'org-mode-hook 'toc-org-enable))
 
 ;;; https://github.com/alf/ob-restclient.el
 (use-package ob-restclient)
-
 
 ;;; https://www.killring.org/effective-restclient-in-emacs
 (use-package outline-magic
@@ -940,28 +750,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/purcell/page-break-lines
 (use-package page-break-lines)
-
-;; ________________________________________________________________________
-;; projectile-related configs
-
-;; ;; https://github.com/bbatsov/projectile
-;; (use-package projectile
-;;   :delight '(:eval (concat " " (projectile-project-name)))
-;;   :config
-;;   ;; requires explicit mapping since projectile v1.1
-;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-;;   ;; (setq projectile-known-projects-file
-;;   ;;       (expand-file-name "projectile-bookmarks.eld" temp-dir))
-;;   (setq projectile-completion-system 'ivy)
-;;   ;; ignore Archive dirs (similar to .git, .svn, etc.)
-;;   (add-to-list 'projectile-globally-ignored-directories "*Archive")
-;;   (add-to-list 'projectile-globally-ignored-directories "*repos")
-;;   (projectile-mode))
-
-;; (use-package pcre2el
-;;   :config
-;;   (rxt-global-mode))
 
 ;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
 (use-package scad-mode)
@@ -991,9 +779,9 @@ This function is intended for use with `ivy-ignore-buffers'."
   (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
   )
 
-;;; https://github.com/Fuco1/smartparens
-;; https://ebzzry.io/en/emacs-pairs/
-;; https://github.com/Fuco1/smartparens/wiki
+;; ;;; https://github.com/Fuco1/smartparens
+;; ;; https://ebzzry.io/en/emacs-pairs/
+;; ;; https://github.com/Fuco1/smartparens/wiki
 ;; (use-package smartparens
 ;;   :init
 ;;   (require 'smartparens-config)
@@ -1012,137 +800,53 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 (use-package ssh-config-mode)
 
-;; ;; https://github.com/cjohansson/emacs-ssh-deploy
+;; ;;; https://github.com/cjohansson/emacs-ssh-deploy
 ;; (use-package ssh-deploy)
 
 (use-package smooth-scrolling)
-
-;; ;; https://github.com/aaronbieber/sunshine.el
-;; ;; requires login for OpenWeatherMap http://api.openweathermap.org/
-;; (use-package sunshine
-;;   :config
-;;   (setq sunshine-location "80538,USA"))
 
 ;; https://github.com/holomorph/systemd-mode
 (use-package systemd
   :hook (systemd-mode . company-mode))
 
-;;; https://github.com/saf-dmitry/taskpaper-mode
-;; taskpaper-mode - Major mode for working with TaskPaper files
-(use-package taskpaper-mode
-  ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
-  )
+;; ;;; https://github.com/saf-dmitry/taskpaper-mode
+;; ;; taskpaper-mode - Major mode for working with TaskPaper files
+;; (use-package taskpaper-mode
+;;   ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
+;;   )
 
-;;; https://github.com/davidshepherd7/terminal-here
-(use-package terminal-here
-  :config
-  (cond
-   ((eq system-type 'darwin)
-    ;; this works on macOS local for iTerm
-    (setq terminal-here-terminal-command (list "open" "-a" "iTerm.app" "."))
-    ;; ;; this works on tramp session to a ubuntu remote
-    ;; (setq terminal-here-terminal-command (list "/Users/dpc/bin/macos/emacs_term_here_iterm_ssh.py"))
-    ))
-  :bind
-  (("C-<f5>" .  #'terminal-here-launch)
-   ;; ("C-<f6>" .  #'terminal-here-project-launch)
-   )
-  )
+;; ;;; https://github.com/davidshepherd7/terminal-here
+;; (use-package terminal-here
+;;   :config
+;;   (cond
+;;    ((eq system-type 'darwin)
+;;     ;; this works on macOS local for iTerm
+;;     (setq terminal-here-terminal-command (list "open" "-a" "iTerm.app" "."))
+;;     ;; ;; this works on tramp session to a ubuntu remote
+;;     ;; (setq terminal-here-terminal-command (list "/Users/dpc/bin/macos/emacs_term_here_iterm_ssh.py"))
+;;     ))
+;;   :bind
+;;   (("C-<f5>" .  #'terminal-here-launch)
+;;    ;; ("C-<f6>" .  #'terminal-here-project-launch)
+;;    )
+;;   )
 
 ;; https://github.com/koekeishiya/khd/issues/73#issuecomment-298112103
 ;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile'
 ;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile command "vim"'
 
-;;; https://github.com/randymorris/tramp-term.el
+;;; https://github.com/randymorris/tramp-term.el -
 ;; Automatic setup of directory tracking in ssh sessions.
-;; FIXME : Doesn't seem to work with my fancy BASH prompt
-;; (use-package tramp-term)
+;;     M-x tramp-term
+;; (select ssh host to login to, then in emacs -> from shell there)
+;;     C-x C-f
+(use-package tramp-term)
 
 ;; .toml https://github.com/dryman/toml-mode.el
 (use-package toml-mode)
 
-;;; Prefer neotree over treemacs, so comment out treemacs
-;; https://github.com/Alexander-Miller/treemacs
-;; TODO: take another look at treemacs
-;; (use-package treemacs
-;;   :init
-;;   (with-eval-after-load 'winum
-;;     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-;;   :config
-;;    (progn
-;;     (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-;;           treemacs-file-event-delay           5000
-;;           treemacs-follow-after-init          t
-;;           treemacs-follow-recenter-distance   0.1
-;;           treemacs-goto-tag-strategy          'refetch-index
-;;           treemacs-indentation                2
-;;           treemacs-indentation-string         " "
-;;           treemacs-is-never-other-window      nil
-;;           treemacs-no-png-images              nil
-;;           treemacs-project-follow-cleanup     nil
-;;           treemacs-persist-file               (expand-file-name "treemacs-persist" temp-dir)
-;;           treemacs-recenter-after-file-follow nil
-;;           treemacs-recenter-after-tag-follow  nil
-;;           treemacs-show-hidden-files          t
-;;           treemacs-silent-filewatch           nil
-;;           treemacs-silent-refresh             nil
-;;           treemacs-sorting                    'alphabetic-desc
-;;           treemacs-space-between-root-nodes   t
-;;           treemacs-tag-follow-cleanup         t
-;;           treemacs-tag-follow-delay           1.5
-;;           treemacs-width                      35)
-
-;;     (treemacs-follow-mode t)
-;;     (treemacs-filewatch-mode t)
-;;     (pcase (cons (not (null (executable-find "git")))
-;;                  (not (null (executable-find "python3"))))
-;;       (`(t . t)
-;;        (treemacs-git-mode 'extended))
-;;       (`(t . _)
-;;        (treemacs-git-mode 'simple))))
-;;   :bind
-;;   (:map global-map
-;;         ("M-0"       . treemacs-select-window)
-;;         ("C-x t 1"   . treemacs-delete-other-windows)
-;;         ("C-x t t"   . treemacs)
-;;         ("C-x t B"   . treemacs-bookmark)
-;;         ;;("C-x t C"   . treemacs-show-changelog)
-;;         ("C-x t C-t" . treemacs-find-file)
-;;         ("C-x t M-t" . treemacs-find-tag)))
-
-;; (use-package treemacs-projectile
-;;   :after treemacs projectile)
-
-;; ;; https://github.com/lujun9972/verify-url
+;; ;;; https://github.com/lujun9972/verify-url
 ;; (use-package verify-url)
-
-;;; https://github.com/blak3mill3r/vmd-mode
-;;npm install -g vmd
-;; ubuntu: sudo apt-get install -y libgconf-2-4
-;; ;;; Issue with previewing files edited over TRAMP session
-;; ;; https://github.com/blak3mill3r/vmd-mode/issues/16
-;; (use-package vmd-mode
-;;   :config
-;;   (setq vmd-mode--emojis-file  (expand-file-name "github-emojis" temp-dir))
-;;   ;;(add-hook 'markdown-mode-hook 'vmd-mode)
-;;   ;; run this if needed (vmd-mode--update-emojis-file)
-;;   )
-
-;; (eval-after-load "company"
-;;   '(defun vmd-company-backend (command &optional arg &rest ignored)
-;;   (interactive (list 'interactive))
-
-;;   (cl-case command
-;;     (interactive (company-begin-backend 'company-sample-backend))
-;;     (prefix (and (eq major-mode 'fundamental-mode)
-;;                  (company-grab-symbol)))
-;;     (candidates
-;;      (cl-remove-if-not
-;;       (lambda (c) (string-prefix-p arg c))
-;;       vmd-mode-github-emojis-list)))))
-
-;; (add-to-list 'company-backends 'vmd-company-backend)
-
 
 ;; (use-package undo-tree
 ;;   :config
@@ -1170,21 +874,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   :diminish which-key-mode
   :config
   (which-key-mode))
-
-;;; commenting out as I do not really utilize
-;; (use-package windmove
-;;   :bind
-;;   ("C-x <up>" . windmove-up)
-;;   ("C-x <down>" . windmove-down)
-;;   ("C-x <left>" . windmove-left)
-;;   ("C-x <right>" . windmove-right))
-
-;;; https://orgmode.org/manual/Conflicts.html#Conflicts
-;; ;; Make windmove work in Org mode:
-;; (add-hook 'org-shiftup-final-hook 'windmove-up)
-;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
-;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
-;; (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;;; https://github.com/deb0ch/emacs-winum
 ;; Key binding	Description
