@@ -61,7 +61,11 @@
 ;;        : sudo apt install fonts-inconsolata
 ;;        : sudo apt install fonts-dejavu
 ;;        : sudo apt install fonts-cascadia-code
+;;      Emoji
 ;;        : sudo apt install fonts-symbola
+;;        : sudo apt install ttf-ancient-fonts
+
+
 
 ;; my various font family variables
 (defvar  dpc-font-default)
@@ -174,13 +178,19 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
                 (unless (server-running-p)
                   (server-start)))))
 
+;;; [dunn/company-emoji: company-mode backend for emoji](https://github.com/dunn/company-emoji#emoji-font-support)
 (defun --set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."
   (if (eq system-type 'darwin)
       ;; For NS/Cocoa
-      (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend)
+      ;;; https://www.reddit.com/r/emacs/comments/8ph0hq/i_have_converted_from_the_mac_port_to_the_ns_port/
+      (if (version< "27.0" emacs-version)
+          ;; not tested with emacs26 (requires a patched Emacs version for multi-color font support)
+          (set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
+        (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
     ;; For Linux
     (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+
 
 (cond
  ;; Windows-specific code goes here.
@@ -217,13 +227,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (setq dnd-open-file-other-window t)
 
   ;;; Useful for https://github.com/dunn/company-emoji
-  ;; https://www.reddit.com/r/emacs/comments/8ph0hq/i_have_converted_from_the_mac_port_to_the_ns_port/
-  ;; not tested with emacs26 (requires a patched Emacs version for multi-color font support)
-  (if (version< "27.0" emacs-version)
-      (set-fontset-font
-       "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
-    (set-fontset-font
-     t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
+  (--set-emoji-font nil)
+  (add-hook 'after-make-frame-functions '--set-emoji-font)
 
   ;; TODO: introduce a boolean switch for setting among macOS native or windows keyboards and bindings below
 
@@ -287,10 +292,11 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (setq x-alt-keysym 'meta)
   (setq select-enable-clipboard t)
 
-  ;;; https://github.com/dunn/company-emoji
-  ;; sudo apt install fonts-symbola
-  ;; sudo apt-get install ttf-ancient-fonts
+  ;;; via https://github.com/dunn/company-emoji
+  ;; For when Emacs is started in GUI mode:
   (--set-emoji-font nil)
+  ;; Hook for when a frame is created with emacsclient
+  ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
   (add-hook 'after-make-frame-functions '--set-emoji-font)
 
   ;; Treat clipboard input as UTF-8 string first; compound text

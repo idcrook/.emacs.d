@@ -23,27 +23,28 @@
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
   (setq-default adaptive-wrap-extra-indent 2))
 
+;;; https://github.com/Wilfred/ag.el#readme
 (use-package ag
   :config
   (add-to-list 'ag-arguments "--hidden" t))
 
-(use-package ansible
-  :config
-  (setq ansible::vault-password-file (concat user-emacs-directory "vault_pass.txt"))
-  (add-hook 'ansible-hook 'ansible::auto-decrypt-encrypt))
+;; (use-package ansible
+;;   :config
+;;   (setq ansible::vault-password-file (concat user-emacs-directory "vault_pass.txt"))
+;;   (add-hook 'ansible-hook 'ansible::auto-decrypt-encrypt))
 
-(use-package ansible-doc)
+;; (use-package ansible-doc)
 
-;; https://github.com/zellio/ansible-vault-mode#automatic-enabling-based-on-file-contents
-(defun ansible-vault-mode-maybe ()
-  "Turn on `ansible-vault-mode' if the current buffer is an encrypted `ansible-vault' file."
-  (when (ansible-vault--is-vault-file)
-    (ansible-vault-mode 1)))
+;; ;; https://github.com/zellio/ansible-vault-mode#automatic-enabling-based-on-file-contents
+;; (defun ansible-vault-mode-maybe ()
+;;   "Turn on `ansible-vault-mode' if the current buffer is an encrypted `ansible-vault' file."
+;;   (when (ansible-vault--is-vault-file)
+;;     (ansible-vault-mode 1)))
 
-(use-package ansible-vault
-  :init (add-hook 'yaml-mode-hook 'ansible-vault-mode-maybe)
-  :config
-  (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" private-dir)))
+;; (use-package ansible-vault
+;;   :init (add-hook 'yaml-mode-hook 'ansible-vault-mode-maybe)
+;;   :config
+;;   (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" private-dir)))
 
 (use-package avy
   :bind (("C-c SPC" . avy-goto-char)
@@ -105,7 +106,7 @@
 ;;   :config
 ;;   (add-hook 'image-mode-hook 'blimp-mode))
 
-;;; https://github.com/rmuslimov/browse-at-remote/tree/master
+;;; https://github.com/rmuslimov/browse-at-remote
 ;; (browse-at-remote) should open up GitHub, etc. at file in dired, etc
 (use-package browse-at-remote
   :bind
@@ -134,17 +135,18 @@
   (setq company-idle-delay 0.2)
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
-  ;; (add-to-list 'company-backends 'company-ansible)
-  ;; (add-to-list 'company-backends 'company-emoji)
-  (add-to-list 'company-backends 'company-restclient)
   ;; move to lang-shell ;; (add-to-list 'company-backends '(company-shell company-shell-env))
   (add-hook 'after-init-hook 'global-company-mode))
 
 ;; ;;; https://github.com/krzysztof-magosa/company-ansible
-;; (use-package company-ansible)
+;; (use-package company-ansible
+;;   :init
+;;   (add-to-list 'company-backends 'company-ansible))
 
-;; ;;; https://github.com/dunn/company-emoji
-;; (use-package company-emoji)
+;;; https://github.com/dunn/company-emoji
+(use-package company-emoji
+  :init
+  (add-to-list 'company-backends 'company-emoji))
 
 ;;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
@@ -155,7 +157,9 @@
   (setq prescient-save-file (expand-file-name "prescient-save.el" temp-dir)))
 
 ;;; https://github.com/iquiw/company-restclient
-(use-package company-restclient)
+(use-package company-restclient
+  :init
+  (add-to-list 'company-backends 'company-restclient))
 
 ;;; https://github.com/sshaw/copy-as-format
 (use-package copy-as-format)
@@ -381,9 +385,11 @@
   :bind
   (("C-x C-g" . git-gutter)))
 
-(use-package gitignore-mode)
+;;; https://github.com/magit/git-modes#gitconfig-mode
+(use-package gitconfig-mode)
 
-(use-package graphql-mode)
+;;; https://github.com/magit/git-modes#gitignore-mode
+(use-package gitignore-mode)
 
 ;; ;; https://www.reddit.com/r/emacs/comments/8vdhb4/tip_how_to_integrate_snippets_with_yasnippets/
 ;; (use-package hydra
@@ -488,18 +494,19 @@ This function is intended for use with `ivy-ignore-buffers'."
    ("C-x c k" . counsel-yank-pop)         ;; M-y
    ("<f1> f" . counsel-describe-function) ;; C-h f
    ("<f1> v" . counsel-describe-variable) ;; C-h v
+   ("<f1> o" . counsel-describe-symbol)   ;; C-h o
    ("<f1> l" . counsel-find-library)
    ("<f2> i" . counsel-info-lookup-symbol)
    ("<f2> u" . counsel-unicode-char)
    ("C-c g" . counsel-git)
    ("C-c j" . counsel-git-grep)
-   ("C-c k" . counsel-ag)
-   ("<f2> u" . counsel-unicode-char))
+   ("C-c k" . counsel-ag))
   :config
   (counsel-mode))
 
 ;;; https://github.com/200ok-ch/counsel-jq
 (use-package counsel-jq)
+;; FIXME: add binding for counsel-jq in json buffers
 
 ;; ;;; https://github.com/masasam/emacs-counsel-tramp
 ;; (use-package counsel-tramp
@@ -648,7 +655,7 @@ This function is intended for use with `ivy-ignore-buffers'."
          ("\\.markdown\\'" . markdown-mode))
   :config
   ;; for generated html, try to emulate Github README.md previews
-  (setq markdown-css-paths '("https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"))
+  (setq markdown-css-paths '("https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"))
   (setq markdown-xhtml-body-preamble "<article id=\"markdown-body\" class=\"markdown-body\"><p>")
   (setq markdown-xhtml-body-epilogue "</p></article>")
 
@@ -1183,9 +1190,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
-  :config
-  (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
-  (add-hook 'yaml-mode-hook #'ansible-doc-mode)
+  ;; :config
+  ;; (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
+  ;; (add-hook 'yaml-mode-hook #'ansible-doc-mode)
   )
 
 ;;; https://github.com/joaotavora/yasnippet
@@ -1211,7 +1218,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package yasnippet-snippets)
 
 ;;; https://github.com/sei40kr/gitignore-snippets
-(use-package gitignore-snippets)
+(use-package gitignore-snippets
+  :after yasnippet
+  :config
+  (gitignore-snippets-init))
 
 
 (provide 'base-extensions)
