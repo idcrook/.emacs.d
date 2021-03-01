@@ -23,6 +23,7 @@
 
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
+  :defer 2
   :bind (:map js2-mode-map
               (("C-x C-e" . js-send-last-sexp)
                ("C-M-x" . js-send-last-sexp-and-go)
@@ -83,6 +84,7 @@
 ;; js2-refactor :- refactoring options for emacs
 ;; https://github.com/magnars/js2-refactor.el
 (use-package js2-refactor
+  :defer 2
   :diminish js2-refactor-mode
   :config
   (add-hook 'js2-mode-hook 'js2-refactor-mode)

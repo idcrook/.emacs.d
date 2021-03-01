@@ -116,6 +116,7 @@
 
 ;; configure CSS mode company backends
 (use-package css-mode
+  :defer 2
   :config
   (defun my-css-mode-hook ()
     (set (make-local-variable 'company-backends)

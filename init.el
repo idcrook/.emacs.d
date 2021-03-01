@@ -39,8 +39,10 @@
 ;;     M-x straight-pull-package   melpa
 ;;     M-x straight-use-package    PACKAGE-NAME
 
-;; for faster emacs start-up; gets re-set later
-(setq gc-cons-threshold (* 50 1000 1000))
+;; Make startup faster by reducing the frequency of garbage
+;; collection.  The default is 800 kilobytes.  Measured in bytes.
+;; for faster emacs start-up; gets lowered later (see base-finally.el)
+(setq gc-cons-threshold (* 512 1024 1024))
 
 ;; set load path
 (add-to-list 'load-path (concat user-emacs-directory "lisp"))

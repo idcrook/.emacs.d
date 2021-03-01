@@ -9,6 +9,9 @@
 ;; https://elpa.gnu.org/packages/delight.html
 (use-package delight)
 
+;;; [jschaf/esup: ESUP - Emacs Start Up Profiler](https://github.com/jschaf/esup)
+(use-package esup)
+
 ;;; http://emacs.stackexchange.com/questions/7432/make-visual-line-mode-more-compatible-with-org-mode
 (use-package adaptive-wrap
   :init
@@ -135,7 +138,7 @@
 ;;; https://github.com/rakanalh/emacs-dashboard
 ;;  - needs package all-the-icons (and icons installed)
 (use-package dashboard
-  :after all-the-icons
+  :after (all-the-icons)
   :config
   (setq dashboard-items '((recents       . 5)
   ;;                        (bookmarks . 5)
@@ -550,16 +553,17 @@ This function is intended for use with `ivy-ignore-buffers'."
 (eval-after-load "magit"
   '(define-key magit-status-mode-map (kbd "Q") #'idc-magit-kill-buffers))
 
-;;; https://github.com/ragone/magit-diff-flycheck
-;; Run M-x magit-diff-flycheck in a magit-diff buffer to display a filtered
-;; list of Flycheck errors for the added/modified lines only.
-(use-package magit-diff-flycheck)
+;; ;;; https://github.com/ragone/magit-diff-flycheck
+;; ;; Run M-x magit-diff-flycheck in a magit-diff buffer to display a filtered
+;; ;; list of Flycheck errors for the added/modified lines only.
+;; (use-package magit-diff-flycheck)
 
 ;;; https://github.com/alphapapa/magit-todos
 ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
 ;; can use: M-x magit-todos-list  or  M-x ivy-magic-todos
 (use-package magit-todos
-  :after magit
+  :defer 2
+  :after (magit)
   :config
   ;; ;; magit-todos: Not overriding bind of "jT" in ‘magit-status-mode-map’.
   ;; (magit-todos-mode +1)
@@ -725,10 +729,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
 
 
-;;; https://github.com/larstvei/ox-gfm
-(use-package ox-gfm
-  :after org
-  )
+;; ;;; https://github.com/larstvei/ox-gfm
+;; (use-package ox-gfm
+;;   :after (org))
 ;; (eval-after-load "org"
 ;;   '(require 'ox-gfm nil t))
 
@@ -910,6 +913,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
+  :defer 1
   :diminish yas-minor-mode
   :config
   (yas-global-mode 1))
@@ -928,11 +932,13 @@ This function is intended for use with `ivy-ignore-buffers'."
             (define-key yas/keymap [tab] 'yas/next-field)))
 
 ;;; https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :defer 2
+  )
 
 ;;; https://github.com/sei40kr/gitignore-snippets
 (use-package gitignore-snippets
-  :after yasnippet
+  :after (yasnippet)
   :config
   (gitignore-snippets-init))
 

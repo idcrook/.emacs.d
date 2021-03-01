@@ -57,9 +57,9 @@
 ;;; https://github.com/TheBB/spaceline
 ;; powerline mode-line
 (use-package spaceline
-  :init
-  (require 'spaceline-config)
+  :defer 2
   :config
+  (require 'spaceline-config)
   ;; segments
   (spaceline-spacemacs-theme)
   ;; (spaceline-emacs-theme)
