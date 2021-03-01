@@ -34,12 +34,9 @@
   :after go-mode
   :config
   (setq tab-width 4)
-
   :bind (:map go-mode-map
-  ; Godef jump key binding
-  ("M-." . godef-jump)))
-
-;; (use-package flymake-go)
+              ;; Godef jump key binding
+              ("M-." . godef-jump)))
 
 (use-package go-eldoc
   :defer 2
