@@ -12,7 +12,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-for subdir in csh-mode verilog-mode; do
+for subdir in csh-mode ; do
 
     echo Compiling "${subdir}"
     cd "$DIR"/"${subdir}" || (echo error; exit 1)
