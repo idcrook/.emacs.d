@@ -911,36 +911,36 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (add-hook 'yaml-mode-hook #'ansible-doc-mode)
   )
 
-;;; https://github.com/joaotavora/yasnippet
-(use-package yasnippet
-  :defer 1
-  :diminish yas-minor-mode
-  :config
-  (yas-global-mode 1))
+;; ;;; https://github.com/joaotavora/yasnippet
+;; (use-package yasnippet
+;;   :defer 2
+;;   :diminish yas-minor-mode
+;;   :config
+;;   (yas-global-mode 1))
 
-;; yasnippet org-mode conflict
-;;; https://orgmode.org/manual/Conflicts.html#Conflicts
+;; ;; yasnippet org-mode conflict
+;; ;;; https://orgmode.org/manual/Conflicts.html#Conflicts
 
-(defun yas/org-very-safe-expand ()
-  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+;; (defun yas/org-very-safe-expand ()
+;;   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (make-variable-buffer-local 'yas/trigger-key)
-            (setq yas/trigger-key [tab])
-            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-            (define-key yas/keymap [tab] 'yas/next-field)))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (make-variable-buffer-local 'yas/trigger-key)
+;;             (setq yas/trigger-key [tab])
+;;             (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+;;             (define-key yas/keymap [tab] 'yas/next-field)))
 
-;;; https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  :defer 2
-  )
+;; ;;; https://github.com/AndreaCrotti/yasnippet-snippets
+;; (use-package yasnippet-snippets
+;;   :defer 2
+;;   )
 
-;;; https://github.com/sei40kr/gitignore-snippets
-(use-package gitignore-snippets
-  :after (yasnippet)
-  :config
-  (gitignore-snippets-init))
+;; ;;; https://github.com/sei40kr/gitignore-snippets
+;; (use-package gitignore-snippets
+;;   :after (yasnippet)
+;;   :config
+;;   (gitignore-snippets-init))
 
 
 (provide 'base-extensions)
