@@ -168,6 +168,9 @@
 ;; https://github.com/ZachMassia/platformio-mode
 ;; (use-package platformio-mode)
 
+;; ;; https://github.com/josteink/csharp-mode
+;; (use-package csharp-mode)
+
 
 
 (provide 'lang-cpp)

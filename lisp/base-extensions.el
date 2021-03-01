@@ -135,7 +135,6 @@
   (setq company-idle-delay 0.2)
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
-  ;; move to lang-shell ;; (add-to-list 'company-backends '(company-shell company-shell-env))
   (add-hook 'after-init-hook 'global-company-mode))
 
 ;; ;;; https://github.com/krzysztof-magosa/company-ansible
@@ -166,23 +165,19 @@
 (global-set-key (kbd "C-c w s") 'copy-as-format-slack)
 (global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
-;; ;; https://github.com/josteink/csharp-mode
-;; (use-package csharp-mode)
-
-;; https://github.com/stanaka/dash-at-point
-(use-package dash-at-point
-  :commands (dash-at-point dash-at-point-with-docset)
-  :bind
-  (("C-c d" . dash-at-point)
-   ("C-c e" . dash-at-point-with-docset))
-  :config
-  (add-to-list 'dash-at-point-mode-alist '(web-mode . "html,svg,css,bootstrap,foundation,awesome,javascript,jquery,jqueryui,jquerym,angularjs,backbone,ember,extjs,react,vuejs"))
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda () (setq-local dash-at-point-docset '("Emacs Lisp")))))
+;; ;;; https://github.com/stanaka/dash-at-point
+;; (use-package dash-at-point
+;;   :commands (dash-at-point dash-at-point-with-docset)
+;;   :bind
+;;   (("C-c d" . dash-at-point)
+;;    ("C-c e" . dash-at-point-with-docset))
+;;   :config
+;;   (add-to-list 'dash-at-point-mode-alist '(web-mode . "html,svg,css,bootstrap,foundation,awesome,javascript,jquery,jqueryui,jquerym,angularjs,backbone,ember,extjs,react,vuejs"))
+;;   (add-hook 'emacs-lisp-mode-hook
+;;             (lambda () (setq-local dash-at-point-docset '("Emacs Lisp")))))
 
 ;;; https://github.com/rakanalh/emacs-dashboard
 ;;  - needs package all-the-icons (and icons installed)
-
 (use-package dashboard
   :after all-the-icons
   :config
@@ -296,7 +291,7 @@
   (setq-default ediff-highlight-all-diffs 'nil)
   (setq ediff-diff-options "-w"))
 
-;; https://github.com/editorconfig/editorconfig-emacs#readme
+;;; https://github.com/editorconfig/editorconfig-emacs#readme
 (use-package editorconfig
   :diminish editorconfig-mode "EC"
   :init
@@ -308,7 +303,7 @@
              (when (derived-mode-p 'makefile-mode)
                (puthash 'indent_style "tab" props))))
 
-;; https://github.com/10sr/editorconfig-custom-majormode-el
+;;; https://github.com/10sr/editorconfig-custom-majormode-el
 (with-eval-after-load 'editorconfig
   (use-package editorconfig-custom-majormode
     :init
@@ -350,31 +345,34 @@
   :init
   (global-flycheck-mode))
 
-;; (use-package flycheck-pos-tip-mode)
-;; (with-eval-after-load 'flycheck (flycheck-pos-tip-mode))
+;;; https://github.com/flycheck/flycheck-pos-tip#readme
+(use-package flycheck-pos-tip
+  :init
+  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
 
 ;; pip3 install --user yamllint
-;; https://github.com/krzysztof-magosa/flycheck-yamllint
-(use-package flycheck-yamllint
-  :init
-  (progn
-    (eval-after-load 'flycheck
-      '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 
-;;; https://github.com/cadadr/elisp
-(use-package forecast
-  :config
-  (let ((forecast-api-config-file (expand-file-name "forecast-api.config.el" private-dir)))
-    (when (file-exists-p forecast-api-config-file)
-      (load-file forecast-api-config-file)))
-  (let ((forecast-api-key-file (expand-file-name "forecast-api.key.el" private-dir)))
-    (when (file-exists-p forecast-api-key-file)
-      (load-file forecast-api-key-file)))
-  )
+;; ;; https://github.com/krzysztof-magosa/flycheck-yamllint
+;; BUILT-IN to flycheck
+;; (use-package flycheck-yamllint
+;;   :init
+;;   (progn
+;;     (eval-after-load 'flycheck
+;;       '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+
+;; ;;; https://github.com/cadadr/elisp
+;; (use-package forecast
+;;   :config
+;;   (let ((forecast-api-config-file (expand-file-name "forecast-api.config.el" private-dir)))
+;;     (when (file-exists-p forecast-api-config-file)
+;;       (load-file forecast-api-config-file)))
+;;   (let ((forecast-api-key-file (expand-file-name "forecast-api.key.el" private-dir)))
+;;     (when (file-exists-p forecast-api-key-file)
+;;       (load-file forecast-api-key-file)))
+;;   )
 
 ;;; https://github.com/defunkt/gist.el
-;; broken because of GNU TLS on macOS emacs
-;; (use-package gist)
+(use-package gist)
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
@@ -384,6 +382,16 @@
   ;; other custom : https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
   :bind
   (("C-x C-g" . git-gutter)))
+
+;; Emacs 26.1 added this (replaces linum-mode)
+(when (version<= "26.0.50" emacs-version )
+  (global-display-line-numbers-mode 1)
+  (setq display-line-numbers "%4d \u2502 ")
+  ;; ;;(setq display-line-numbers "%4d: ")
+  ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-395275471
+  ;; enable after global-display-line-numbers-mode
+  (eval-after-load 'git-gutter
+    (global-git-gutter-mode +1)))
 
 ;;; https://github.com/magit/git-modes#gitconfig-mode
 (use-package gitconfig-mode)
@@ -504,35 +512,46 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (counsel-mode))
 
+;;; [Use ivy interface to access your firefox bookmarks and history in Emacs](https://github.com/cireu/counsel-ffdata)
+(use-package counsel-ffdata
+  :bind
+  (("C-c F h" . counsel-ffdata-firefox-history)
+   ("C-c F b" . counsel-ffdata-firefox-bookmarks))
+  :config
+  (if (eq system-type 'darwin)
+      ;; TODO: dynamically find the places.sqlite?
+      ;; https://github.com/cireu/counsel-ffdata/issues/3
+      (setq counsel-ffdata-database-path "/Users/dpc/Library/Application Support/Firefox/Profiles/xea5xo20.default-release/places.sqlite"))
+  )
+
 ;;; https://github.com/200ok-ch/counsel-jq
 (use-package counsel-jq)
 ;; FIXME: add binding for counsel-jq in json buffers
 
-;; ;;; https://github.com/masasam/emacs-counsel-tramp
-;; (use-package counsel-tramp
-;;   :bind
-;;   ("C-c s" . counsel-tramp)
-;;   :config
-;;   (setq counsel-tramp-custom-connections
-;;         '(;; /ssh:rpih1|sudo:root@rpih1:/etc/shairport-sync.conf
-;;           ;; /ssh:rpih1|sudo:root@rpih1:/etc/mosquitto/credentials/aclfile
-;;           /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
-;;           )))
+;;; https://github.com/masasam/emacs-counsel-tramp
+(use-package counsel-tramp
+  :bind
+  (("C-c s" . counsel-tramp))
+  :config
+  (setq counsel-tramp-custom-connections
+        '(;; /ssh:rpih1|sudo:root@rpih1:/etc/shairport-sync.conf
+          ;; /ssh:rpih1|sudo:root@rpih1:/etc/mosquitto/credentials/aclfile
+          /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
+          )))
 
 ;; ;; If you want to speed up tramp
-;; (add-hook 'counsel-tramp-pre-command-hook '(lambda () ;; (global-aggressive-indent-mode 0)
-;; 				     (projectile-mode 0)
-;; 				     (editorconfig-mode 0)))
-;; (add-hook 'counsel-tramp-quit-hook '(lambda () ;; (global-aggressive-indent-mode 1)
-;; 			      (projectile-mode 1)
-;; 			      (editorconfig-mode 1)))
+(add-hook 'counsel-tramp-pre-command-hook '(lambda ()
+;;				     (projectile-mode 0)
+				     (editorconfig-mode 0)))
+(add-hook 'counsel-tramp-quit-hook '(lambda ()
+;;			      (projectile-mode 1)
+			      (editorconfig-mode 1)))
 
 ;; ;; If the shell of the server is zsh it is recommended to connect with bash.
 ;; (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
+;;; https://github.com/mnewt/counsel-web
 (use-package counsel-web
-;; not yet in MELPA ;;; https://github.com/mnewt/counsel-web
-  :straight (counsel-web :type git :host github :repo "mnewt/counsel-web")
   ;; :bind
   ;; (("C-c w" . counsel-web-suggest)
   ;;  ("C-c W" . counsel-web-search)
@@ -561,27 +580,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   :config
 ;;   (counsel-projectile-mode +1))
 
-;; https://github.com/nathankot/counsel-dash
-;; Browse Dash docsets using Ivy.  Requires helm-dash (use-package
-;; counsel-dash), so do not use as of now because of that dependency
 
 ;;;________________________________________________________________________
 ;; end of counsel / ivy stuff
 
 ;; commenting out due to bug with severe effects
 ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
-;; (use-package jinja2-mode)
-
-;; Emacs 26.1 added this (replaces linum-mode)
-(when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode 1)
-  (setq display-line-numbers "%4d \u2502 ")
-  ;; ;;(setq display-line-numbers "%4d: ")
-  ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-395275471
-  ;; enable after global-display-line-numbers-mode
-  (eval-after-load 'git-gutter
-    (global-git-gutter-mode +1)))
-
+(use-package jinja2-mode)
 
 ;;;________________________________________________________________________
 ;; Language Server Project (LSP) stuff
@@ -602,8 +607,11 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (push 'company-lsp company-backends))
 
-;; http://immerrr.github.io/lua-mode/
-;;; (use-package lua-mode)
+;;; http://immerrr.github.io/lua-mode/
+(use-package lua-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
 (use-package magit
   :config
@@ -637,13 +645,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; list of Flycheck errors for the added/modified lines only.
 (use-package magit-diff-flycheck)
 
-;; https://github.com/alphapapa/magit-todos
-;; displays keyword entries from source code comments and Org files in the Magit status buffer.
-;;; brew reinstall --with-pcre2 git
-;; in magit-status buffer "jT" to jump to TODOs
-(use-package magit-todos
-  :init
-  (magit-todos-mode +1))
+;; ;;; https://github.com/alphapapa/magit-todos
+;; ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
+;; ;;; brew reinstall --with-pcre2 git
+;; ;; in magit-status buffer "jT" to jump to TODOs
+;; (use-package magit-todos
+;;   :init
+;;   (magit-todos-mode +1))
 
 ;;; https://github.com/jrblevin/markdown-mode
 ;; C-c C-c p - markdown-preview - open preview in browser
@@ -681,7 +689,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package markdown-preview-mode
   :config
   ;;; Use GFM-like CSS - https://github.com/sindresorhus/github-markdown-css
-  (setq markdown-preview-stylesheets (list "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"))
+  (setq markdown-preview-stylesheets (list "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"))
   ;; (add-to-list 'markdown-preview-stylesheets "https://raw.githubusercontent.com/richleland/pygments-css/master/emacs.css")
 
   ;; (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
