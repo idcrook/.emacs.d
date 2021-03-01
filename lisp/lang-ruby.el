@@ -11,6 +11,7 @@
 ;; https://github.com/dgutov/robe
 ;; M-x robe-start
 (use-package robe
+  :defer 2
   :config
   (add-hook 'ruby-mode-hook 'robe-mode))
 

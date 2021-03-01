@@ -291,7 +291,8 @@
 ;;   )
 
 ;;; https://github.com/defunkt/gist.el
-(use-package gist)
+(use-package gist
+  :defer 2)
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
@@ -746,6 +747,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; https://github.com/emacsorphanage/org-bullets
 (use-package org-bullets
+  :defer 2
   :config
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-bullets-mode))
