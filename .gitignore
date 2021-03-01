@@ -1,11 +1,5 @@
 /straight/
 /elpa/
-/transient/
-/emojis/
-/image-dired/
-/url/
-ido.last
-tramp
 /irony/
 /server/
 /lisp/ssh-config-keywords.txt
@@ -16,4 +10,3 @@ tramp
 flycheck_*.elc
 custom.el
 /elpy
-/user_elisp/
