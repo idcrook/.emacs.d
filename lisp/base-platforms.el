@@ -5,7 +5,7 @@
 ;;; Code:
 
 
-;; Switch to https://github.com/idcrook/sysinfo
+;; use straight.el for https://github.com/idcrook/sysinfo
 (use-package sysinfo
   :straight (:type git :host github :repo "idcrook/sysinfo"))
 
@@ -119,8 +119,10 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 (set-face-attribute 'mode-line nil :family dpc-font-modeline :height 140 :weight 'regular)
 
 ;; adapt font sizes to display resolution - should probably consult
-;; (x-display-mm-width)  ;; macOS 2560px 706 mm
-;; (x-display-mm-height) ;; macOS 1600px 441 mm
+;; (x-display-mm-width)
+;; (x-display-mm-height)
+;; macOS ;; 2 X 27" SBS: 1413 mm
+;;       ;;  2560x1440p:  397 mm
 
 (when (display-graphic-p)
   (if (> (x-display-pixel-width) 1800)
@@ -152,9 +154,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
         )
 	(dpc-setup-main-fonts 140 140 120)))
 
-
+;; can get hostname/display names
 ;; (x-display-list) ("w32")
-
 
 ;;; transparency ;;
 (set-frame-parameter (selected-frame) 'alpha '(100 95))
@@ -190,7 +191,6 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
         (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
     ;; For Linux
     (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
-
 
 (cond
  ;; Windows-specific code goes here.
@@ -262,13 +262,16 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (setq ls-lisp-use-insert-directory-program t)
   (require 'ls-lisp)
   ;;; https://github.com/n3mo/.emacs.d/blob/master/init.el
-  (setq dired-use-ls-dired nil)
+  ;; (setq dired-use-ls-dired nil)
   ;;; https://github.com/abo-abo/swiper/issues/184#issuecomment-127513387
   ;; requires Homebrew coreutils package; installs GNU tools
   ;; prefixed with 'g' character
-  ;; (let ((gls "/usr/local/bin/gls"))
-  ;;   (when (file-exists-p gls)
-  ;;     (setq insert-directory-program gls)))
+  (let ((gls "/usr/local/bin/gls"))
+    (when (file-exists-p gls)
+      (setq insert-directory-program gls)))
+  (let ((gls "/opt/homebrew/bin/gls"))
+    (when (file-exists-p gls)
+      (setq insert-directory-program gls)))
   ;; (setq insert-directory-program (executable-find "gls"))
 
   ;;; http://pragmaticemacs.com/emacs/automatically-copy-text-selected-with-the-mouse/
