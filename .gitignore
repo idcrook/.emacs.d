@@ -2,6 +2,7 @@
 /elpa/
 /irony/
 /server/
+/transient/
 /lisp/ssh-config-keywords.txt
 *.secrets*
 !README.md
