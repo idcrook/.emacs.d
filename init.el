@@ -39,13 +39,29 @@
 ;;     M-x straight-pull-package   melpa
 ;;     M-x straight-use-package    PACKAGE-NAME
 
-;; Make startup faster by reducing the frequency of garbage
-;; collection.  The default is 800 kilobytes.  Measured in bytes.
-;; for faster emacs start-up; gets lowered later (see base-finally.el)
-(setq gc-cons-threshold (* 512 1024 1024))
-
 ;; set load path
 (add-to-list 'load-path (concat user-emacs-directory "lisp"))
+
+;;----------------------------------------------------------------------------
+;; Adjust garbage collection thresholds during startup, and thereafter
+;;----------------------------------------------------------------------------
+;; Make startup faster by reducing the frequency of garbage
+;; collection.  The default is 800 kilobytes.  Measured in bytes.
+(let ((normal-gc-cons-threshold (* 20 1024 1024))
+      (init-gc-cons-threshold (* 500 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+
+;; https://blog.d46.us/advanced-emacs-startup/
+;; Use a hook so the message doesn't get clobbered by other messages.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 ;;; https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
 ;; ;; ad-handle-definition: ‘align-regexp’ got redefined
