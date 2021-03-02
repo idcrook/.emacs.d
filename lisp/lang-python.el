@@ -6,51 +6,28 @@
 ;;; Code:
 
 ;;; emacs elpy : https://github.com/jorgenschaefer/elpy
-;; # rope
 ;; # code checks - flake8
 ;; # completion and code navigation - jedi
 ;; # automatic formatting - black autopep8 yapf
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
-
+;; pip3 install --user venv
 
 (use-package python
-  :mode ("\\.py$" . python-mode)
+  :init
+  (setq python-shell-interpreter "python3")
+  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
+
+(use-package elpy
+  :defer t
+  :after (flycheck)
+  :delight highlight-indentation-mode
   :init
   (setq elpy-rpc-python-command "python3")
-  (setq python-shell-interpreter "python3"
-        python-shell-interpreter-args "-i")
-  :config
-  (use-package elpy
-    :after flycheck
-    :delight highlight-indentation-mode
-    :init
-    (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-    :config
-    ;; (setq elpy-rpc-backend "jedi")
-    ;; (setq elpy-rpc-python-command "python3")
-
-    :bind (:map elpy-mode-map
-	      ("M-." . elpy-goto-definition)
-	      ("M-," . pop-tag-mark)))
-  (elpy-enable))
-
-
-;; (use-package elpy
-;;   ;; :after flycheck
-;;   ;; :delight highlight-indentation-mode
-;;   :init
-;;   ;; (setq elpy-rpc-backend "jedi")
-;;   (setq elpy-rpc-python-command "python3")
-;;   (elpy-enable)
-
-;;   ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-;;   ;; (advice-add 'python-mode :before 'elpy-enable)
-;;   ;; :config
-
-;;   :bind (:map elpy-mode-map
-;; 	          ("M-." . elpy-goto-definition)
-;; 	          ("M-," . pop-tag-mark))
-;;   )
+  ;; (setq elpy-rpc-backend "jedi")
+  (advice-add 'python-mode :before 'elpy-enable)
+  :bind (:map elpy-mode-map
+	          ("M-." . elpy-goto-definition)
+	          ("M-," . pop-tag-mark)))
 
 ;;; https://github.com/syohex/emacs-company-jedi
 ;; company-mode completion back-end for Python JEDI.
