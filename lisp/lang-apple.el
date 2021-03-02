@@ -17,8 +17,6 @@
 
 ;;; https://github.com/emacs-lsp/lsp-sourcekit
 ;; FIXME: handle Linux platform and/or other platform considerations
-;; Problems:
-;; - 2020-07-13 : sourcekit-lsp does not find XCTest
 (use-package lsp-sourcekit
   :after lsp-mode
   :config
@@ -47,17 +45,42 @@
 ;; Other macOS related
 ;; in general should be safe to include in Linux platforms
 
-;; https://github.com/xuchunyang/grab-mac-link.el
+;;; https://github.com/xuchunyang/grab-mac-link.el
 (use-package grab-mac-link
   :config
-  (setq grab-mac-link-dwim-favourite-app 'safari)
-  )
+  (setq grab-mac-link-dwim-favourite-app 'safari))
 
-;; https://github.com/raghavgautam/osx-lib
+;;; https://github.com/raghavgautam/osx-lib
 (use-package osx-lib)
 
+;; Provides functions for:
+;;   1. Running Apple Script / osascript
+;;   2. Play beep
+;;      (setq ring-bell-function #'osx-lib-do-beep)
+;;   3. Notification functions
+;;      (osx-lib-notify2 "Emacs" "Text Editor")
+;;   4. Copying to/from clipboard
+;;   5. Show the current file in Finder.  Works with dired.
+;;      (osx-lib-reveal-in-finder)
+;;   6. Get/Set Sound volume
+;;      (osx-lib-set-volume 25)
+;;      (osx-lib-get-volume)
+;;   6. Mute/unmute Sound volume
+;;      (osx-lib-mute-volume)
+;;      (osx-lib-unmute-volume)
+;;   8. VPN Connect/Disconnect
+;;      (defun work-vpn-connect ()
+;;        "Connect to Work VPN."
+;;        (interactive)
+;;        (osx-lib-vpn-connect "WorkVPN" "VPN_Password"))
+;;   9. Use speech
+;;      (osx-lib-say "Emacs")
+;;   10.Use mdfind(commandline equivalent of Spotlight) for locate
+;;      (setq locate-make-command-line #'osx-locate-make-command-line)
+;;
+
 ;; ;;; https://github.com/kaz-yos/reveal-in-osx-finder
-;; ;; can be handled by osx-lib-revel-in-finder
+;; ;; can be handled by osx-lib-reveal-in-finder
 ;; (use-package reveal-in-osx-finder
 ;;   :bind (("C-c z" . reveal-in-osx-finder)))
 
