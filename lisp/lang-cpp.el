@@ -19,23 +19,22 @@
 ;;; https://github.com/Lindydancer/cmake-font-lock
 (use-package cmake-font-lock)
 
-
-
 ;;; https://github.com/jimhourihan/glsl-mode
 (use-package glsl-mode)
 ;; TODO: add flycheck support for glsl
 
 ;;; https://github.com/chachi/cuda-mode
-(use-package cuda-mode)
+(use-package cuda-mode
+  :config
+  (add-hook 'cuda-mode-hook
+            (lambda ()
+              ( setq c-basic-offset              4
+                     ;; add paths manually
+                     flycheck-cuda-include-path (list "."))
+              ))
+  )
 
 ;; (setq cuda-mode-hook nil)
-
-;; add path manually;
-(add-hook 'cuda-mode-hook
-          (lambda ()
-            ( setq c-basic-offset              4
-                   flycheck-cuda-include-path (list "."))
-            ))
 
 ;;; https://github.com/Sarcasm/irony-mode
 ;;
@@ -49,7 +48,7 @@
 ;; - libclang # provided by llvm via Xcode on macOS, need to install libclang
 ;;              headers (see below)
 
-(use-package irony)
+;; (use-package irony)
 
 ;; ubuntu: sudo apt install cmake libclang1 libclang-dev
 ;; macos: brew install cmake
@@ -64,17 +63,17 @@
 ;; M-x irony-install-server
 
 
-;; Enable irony for all c++ files
-(add-hook 'c++-mode-hook (lambda ()
-                           (irony-mode)
-                           (irony-eldoc)
-                           (setq flycheck-gcc-language-standard "c++11")
-                           (setq flycheck-clang-language-standard "c++17")))
-;;(setq c++-mode-hook nil)
+;; ;; Enable irony for all c++ files
+;; (add-hook 'c++-mode-hook (lambda ()
+;;                            (irony-mode)
+;;                            (irony-eldoc)
+;;                            (setq flycheck-gcc-language-standard "c++11")
+;;                            (setq flycheck-clang-language-standard "c++17")))
+;; ;;(setq c++-mode-hook nil)
 
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(push 'cuda-mode irony-supported-major-modes)
+;; (add-hook 'c-mode-hook 'irony-mode)
+;; (add-hook 'objc-mode-hook 'irony-mode)
+;; (push 'cuda-mode irony-supported-major-modes)
 
 ;; (add-hook 'irony-mode-hook
 ;;           (lambda ()
@@ -85,42 +84,42 @@
 ;;             (irony-cdb-autosetup-compile-options)
 ;;             ))
 
-(defun dpc-irony-mode-hook ()
-  "Change the \\<C-M-i> binding to counsel-irony."
-  (define-key irony-mode-map
-    [remap completion-at-point] 'counsel-irony)
-  (define-key irony-mode-map
-    [remap complete-symbol] 'counsel-irony))
+;; (defun dpc-irony-mode-hook ()
+;;   "Change the \\<C-M-i> binding to counsel-irony."
+;;   (define-key irony-mode-map
+;;     [remap completion-at-point] 'counsel-irony)
+;;   (define-key irony-mode-map
+;;     [remap complete-symbol] 'counsel-irony))
 
-; Use irony's completion functions.
-(add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
+;; ; Use irony's completion functions.
+;; (add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
 
-;; use compile_commands.json obtained from CMake -D CMAKE_EXPORT_COMPILE_COMMANDS=O
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;; ;; use compile_commands.json obtained from CMake -D CMAKE_EXPORT_COMPILE_COMMANDS=O
+;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;; https://github.com/Sarcasm/flycheck-irony
-(use-package flycheck-irony)
+;; ;; https://github.com/Sarcasm/flycheck-irony
+;; (use-package flycheck-irony)
 
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
-;; https://github.com/ikirill/irony-eldoc
-(use-package irony-eldoc)
-(add-hook 'irony-mode-hook #'irony-eldoc)
+;; ;; https://github.com/ikirill/irony-eldoc
+;; (use-package irony-eldoc)
+;; (add-hook 'irony-mode-hook #'irony-eldoc)
 
-;; ubuntu: sudo apt install clang
-;; https://github.com/Sarcasm/company-irony
-(use-package company-irony)
-;;; load grouped with company-irony-c-headers below
+;; ;; ubuntu: sudo apt install clang
+;; ;; https://github.com/Sarcasm/company-irony
+;; (use-package company-irony)
+;; ;;; load grouped with company-irony-c-headers below
+;; ;; (eval-after-load 'company
+;; ;;   '(add-to-list 'company-backends 'company-irony))
+
+;; ;; https://github.com/hotpxl/company-irony-c-headers
+;; (use-package company-irony-c-headers)
+;; ;; Load with `irony-mode` as a grouped backend
 ;; (eval-after-load 'company
-;;   '(add-to-list 'company-backends 'company-irony))
-
-;; https://github.com/hotpxl/company-irony-c-headers
-(use-package company-irony-c-headers)
-;; Load with `irony-mode` as a grouped backend
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends '(company-irony-c-headers company-irony)))
+;;   '(add-to-list
+;;     'company-backends '(company-irony-c-headers company-irony)))
 
 ;; Sometimes when the compiler options change, you need to manually reload
 ;; header completion cache by invoking
@@ -170,8 +169,6 @@
 
 ;; ;; https://github.com/josteink/csharp-mode
 ;; (use-package csharp-mode)
-
-
 
 (provide 'lang-cpp)
 
