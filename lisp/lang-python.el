@@ -23,11 +23,13 @@
   :delight highlight-indentation-mode
   :init
   (setq elpy-rpc-python-command "python3")
-  ;; (setq elpy-rpc-backend "jedi")
-  (advice-add 'python-mode :before 'elpy-enable)
-  :bind (:map elpy-mode-map
-	          ("M-." . elpy-goto-definition)
-	          ("M-," . pop-tag-mark)))
+  ;; lazy load elpy
+  (advice-add 'python-mode :before 'elpy-enable))
+
+;; these are the default bindings
+;; :bind (:map elpy-mode-map
+;; 	          ("M-." . elpy-goto-definition)
+;; 	          ("M-*" . pop-tag-mark))
 
 ;;; https://github.com/syohex/emacs-company-jedi
 ;; company-mode completion back-end for Python JEDI.
