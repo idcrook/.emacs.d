@@ -68,33 +68,25 @@
 ;; ;; ad-handle-definition: ‘find-tag-regexp’ got redefined
 (setq ad-redefinition-action 'accept)
 
-(require 'base)
-(require 'base-theme)
-(require 'base-functions)
-(require 'base-platforms)
-(require 'base-extensions)
-(require 'base-global-keys)
+(require 'base)                ;; basic setup
+(require 'base-theme)          ;; pick themes
+(require 'base-functions)      ;; utility functions
+(require 'base-platforms)      ;; handle macOS, Linux, etc.
+(require 'base-extensions)     ;; bulk of config not found below
+(require 'base-global-keys)    ;; add bindings for functions
 
-(require 'lang-shell)
+(require 'base-lsp)            ;; Language Server Protocol
 
+(require 'lang-shell)          ;; shell-related (zsh, eshell, bash, etc)
 (require 'lang-python)
-
 (require 'lang-ruby)
-
 (require 'lang-go)
-
 (require 'lang-elixir)
-
 (require 'lang-apple)
-
 (require 'lang-cpp)
-
 (require 'lang-rust)
-
 (require 'lang-javascript)
-
 (require 'lang-web)
-
 (require 'lang-hardware)
 
 (require 'base-finally)

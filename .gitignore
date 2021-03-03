@@ -11,3 +11,4 @@
 flycheck_*.elc
 custom.el
 /elpy
+.lsp-session-*

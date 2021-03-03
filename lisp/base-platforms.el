@@ -193,7 +193,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
     (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
 
 (cond
+ ;;---------------------------------------------------------------------------
  ;; Windows-specific code goes here.
+ ;;---------------------------------------------------------------------------
  (platform-windows-p
   ;;(require 'w32shell)
   (setq w32shell-add-emacs-to-path t)
@@ -201,61 +203,47 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (setq w32shell-shell (quote cygwin))
   (setq emacsw32-style-frame-title t))
 
- ;; Linux-specific code goes here.
- (platform-linux-p
-  (add-to-list 'default-frame-alist '(height . 60))
-  (add-to-list 'default-frame-alist '(width . 100)))
-
+ ;;---------------------------------------------------------------------------
  ;; macOS-specific code goes here.
+ ;;---------------------------------------------------------------------------
  (platform-macos-p
-
   ;;; https://www.reddit.com/r/emacs/comments/4pocdd/advice_on_setting_up_emacs_on_os_x/d4ng534
   (setq smooth-scroll-margin 2)
   (setq mouse-wheel-scroll-amount '(2 ((shift) .1) ((control) . nil)))
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (setq scroll-step 1) ;; keyboard scroll one line at a timer
-
   ;; (require 'browse-url)
   ;; use system browser
   (setq browse-url-browser-function (quote browse-url-generic))
   (setq browse-url-generic-program "open")
   ;; (setq browse-url-browser-function (quote browse-url-default-macos-browser))
-
   ;; always use find-file-other-window to open dropped files
   (setq dnd-open-file-other-window t)
-
   ;;; Useful for https://github.com/dunn/company-emoji
   (--set-emoji-font nil)
   (add-hook 'after-make-frame-functions '--set-emoji-font)
-
   ;; TODO: introduce a boolean switch for setting among macOS native or windows keyboards and bindings below
-
   ;;; https://stackoverflow.com/questions/45697790/how-to-enter-special-symbols-with-alt-in-emacs-under-mac-os-x
   ;; use the left alt/option key as meta
   (setq ns-alternate-modifier 'meta) ; Its default value is ‘meta’
   (setq ns-command-modifier 'super) ; Its default value is ‘super’
   ;;(setq ns-option-modifier nil)   ; alias for ns-alternate-modifier
-
   ;;  'none: Do not have emacs capture (right-side) key for:
   ;; (setq ns-right-command-modifier 'none)   ;; original value is 'left'
   ;; setting to 'none allows "alternate" keyboard using a windows keyboard
   (setq ns-right-alternate-modifier 'none) ;; original value is 'left' -
-
   ;; can have emacs eat right alt/option key and command keys by setting to nil
   ;;(setq ns-right-command-modifier nil)   ;; original value is 'left'
   ;;(setq ns-right-alternate-modifier nil) ;; original value is 'left'
   ;;(setq ns-right-option-modifier nil)    ;; alias for ns-right-alternate-modifier
   ;;(setq ns-function-modifier 'none) ; Its value is ‘none’
   ;;(setq ns-function-modifier 'hyper) ; Its value is ‘none’
-
-  ;; On macOS, if you are using a PC keyboard, the ▤ Menu (aka Apps) key will send 【Ctrl+p】 by default.
+  ;; On macOS, if you are using a PC keyboard, the ▤ Menu (aka Apps) key will send [Ctrl+p] by default.
   ;; On windows, w32-apps-modifier is available
   ;; You can observe this with `C-h k` and then tapping the key
   ;; on macOS rebind this default key to the Menu key
   (define-key key-translation-map (kbd "C-p") (kbd "<menu>")) ;; <menu> runs counsel-M-x (found in counsel-mode-map),
-
   ;;; dired conf ;;
   (require 'dired)
   ;; set a fallback
@@ -273,11 +261,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
     (when (file-exists-p gls)
       (setq insert-directory-program gls)))
   ;; (setq insert-directory-program (executable-find "gls"))
-
   ;;; http://pragmaticemacs.com/emacs/automatically-copy-text-selected-with-the-mouse/
   ;; copy selected text to clipboard
   (setq mouse-drag-copy-region t)
-
   (add-to-list 'default-frame-alist '(height . 40))
   (add-to-list 'default-frame-alist '(width . 80))
   ;; macos titlebar mods
@@ -288,24 +274,30 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   (set-frame-parameter (selected-frame) 'alpha '(100 88))
   (add-to-list 'default-frame-alist '(alpha 100 88)))
 
+ ;;---------------------------------------------------------------------------
  ;; X/Window under Linux code here
+ ;;---------------------------------------------------------------------------
  (platform-linux-x-p
   ;; make alt meta (for silly X-Window remapping)
   ;; https://www.emacswiki.org/emacs/MetaKeyProblems#toc9
   (setq x-alt-keysym 'meta)
   (setq select-enable-clipboard t)
-
   ;;; via https://github.com/dunn/company-emoji
   ;; For when Emacs is started in GUI mode:
   (--set-emoji-font nil)
   ;; Hook for when a frame is created with emacsclient
   ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
   (add-hook 'after-make-frame-functions '--set-emoji-font)
-
   ;; Treat clipboard input as UTF-8 string first; compound text
   ;; next, etc.
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
+ ;;---------------------------------------------------------------------------
+ ;; Linux-specific code goes here.
+ ;;---------------------------------------------------------------------------
+ (platform-linux-p
+  (add-to-list 'default-frame-alist '(height . 60))
+  (add-to-list 'default-frame-alist '(width . 100)))
  )
 
 (provide 'base-platforms)

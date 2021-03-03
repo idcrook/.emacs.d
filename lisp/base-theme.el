@@ -12,6 +12,10 @@
 ;;; https://github.com/n3mo/cyberpunk-theme.el
 (use-package cyberpunk-theme)
 
+;; Don't prompt to confirm theme safety. This avoids problems with
+;; first-time startup on Emacs > 26.3.
+(setq custom-safe-themes t)
+
 ;; ;;; https://github.com/NicolasPetton/zerodark-theme
 ;; (use-package zerodark-theme
 ;;    ;; :config

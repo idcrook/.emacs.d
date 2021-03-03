@@ -8,12 +8,13 @@
 
 
 ;; See ~/.emacs.d/site-lisp/README.md
-(setq dpc-user-elisp-dir (concat user-emacs-directory "site-lisp/"))
+(defconst dpc-site-lisp-dir (concat user-emacs-directory "site-lisp/")
+  "Local directory with hand-maintain libraries.")
 
-(add-to-list 'load-path dpc-user-elisp-dir)
 ;; Add all its subdirs to load-path
-(let ((default-directory dpc-user-elisp-dir))
-  (normal-top-level-add-subdirs-to-load-path))
+(let ((default-directory dpc-site-lisp-dir))
+  (normal-top-level-add-to-load-path '("csh-mode")))
+;; (normal-top-level-add-subdirs-to-load-path))
 
 (defconst private-dir   (expand-file-name "private" user-emacs-directory)
   "Set aside per-user Emacs directory.")

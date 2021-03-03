@@ -494,32 +494,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;;________________________________________________________________________
 ;; end of counsel / ivy stuff
 
-;;; https://github.com/paradoxxxzero/jinja2-mode/
-;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
-(use-package jinja2-mode)
-
-;;;________________________________________________________________________
-;; Language Server Project (LSP) stuff
-
-;; reference: https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/
-
-;; https://github.com/emacs-lsp/lsp-mode
-(use-package lsp-mode
-  :commands lsp)
-
-;; https://github.com/emacs-lsp/lsp-ui
-(use-package lsp-ui
-  :commands lsp-ui-mode)
-;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-(use-package company-lsp
-  :commands company-lsp
-  :config
-  (push 'company-lsp company-backends))
-
 ;;; https://github.com/redguardtoo/find-file-in-project
 ;; in lieu of projectile, for example: #'ffip-get-project-root-directory
 (use-package find-file-in-project)
+
+;;; https://github.com/paradoxxxzero/jinja2-mode/
+;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
+(use-package jinja2-mode)
 
 ;;; http://immerrr.github.io/lua-mode/
 (use-package lua-mode
