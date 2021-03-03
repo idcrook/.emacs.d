@@ -32,6 +32,7 @@
     :config
     (setq-default ag-highlight-search t)
     (add-to-list 'ag-arguments "--hidden" t))
+  (use-package wgrep)
   (use-package wgrep-ag))
 
 ;; (use-package ansible
@@ -70,8 +71,8 @@
   (beacon-mode 1)
   (setq beacon-blink-when-point-moves-vertically 1))
 
-;; for bison, yacc, lex grammars, jison mode
-(use-package bison-mode)
+;; ;; for bison, yacc, lex grammars, jison mode
+;; (use-package bison-mode)
 
 ;; ;; https://github.com/walseb/blimp
 ;; - a complete wrapper around all imagemagick commands (requires it)
@@ -95,9 +96,9 @@
   ;; (setq browse-url-dwim-always-confirm-extraction nil)
   )
 
-;;; Create and share beautiful images of your source code.
-;;; : https://github.com/veelenga/carbon-now-sh.el
-(use-package carbon-now-sh)
+;; ;;; Create and share beautiful images of your source code.
+;; ;;; : https://github.com/veelenga/carbon-now-sh.el
+;; (use-package carbon-now-sh)
 
 ;;; https://github.com/camdez/checkbox.el
 (use-package checkbox
@@ -135,7 +136,8 @@
 
 ;;; https://github.com/sshaw/copy-as-format
 (use-package copy-as-format)
-(global-set-key (kbd "C-c w s") 'copy-as-format-slack)
+;; (global-set-key (kbd "C-c w s") 'copy-as-format-slack)
+(global-set-key (kbd "C-c w o") 'copy-as-format-org-mode)
 (global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
 ;;; https://github.com/rakanalh/emacs-dashboard
@@ -322,25 +324,6 @@
 ;;; https://github.com/magit/git-modes#gitignore-mode
 (use-package gitignore-mode)
 
-;; ;; https://www.reddit.com/r/emacs/comments/8vdhb4/tip_how_to_integrate_snippets_with_yasnippets/
-;; (use-package hydra
-;;   :bind (("C-c y" . hydra-yasnippet/body)))
-
-;; (defhydra hydra-yasnippet (:color blue)
-;;   "
-;;   ^
-;;   ^YASnippet^          ^Do^
-;;   ^─────────^──────────^──^────────
-;;   _q_ quit             _i_ insert
-;;   ^^                   _m_ mode
-;;   ^^                   _n_ new
-;;   ^^                   ^^
-;;   "
-;;   ("q" nil)
-;;   ("i" yas-insert-snippet)
-;;   ("m" yas-minor-mode)
-;;   ("n" yas-new-snippet))
-
 ;; ________________________________________________________________________
 ;; Commit to counsel / ivy / swiper as a lifestyle
 
@@ -387,7 +370,6 @@
 
 ;;; swiper-isearch
 ;; (global-set-key (kbd "C-s") 'swiper-isearch)
-
 
 ;;; https://github.com/abo-abo/swiper/wiki/Hiding-dired-buffers
 ;; hide dired buffers in ivy-switch-buffer
@@ -516,7 +498,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq magit-completing-read-function 'ivy-completing-read)
   ;; ;; When commiting enable verbose mode by default.
   ;; (setq magit-commit-arguments (quote ("--verbose")))
-
   :bind
   ;; Magit
   (("C-x g s" . magit-status)
@@ -643,7 +624,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   :bind (:map markdown-mode-command-map
               ("g" . grip-mode)))
 
-
 ;;; https://github.com/ardumont/markdown-toc
 ;; Compute the TOC and insert it at current position: M-x markdown-toc-generate-or-refresh-toc
 ;; Update the existing TOC: M-x markdown-toc-refresh-toc
@@ -651,8 +631,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   ;; https://github.com/ardumont/markdown-toc#user-toc-manipulation
   ;; drop the first element (since this is usually the title):
-  (custom-set-variables '(markdown-toc-user-toc-structure-manipulation-fn 'cdr))
-  )
+  (custom-set-variables '(markdown-toc-user-toc-structure-manipulation-fn 'cdr)))
 
 ;;; https://github.com/nlamirault/emacs-markdownfmt
 ;; install dependency:
@@ -664,10 +643,10 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; make a binding "C-c C-c f"
   :bind (:map markdown-mode-command-map
               ("f" . markdownfmt-format-buffer))
+  ;; (define-key markdown-mode-map (kbd "C-c C-c f") #'markdownfmt-format-buffer))
   ;; :config
   ;; ;; uncomment to autoformat ;; (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save)
   )
-  ;; (define-key markdown-mode-map (kbd "C-c C-c f") #'markdownfmt-format-buffer))
 
 (use-package multiple-cursors
   :bind
@@ -685,7 +664,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; M-x all-the-icons-install-fonts ; puts them in global area
 ;; dashboard uses
 (use-package all-the-icons)
-
 
 ;; org-plus-contrib (org-mode Plus)
 ;;; https://orgmode.org/worg/org-contrib/
@@ -712,7 +690,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; - org-protocol-jekyll, org2jekyll, org2issue
 ;; - org-shoplist, org-rtm
 ;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
-
 
 ;; ;;; https://github.com/larstvei/ox-gfm
 ;; (use-package ox-gfm
@@ -742,22 +719,25 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   :config
 ;;   (add-hook 'org-mode-hook 'toc-org-enable))
 
-;;; https://github.com/alf/ob-restclient.el
-(use-package ob-restclient)
+;; ;;; https://github.com/alf/ob-restclient.el
+;; (use-package ob-restclient)
 
-;;; https://www.killring.org/effective-restclient-in-emacs
-(use-package outline-magic
-  :config
-  (add-hook 'outline-minor-mode-hook
-	    (lambda ()
-	      (require 'outline-magic)
-	      (define-key outline-minor-mode-map (kbd "C-<tab>") 'outline-cycle))))
+;; ;;; https://www.killring.org/effective-restclient-in-emacs
+;; (use-package outline-magic
+;;   :config
+;;   (add-hook 'outline-minor-mode-hook
+;; 	    (lambda ()
+;; 	      (require 'outline-magic)
+;; 	      (define-key outline-minor-mode-map (kbd "C-<tab>") 'outline-cycle))))
 
-;;; https://github.com/purcell/page-break-lines
-(use-package page-break-lines)
+;; ;;; https://github.com/purcell/page-break-lines
+;; (use-package page-break-lines
+;;   :config
+;;   (global-page-break-lines-mode +1))
 
 ;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
-(use-package scad-mode)
+(use-package scad-mode
+  :defer 2)
 
 (use-package recentf
   :demand
@@ -808,12 +788,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; ;;; https://github.com/cjohansson/emacs-ssh-deploy
 ;; (use-package ssh-deploy)
 
-;;; https://github.com/aspiers/smooth-scrolling/
-(use-package smooth-scrolling
-  :init
-  (smooth-scrolling-mode 1)
-  :config
-  (setq smooth-scroll-margin 2))
+;; ;;; https://github.com/aspiers/smooth-scrolling/
+;; (use-package smooth-scrolling
+;;   :init
+;;   (smooth-scrolling-mode 1)
+;;   :config
+;;   (setq smooth-scroll-margin 2))
 
 ;; https://github.com/holomorph/systemd-mode
 (use-package systemd
@@ -874,9 +854,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (setq wakatime-api-key "...") ;; moved to ~/.wakatime.cfg
   (global-wakatime-mode +1)
   )
-
-(use-package wgrep)
-
 
 ;; https://github.com/justbur/emacs-which-key
 (use-package which-key
