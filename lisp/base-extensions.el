@@ -27,9 +27,12 @@
   (setq-default adaptive-wrap-extra-indent 2))
 
 ;;; https://github.com/Wilfred/ag.el#readme
-(use-package ag
-  :config
-  (add-to-list 'ag-arguments "--hidden" t))
+(when (executable-find "ag")
+  (use-package ag
+    :config
+    (setq-default ag-highlight-search t)
+    (add-to-list 'ag-arguments "--hidden" t))
+  (use-package wgrep-ag))
 
 ;; (use-package ansible
 ;;   :config
@@ -805,7 +808,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; ;;; https://github.com/cjohansson/emacs-ssh-deploy
 ;; (use-package ssh-deploy)
 
-(use-package smooth-scrolling)
+;;; https://github.com/aspiers/smooth-scrolling/
+(use-package smooth-scrolling
+  :init
+  (smooth-scrolling-mode 1)
+  :config
+  (setq smooth-scroll-margin 2))
 
 ;; https://github.com/holomorph/systemd-mode
 (use-package systemd
@@ -869,7 +877,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 (use-package wgrep)
 
-(use-package wgrep-ag)
 
 ;; https://github.com/justbur/emacs-which-key
 (use-package which-key

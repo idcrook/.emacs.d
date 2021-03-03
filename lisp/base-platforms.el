@@ -43,6 +43,7 @@
    (eq window-system 'x))
   "Are we running on X Window System under Linux?")
 
+
 ;;______________________________________________________________________
 ;;;;  Fonts
 ;; macos :
@@ -66,6 +67,14 @@
 ;;        : sudo apt install ttf-ancient-fonts
 
 
+;;; https://github.com/purcell/default-text-scale
+;; Change global font size easily
+;; "C-M-=" - decrease font size
+;; "C-M--" - increase font size
+;; "C-M-0" - reset
+(use-package default-text-scale
+  :init
+  (add-hook 'after-init-hook 'default-text-scale-mode))
 
 ;; my various font family variables
 (defvar  dpc-font-default)
@@ -196,19 +205,18 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
  ;;---------------------------------------------------------------------------
  ;; Windows-specific code goes here.
  ;;---------------------------------------------------------------------------
- (platform-windows-p
-  ;;(require 'w32shell)
-  (setq w32shell-add-emacs-to-path t)
-  (setq w32shell-cygwin-bin "C:\\cygwin\\bin")
-  (setq w32shell-shell (quote cygwin))
-  (setq emacsw32-style-frame-title t))
+ (platform-windows-p)
+  ;; ;;(require 'w32shell)
+  ;; (setq w32shell-add-emacs-to-path t)
+  ;; (setq w32shell-cygwin-bin "C:\\cygwin\\bin")
+  ;; (setq w32shell-shell (quote cygwin))
+  ;; (setq emacsw32-style-frame-title t))
 
  ;;---------------------------------------------------------------------------
  ;; macOS-specific code goes here.
  ;;---------------------------------------------------------------------------
  (platform-macos-p
   ;;; https://www.reddit.com/r/emacs/comments/4pocdd/advice_on_setting_up_emacs_on_os_x/d4ng534
-  (setq smooth-scroll-margin 2)
   (setq mouse-wheel-scroll-amount '(2 ((shift) .1) ((control) . nil)))
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
@@ -244,23 +252,14 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   ;; You can observe this with `C-h k` and then tapping the key
   ;; on macOS rebind this default key to the Menu key
   (define-key key-translation-map (kbd "C-p") (kbd "<menu>")) ;; <menu> runs counsel-M-x (found in counsel-mode-map),
-  ;;; dired conf ;;
+  ;;--------------------------------------------------------------------------
+  ;; dired conf
+  ;;--------------------------------------------------------------------------
   (require 'dired)
-  ;; set a fallback
-  (setq ls-lisp-use-insert-directory-program t)
-  (require 'ls-lisp)
-  ;;; https://github.com/n3mo/.emacs.d/blob/master/init.el
-  ;; (setq dired-use-ls-dired nil)
-  ;;; https://github.com/abo-abo/swiper/issues/184#issuecomment-127513387
-  ;; requires Homebrew coreutils package; installs GNU tools
-  ;; prefixed with 'g' character
-  (let ((gls "/usr/local/bin/gls"))
-    (when (file-exists-p gls)
-      (setq insert-directory-program gls)))
-  (let ((gls "/opt/homebrew/bin/gls"))
-    (when (file-exists-p gls)
-      (setq insert-directory-program gls)))
-  ;; (setq insert-directory-program (executable-find "gls"))
+    ;; Prefer g-prefixed coreutils version of standard utilities when available
+  ;; requires Homebrew coreutils package;
+  (let ((gls (executable-find "gls")))
+    (when gls (setq insert-directory-program gls)))
   ;;; http://pragmaticemacs.com/emacs/automatically-copy-text-selected-with-the-mouse/
   ;; copy selected text to clipboard
   (setq mouse-drag-copy-region t)
@@ -272,7 +271,11 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
   ;;(setq frame-title-format nil)
   ;; transparency
   (set-frame-parameter (selected-frame) 'alpha '(100 88))
-  (add-to-list 'default-frame-alist '(alpha 100 88)))
+  (add-to-list 'default-frame-alist '(alpha 100 88))
+  (when  (fboundp 'toggle-frame-fullscreen)
+    ;; Command-Option-f to toggle fullscreen mode
+    ;; Hint: Customize `ns-use-native-fullscreen'
+    (global-set-key (kbd "M-s-f") 'toggle-frame-fullscreen)))
 
  ;;---------------------------------------------------------------------------
  ;; X/Window under Linux code here

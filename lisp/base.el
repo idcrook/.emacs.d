@@ -69,7 +69,6 @@
  ;; modeline and major mode defaults
  column-number-mode                 nil
  auto-compression-mode              1
- ;;;menu-bar-mode                      nil  ; see base-platforms
 
  blink-matching-paren               t
 
@@ -88,6 +87,10 @@
  inhibit-default-init               nil
  inhibit-startup-screen             t
  inhibit-startup-message            t
+
+ ;; Suppress GUI features
+ use-file-dialog                    nil
+ use-dialog-box                     nil
 
  ;; Disable non selected window highlight
  cursor-in-non-selected-windows     nil
