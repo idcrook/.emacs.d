@@ -131,6 +131,7 @@
 
 ;;; https://github.com/iquiw/company-restclient
 (use-package company-restclient
+  :defer 2
   :init
   (add-to-list 'company-backends 'company-restclient))
 
@@ -247,6 +248,7 @@
 ;; https://github.com/lassik/editorconfig-emacs-domain-specific
 (with-eval-after-load 'editorconfig
   (use-package editorconfig-domain-specific
+    :defer 2
     :init
     (add-hook 'editorconfig-custom-hooks 'editorconfig-domain-specific)))
 
@@ -456,6 +458,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/mnewt/counsel-web
 (use-package counsel-web
+  :defer 2
   ;; :bind
   ;; (("C-c w" . counsel-web-suggest)
   ;;  ("C-c W" . counsel-web-search)
@@ -756,7 +759,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/pashky/restclient.el
 ;; see also: outline-magic
-(use-package restclient)
+(use-package restclient
+  :defer 2)
 
 
 (use-package request
