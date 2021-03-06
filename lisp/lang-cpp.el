@@ -7,32 +7,32 @@
 ;;; Code:
 
 
-(require 'cc-vars)
+;; (require 'cc-vars)
 
-(setq c-default-style '((java-mode . "java")
-                        (awk-mode . "awk")
-                        (other . "linux")))  ;; default value of "gnu"
+;; (setq c-default-style '((java-mode . "java")
+;;                         (awk-mode . "awk")
+;;                         (other . "linux")))  ;; default value of "gnu"
 
-(setq-default c-basic-offset                     4)
+;; (setq-default c-basic-offset                     4)
 ;; (setq         c-basic-offset                     4)
 
-;;; https://github.com/Lindydancer/cmake-font-lock
-(use-package cmake-font-lock)
+;; ;;; https://github.com/Lindydancer/cmake-font-lock
+;; (use-package cmake-font-lock)
 
-;;; https://github.com/jimhourihan/glsl-mode
-(use-package glsl-mode)
-;; TODO: add flycheck support for glsl
+;; ;;; https://github.com/jimhourihan/glsl-mode
+;; (use-package glsl-mode)
+;; ;; TODO: add flycheck support for glsl
 
-;;; https://github.com/chachi/cuda-mode
-(use-package cuda-mode
-  :config
-  (add-hook 'cuda-mode-hook
-            (lambda ()
-              ( setq c-basic-offset              4
-                     ;; add paths manually
-                     flycheck-cuda-include-path (list "."))
-              ))
-  )
+;; ;;; https://github.com/chachi/cuda-mode
+;; (use-package cuda-mode
+;;   :config
+;;   (add-hook 'cuda-mode-hook
+;;             (lambda ()
+;;               ( setq c-basic-offset              4
+;;                      ;; add paths manually
+;;                      flycheck-cuda-include-path (list "."))
+;;               ))
+;;   )
 
 ;; (setq cuda-mode-hook nil)
 

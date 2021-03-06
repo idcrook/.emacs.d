@@ -124,8 +124,11 @@
   (add-hook 'css-mode-hook 'my-css-mode-hook)
   (add-hook 'css-mode-hook 'company-mode))
 
-;;; https://github.com/davazp/graphql-mode
-(use-package graphql-mode)
+;;----------------------------------------------------------------------------
+;; graphql
+;;----------------------------------------------------------------------------
+;; ;;; https://github.com/davazp/graphql-mode
+;; (use-package graphql-mode)
 
 
 ;; ;; impatient mode - Live refresh of web pages

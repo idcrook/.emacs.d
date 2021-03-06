@@ -148,18 +148,15 @@
   :config
   (setq dashboard-items '((recents       . 5)
   ;;                        (bookmarks . 5)
-  ;;                         (projects . 5)
+                          ;; (projects . 5)
   ;;                         (registers . 5)
   ;;                        (agenda         . 10)
                             ))
   ;; (add-to-list 'dashboard-items '(agenda) t)
-
   ;; ;; To show info about the packages loaded and the init time:
   ;; (setq dashboard-set-init-info t)
-
   ;; To show navigator below the banner:
   (setq dashboard-set-navigator t)
-
   (setq dashboard-navigator-buttons
       `(;; line1
         ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
@@ -176,30 +173,22 @@
         ;;   (lambda (&rest _) (browse-url "homepage")))
         ;;  ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))
         ))
-
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)
-
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-
   ;; Set the title
   (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-
   ;; Set the banner
   (setq dashboard-startup-banner 'logo)
-
   ;; A randomly selected footnote will be displayed. To disable it:
   (setq dashboard-set-footer nil)
-
   ;; (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
   ;; (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
   ;;                                                    :height 1.1
   ;;                                                    :v-adjust -0.05
   ;;                                                    :face 'font-lock-keyword-face))
-
   (dashboard-setup-startup-hook))
-
 
 ;;; https://github.com/Fuco1/dired-hacks
 (use-package dired-filter)
@@ -252,25 +241,24 @@
     :init
     (add-hook 'editorconfig-custom-hooks 'editorconfig-domain-specific)))
 
-;; firefox: https://addons.mozilla.org/en-US/firefox/addon/edit-with-emacs1/
-;; chrome: https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh
-;; https://github.com/stsquad/emacs_chrome
-;; for addl ideas see here: https://github.com/stsquad/my-emacs-stuff/blob/master/my-edit-server.el
-(use-package edit-server
-  :if window-system
-  :init
-  (when (require 'edit-server nil t)
-    ;; do not pop up a new frame
-    (setq edit-server-new-frame nil)
-    (edit-server-start))
-  :config
-  (setq edit-server-default-major-mode 'text-mode)
-  (setq edit-server-url-major-mode-alist
-        '(("github\\.com" . gfm-mode)
-          ("stackexchange\\.com" . markdown-mode)
-          ("stackoverflow\\.com" . markdown-mode)
-          ("reddit\\.com" . markdown-mode))))
-
+;; ;; firefox: https://addons.mozilla.org/en-US/firefox/addon/edit-with-emacs1/
+;; ;; chrome: https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh
+;; ;; https://github.com/stsquad/emacs_chrome
+;; ;; for addl ideas see here: https://github.com/stsquad/my-emacs-stuff/blob/master/my-edit-server.el
+;; (use-package edit-server
+;;   :if window-system
+;;   :init
+;;   (when (require 'edit-server nil t)
+;;     ;; do not pop up a new frame
+;;     (setq edit-server-new-frame nil)
+;;     (edit-server-start))
+;;   :config
+;;   (setq edit-server-default-major-mode 'text-mode)
+;;   (setq edit-server-url-major-mode-alist
+;;         '(("github\\.com" . gfm-mode)
+;;           ("stackexchange\\.com" . markdown-mode)
+;;           ("stackoverflow\\.com" . markdown-mode)
+;;           ("reddit\\.com" . markdown-mode))))
 
 (use-package expand-region
   :bind
@@ -384,9 +372,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 (with-eval-after-load 'ivy
   (add-to-list 'ivy-ignore-buffers #'idc/ignore-dired-buffers))
 
-;;; https://github.com/abo-abo/swiper
-(use-package ivy-hydra
-  :after (ivy hydra))
+;; ;;; https://github.com/abo-abo/swiper
+;; (use-package ivy-hydra
+;;   :after (ivy hydra))
 
 ;;; https://github.com/Yevgnen/ivy-rich
 (use-package ivy-rich
@@ -486,15 +474,15 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; in lieu of projectile, for example: #'ffip-get-project-root-directory
 (use-package find-file-in-project)
 
-;;; https://github.com/paradoxxxzero/jinja2-mode/
-;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
-(use-package jinja2-mode)
+;; ;;; https://github.com/paradoxxxzero/jinja2-mode/
+;; ;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
+;; (use-package jinja2-mode)
 
-;;; http://immerrr.github.io/lua-mode/
-(use-package lua-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
+;; ;;; http://immerrr.github.io/lua-mode/
+;; (use-package lua-mode
+;;   :init
+;;   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+;;   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
 (use-package magit
   :config
@@ -604,28 +592,27 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; Otherwise aliases to web-server package (emacs-web-server)
 (straight-use-package '(simple-httpd :type git :host github :repo "skeeto/emacs-web-server" :local-repo "simple-httpd"))
 
-
-;;; https://github.com/seagle0128/grip-mode
-;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
-;; macOS/ubuntu:      pip3 install --user grip
-;;     raspbian: sudo pip3 install --upgrade grip
-;;
-;; :hook ((markdown-mode org-mode) . grip-mode)
-;;
-;; Filed issue to see if grip-mode can work for Tramp files
-;;     https://github.com/seagle0128/grip-mode/issues/5 <- UPDATED!
-(use-package grip-mode
-  :init
-  ;; user name and password from ~/.authinfo ;; FORMAT:
-  ;; machine api.github.com login YOU password YOURPASSWORD
-  (let ((credential (auth-source-user-and-password "api.github.com")))
-    (setq grip-github-user (car credential)
-          grip-github-password (cadr credential)))
-  (setq grip-update-after-change nil)
-  (setq grip-preview-use-webkit nil)
-  ;; Make a keybinding: `C-c C-c g'
-  :bind (:map markdown-mode-command-map
-              ("g" . grip-mode)))
+;; ;;; https://github.com/seagle0128/grip-mode
+;; ;; GFM/Org preview using Grip (GitHub Readme Instant Preview).
+;; ;; macOS/ubuntu:      pip3 install --user grip
+;; ;;     raspbian: sudo pip3 install --upgrade grip
+;; ;;
+;; ;; :hook ((markdown-mode org-mode) . grip-mode)
+;; ;;
+;; ;; Filed issue to see if grip-mode can work for Tramp files
+;; ;;     https://github.com/seagle0128/grip-mode/issues/5 <- UPDATED!
+;; (use-package grip-mode
+;;   :init
+;;   ;; user name and password from ~/.authinfo ;; FORMAT:
+;;   ;; machine api.github.com login YOU password YOURPASSWORD
+;;   (let ((credential (auth-source-user-and-password "api.github.com")))
+;;     (setq grip-github-user (car credential)
+;;           grip-github-password (cadr credential)))
+;;   (setq grip-update-after-change nil)
+;;   (setq grip-preview-use-webkit nil)
+;;   ;; Make a keybinding: `C-c C-c g'
+;;   :bind (:map markdown-mode-command-map
+;;               ("g" . grip-mode)))
 
 ;;; https://github.com/ardumont/markdown-toc
 ;; Compute the TOC and insert it at current position: M-x markdown-toc-generate-or-refresh-toc
@@ -642,7 +629,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; # supports frontmatter #  GO111MODULE=on  go get -v github.com/moorereason/mdfmt
 (use-package markdownfmt
   :init
-  (setq markdownfmt-bin "mdfmt")
+  (setq markdownfmt-bin "mdfmt")  ;; default: "markdownfmt"
   ;; make a binding "C-c C-c f"
   :bind (:map markdown-mode-command-map
               ("f" . markdownfmt-format-buffer))
@@ -651,17 +638,17 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; ;; uncomment to autoformat ;; (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save)
   )
 
-(use-package multiple-cursors
-  :bind
-  (("C-S-c C-S-c" . mc/edit-lines)
-   ;; highlighting symbols only
-   ("C-M->" . mc/mark-next-symbol-like-this)
-   ("C-M-<" . mc/mark-previous-symbol-like-this)
-   ("C-M-*" . mc/mark-all-symbols-like-this)
-   ;; highlighting all
-   ("C->" . mc/mark-next-like-this)
-   ("C-<" . mc/mark-previous-like-this)
-   ("C-c C->" . mc/mark-all-like-this)))
+;; (use-package multiple-cursors
+;;   :bind
+;;   (("C-S-c C-S-c" . mc/edit-lines)
+;;    ;; highlighting symbols only
+;;    ("C-M->" . mc/mark-next-symbol-like-this)
+;;    ("C-M-<" . mc/mark-previous-symbol-like-this)
+;;    ("C-M-*" . mc/mark-all-symbols-like-this)
+;;    ;; highlighting all
+;;    ("C->" . mc/mark-next-like-this)
+;;    ("C-<" . mc/mark-previous-like-this)
+;;    ("C-c C->" . mc/mark-all-like-this)))
 
 ;; https://github.com/domtronn/all-the-icons.el
 ;; M-x all-the-icons-install-fonts ; puts them in global area
@@ -757,16 +744,16 @@ This function is intended for use with `ivy-ignore-buffers'."
       ))
   (recentf-mode 1))
 
-;;; https://github.com/pashky/restclient.el
-;; see also: outline-magic
-(use-package restclient
-  :defer 2)
+;; ;;; https://github.com/pashky/restclient.el
+;; ;; see also: outline-magic
+;; (use-package restclient
+;;   :defer 2)
 
 
-(use-package request
-  :config
-  (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
-  )
+;; (use-package request
+;;   :config
+;;   (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
+;;   )
 
 ;; ;;; https://github.com/Fuco1/smartparens
 ;; ;; https://ebzzry.io/en/emacs-pairs/
