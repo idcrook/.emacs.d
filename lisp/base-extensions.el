@@ -4,9 +4,10 @@
 
 ;;; Code:
 
-(use-package diminish) ; https://github.com/emacsmirror/diminish
+;;; https://github.com/emacsmirror/diminish
+(use-package diminish)
 
-;; https://elpa.gnu.org/packages/delight.html
+;;; https://elpa.gnu.org/packages/delight.html
 (use-package delight)
 
 ;;; [jschaf/esup: ESUP - Emacs Start Up Profiler](https://github.com/jschaf/esup)
@@ -39,15 +40,12 @@
 ;;   :config
 ;;   (setq ansible::vault-password-file (concat user-emacs-directory "vault_pass.txt"))
 ;;   (add-hook 'ansible-hook 'ansible::auto-decrypt-encrypt))
-
 ;; (use-package ansible-doc)
-
-;; ;; https://github.com/zellio/ansible-vault-mode#automatic-enabling-based-on-file-contents
+;; ;;; https://github.com/zellio/ansible-vault-mode#automatic-enabling-based-on-file-contents
 ;; (defun ansible-vault-mode-maybe ()
 ;;   "Turn on `ansible-vault-mode' if the current buffer is an encrypted `ansible-vault' file."
 ;;   (when (ansible-vault--is-vault-file)
 ;;     (ansible-vault-mode 1)))
-
 ;; (use-package ansible-vault
 ;;   :init (add-hook 'yaml-mode-hook 'ansible-vault-mode-maybe)
 ;;   :config
@@ -63,7 +61,7 @@
         avy-highlight-first t
         avy-style 'at-full))
 
-;; https://github.com/Malabarba/beacon
+;;; https://github.com/Malabarba/beacon
 (use-package beacon
   :diminish beacon-mode
   :config
@@ -74,8 +72,8 @@
 ;; ;; for bison, yacc, lex grammars, jison mode
 ;; (use-package bison-mode)
 
-;; ;; https://github.com/walseb/blimp
-;; - a complete wrapper around all imagemagick commands (requires it)
+;; ;;; https://github.com/walseb/blimp
+;; ;; a complete wrapper around all imagemagick commands (requires it)
 ;; (use-package blimp
 ;;   :config
 ;;   (add-hook 'image-mode-hook 'blimp-mode))
@@ -96,8 +94,8 @@
   ;; (setq browse-url-dwim-always-confirm-extraction nil)
   )
 
-;; ;;; Create and share beautiful images of your source code.
-;; ;;; : https://github.com/veelenga/carbon-now-sh.el
+;; ;; Create and share beautiful images of your source code.
+;; ;;; https://github.com/veelenga/carbon-now-sh.el
 ;; (use-package carbon-now-sh)
 
 ;;; https://github.com/camdez/checkbox.el
@@ -142,7 +140,7 @@
 (global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
 ;;; https://github.com/rakanalh/emacs-dashboard
-;;  - needs package all-the-icons (and icons installed)
+;; - needs package all-the-icons (and icons installed)
 (use-package dashboard
   :after (all-the-icons)
   :config
@@ -220,31 +218,28 @@
   :diminish editorconfig-mode "EC"
   :init
   (add-hook 'prog-mode-hook (editorconfig-mode 1))
-  (add-hook 'text-mode-hook (editorconfig-mode 1)))
+  (add-hook 'text-mode-hook (editorconfig-mode 1))
+  (add-hook 'editorconfig-hack-properties-functions
+            '(lambda (props)
+               (when (derived-mode-p 'makefile-mode)
+                 (puthash 'indent_style "tab" props))))
+  ;;; https://github.com/10sr/editorconfig-custom-majormode-el
+  (with-eval-after-load 'editorconfig
+    (use-package editorconfig-custom-majormode
+      :init
+      (add-hook 'editorconfig-custom-hooks
+                'editorconfig-custom-majormode)))
+  ;;; https://github.com/lassik/editorconfig-emacs-domain-specific
+  (with-eval-after-load 'editorconfig
+    (use-package editorconfig-domain-specific
+      :defer 2
+      :init
+      (add-hook 'editorconfig-custom-hooks 'editorconfig-domain-specific))))
 
-(add-hook 'editorconfig-hack-properties-functions
-          '(lambda (props)
-             (when (derived-mode-p 'makefile-mode)
-               (puthash 'indent_style "tab" props))))
-
-;;; https://github.com/10sr/editorconfig-custom-majormode-el
-(with-eval-after-load 'editorconfig
-  (use-package editorconfig-custom-majormode
-    :init
-    (add-hook 'editorconfig-custom-hooks
-              'editorconfig-custom-majormode)))
-
-;; https://github.com/lassik/editorconfig-emacs-domain-specific
-(with-eval-after-load 'editorconfig
-  (use-package editorconfig-domain-specific
-    :defer 2
-    :init
-    (add-hook 'editorconfig-custom-hooks 'editorconfig-domain-specific)))
-
-;; ;; firefox: https://addons.mozilla.org/en-US/firefox/addon/edit-with-emacs1/
-;; ;; chrome: https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh
-;; ;; https://github.com/stsquad/emacs_chrome
-;; ;; for addl ideas see here: https://github.com/stsquad/my-emacs-stuff/blob/master/my-edit-server.el
+;; ;;; firefox: https://addons.mozilla.org/en-US/firefox/addon/edit-with-emacs1/
+;; ;;; chrome: https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh
+;; ;;; https://github.com/stsquad/emacs_chrome
+;; ;;; for addl ideas see here: https://github.com/stsquad/my-emacs-stuff/blob/master/my-edit-server.el
 ;; (use-package edit-server
 ;;   :if window-system
 ;;   :init
@@ -264,7 +259,7 @@
   :bind
   (("C-=" . er/expand-region)))
 
-;; https://www.flycheck.org/en/latest/
+;;; https://www.flycheck.org/en/latest/
 (use-package flycheck
   :init
   (global-flycheck-mode))
@@ -314,9 +309,9 @@
 ;;; https://github.com/magit/git-modes#gitignore-mode
 (use-package gitignore-mode)
 
-;; ________________________________________________________________________
-;; Commit to counsel / ivy / swiper as a lifestyle
-
+;;----------------------------------------------------------------------------
+;; counsel / ivy / swiper is a lifestyle
+;;----------------------------------------------------------------------------
 (use-package ivy
   :demand
   :diminish ivy-mode
@@ -467,8 +462,9 @@ This function is intended for use with `ivy-ignore-buffers'."
         ;; use system browser
         counsel-web-search-action          #'browse-url))
 
-;;;________________________________________________________________________
+;;----------------------------------------------------------------------------
 ;; end of counsel / ivy stuff
+;;----------------------------------------------------------------------------
 
 ;;; https://github.com/redguardtoo/find-file-in-project
 ;; in lieu of projectile, for example: #'ffip-get-project-root-directory
@@ -484,7 +480,13 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 ;;   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
+;;----------------------------------------------------------------------------
+;; magit
+;;----------------------------------------------------------------------------
 (use-package magit
+  :init
+  (eval-after-load "magit"
+    '(define-key magit-status-mode-map (kbd "Q") #'idc-magit-kill-buffers))
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
   ;; ;; When commiting enable verbose mode by default.
@@ -499,16 +501,13 @@ This function is intended for use with `ivy-ignore-buffers'."
    ("C-x g e" . magit-ediff-resolve)
    ("C-x g r" . magit-rebase-interactive)))
 
-;; based on http://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
+;;; based on http://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
 (defun idc-magit-kill-buffers ()
   "Restore window configuration and kill all (of these) Magit buffers."
   (interactive)
   (let ((buffers (magit-mode-get-buffers)))
     (magit-restore-window-configuration)
     (mapc #'kill-buffer buffers)))
-
-(eval-after-load "magit"
-  '(define-key magit-status-mode-map (kbd "Q") #'idc-magit-kill-buffers))
 
 ;; ;;; https://github.com/ragone/magit-diff-flycheck
 ;; ;; Run M-x magit-diff-flycheck in a magit-diff buffer to display a filtered
@@ -538,7 +537,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;    '(0 0 -1)
 ;;    '("T " "Todos" magit-todos-jump-to-todos)))
 
-
 ;;; https://github.com/jrblevin/markdown-mode
 ;; C-c C-c p - markdown-preview - open preview in browser
 (use-package markdown-mode
@@ -553,7 +551,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq markdown-xhtml-body-preamble "<article id=\"markdown-body\" class=\"markdown-body\"><p>")
   (setq markdown-xhtml-body-epilogue "</p></article>")
 
-  ;; https://jblevins.org/log/markdown-imenu
+  ;;; https://jblevins.org/log/markdown-imenu
   (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
   (add-hook 'gfm-mode-hook 'imenu-add-menubar-index)
   (setq imenu-auto-rescan t)
@@ -749,7 +747,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; (use-package restclient
 ;;   :defer 2)
 
-
 ;; (use-package request
 ;;   :config
 ;;   (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
@@ -786,7 +783,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   :config
 ;;   (setq smooth-scroll-margin 2))
 
-;; https://github.com/holomorph/systemd-mode
+;;; https://github.com/holomorph/systemd-mode
 (use-package systemd
   :hook (systemd-mode . company-mode))
 
@@ -823,7 +820,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;     C-x C-f
 (use-package tramp-term)
 
-;; .toml https://github.com/dryman/toml-mode.el
+;;; https://github.com/dryman/toml-mode.el
 (use-package toml-mode)
 
 ;; ;;; https://github.com/lujun9972/verify-url
@@ -837,7 +834,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;    undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
 ;;   (global-undo-tree-mode 1))
 
-;; https://wakatime.com/emacs
+;;; https://wakatime.com/emacs
 ;;     pip3 install --user wakatime
 (use-package wakatime-mode
   :diminish wakatime-mode
@@ -846,7 +843,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (global-wakatime-mode +1)
   )
 
-;; https://github.com/justbur/emacs-which-key
+;;; https://github.com/justbur/emacs-which-key
 (use-package which-key
   :diminish which-key-mode
   :config

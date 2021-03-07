@@ -65,9 +65,9 @@
 ;;      Emoji
 ;;        : sudo apt install fonts-symbola
 ;;        : sudo apt install ttf-ancient-fonts
-
-
+;;
 ;;; https://github.com/purcell/default-text-scale
+;;
 ;; Change global font size easily
 ;; "C-M-=" - decrease font size
 ;; "C-M--" - increase font size
@@ -93,12 +93,12 @@
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
   (setq
-;;   dpc-font-default "Inconsolata for Powerline"
+   ;; dpc-font-default "Inconsolata for Powerline"
    dpc-font-default "Inconsolata Nerd Font"
-;;   dpc-font-variable "Meslo for Powerline"
+   ;; dpc-font-variable "Meslo for Powerline"
    dpc-font-variable "UbuntuMono Nerd Font"
-;;   dpc-font-modeline "Cascadia Mono PL"
-;;   dpc-font-modeline "Menlo for Powerline"
+   ;; dpc-font-modeline "Cascadia Mono PL"
+   ;; dpc-font-modeline "Menlo for Powerline"
    dpc-font-modeline "DejaVuSansMono Nerd Font"
   ))
 
@@ -130,9 +130,9 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 ;; adapt font sizes to display resolution - should probably consult
 ;; (x-display-mm-width)
 ;; (x-display-mm-height)
+;;
 ;; macOS ;; 2 X 27" SBS: 1413 mm
 ;;       ;;  2560x1440p:  397 mm
-
 (when (display-graphic-p)
   (if (> (x-display-pixel-width) 1800)
       (if ;; very large number of pixels in display. side-by-side?
@@ -165,7 +165,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
 
 ;; can get hostname/display names
 ;; (x-display-list) ("w32")
-
+;;
 ;;; transparency ;;
 (set-frame-parameter (selected-frame) 'alpha '(100 95))
 (add-to-list 'default-frame-alist '(alpha 100 95))

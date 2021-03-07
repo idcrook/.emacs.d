@@ -2,21 +2,21 @@
 ;;
 ;;; Commentary:
 ;;
-;; https://github.com/rakanalh/emacs-bootstrap
+;; Originally from https://github.com/rakanalh/emacs-bootstrap
 
 ;;; Code:
-
 
 ;; See ~/.emacs.d/site-lisp/README.md
 (defconst dpc-site-lisp-dir (concat user-emacs-directory "site-lisp/")
   "Local directory with hand-maintain libraries.")
 
-;; Add all its subdirs to load-path
+;; explicitly list subdirectories to include in load path
 (let ((default-directory dpc-site-lisp-dir))
   (normal-top-level-add-to-load-path '("csh-mode")))
+;; Adds all its subdirs to load-path
 ;; (normal-top-level-add-subdirs-to-load-path))
 
-(defconst private-dir   (expand-file-name "private" user-emacs-directory)
+(defconst private-dir (expand-file-name "private" user-emacs-directory)
   "Set aside per-user Emacs directory.")
 
 (defconst temp-dir (format "%s/cache" private-dir)
@@ -60,9 +60,6 @@
  minibuffer-prompt-properties
  '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
 
- ;; ;; alongside $PATH via exec-path-from-shell package
- ;; exec-path                          (append exec-path '("/usr/local/bin/"))
-
  ;; I hate tabs!
  indent-tabs-mode                   nil
 
@@ -74,7 +71,6 @@
 
  ;; abbrev
  abbrev-file-name                   (concat temp-dir "/abbrev_defs")
-
  history-length                     1000
 
  ;;; searching ;;
@@ -82,7 +78,7 @@
  search-highlight                   t
  case-fold-search                   t
 
- ;; startup stuff - see dashboard package ;;
+ ;; startup stuff - see also dashboard package ;;
  fancy-splash-image                 nil
  inhibit-default-init               nil
  inhibit-startup-screen             t
@@ -106,12 +102,12 @@
 (unless (version< emacs-version "27.0")
   (global-display-fill-column-indicator-mode 1))
 
-;;; many of the variable-wrapper functions below are intended to be
-;;; called directly; i.e. do not set the underlying variable but
-;;; instead call the function
+;; many of the variable-wrapper functions below are intended to be called
+;; directly; i.e. do not set the underlying variable but instead call the
+;; function
 
-;;; global minor mode that reverts any buffer associated with a file
-;;; when the file changes on disk
+;; global minor mode that reverts any buffer associated with a file when the
+;; file changes on disk
 (require 'autorevert)
 (global-auto-revert-mode 1)
 
@@ -133,7 +129,7 @@
 ;; visualization of matching parens
 (require 'paren)
 (show-paren-mode 1)
-;;(setq show-paren-style 'parenthesis) ; default
+;; (setq show-paren-style 'parenthesis) ; default
 (setq show-paren-style 'expression)
 ;;(setq show-paren-style 'mixed)
 ;;(setq show-paren-delay 0)
@@ -151,7 +147,7 @@
 ;; Delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; FIXME:  only append if not already present
+;; ;; FIXME:  only append if not already present
 ;; (when (file-directory-p (expand-file-name "~/.local/bin"))
 ;;   (setq exec-path    (append exec-path (list (expand-file-name "~/.local/bin")))))
 
@@ -178,11 +174,10 @@
 (when (fboundp 'auto-image-file-mode)
     (auto-image-file-mode 1))
 
-;;;________________________________________________________________________
-;; === Backup and save or autosave stuff
-
-;; localize it for safety.
-(make-variable-buffer-local 'backup-inhibited)
+;; ---------------------------------------------------------------------------
+;; Backup and save or autosave stuff
+;; ---------------------------------------------------------------------------
+(make-variable-buffer-local 'backup-inhibited)  ;; localize it for safety.
 
 ;; Backups
 (setq
@@ -202,8 +197,9 @@
  )
 
 
+;; ---------------------------------------------------------------------------
 ;; autosaves
-
+;; ---------------------------------------------------------------------------
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory (concat temp-dir "/autosaves/") t)
 
@@ -218,8 +214,8 @@
 ;;(unless (file-exists-p (concat temp-dir "/autosave-save-list"))
 ;;  (make-directory (concat temp-dir "/autosave-save-list") :parents))
 
-;; For faster initial connection times, TRAMP stores previous
-;; connection properties in this file
+;; For faster initial connection times, TRAMP stores previous connection
+;; properties in this file
 (require 'tramp)
 (require 'tramp-cache)
 (setq  tramp-persistency-file-name (expand-file-name "tramp" temp-dir))

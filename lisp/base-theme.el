@@ -23,23 +23,18 @@
 ;;    ;; (zerodark-setup-modeline-format)
 ;;   )
 
-;; ;; https://github.com/mgrbyte/emacs-abyss-theme
+;; ;;; https://github.com/mgrbyte/emacs-abyss-theme
 ;; (use-package abyss-theme)
-
-;; ;; https://github.com/osener/emacs-afternoon-theme
+;; ;;; https://github.com/osener/emacs-afternoon-theme
 ;; (use-package afternoon-theme)
-
 ;;; https://github.com/popcorn4dinner/darkplus-emacs
-;;; error: eval-buffer: Symbol’s value as variable is void: fg3
+;; error: eval-buffer: Symbol’s value as variable is void: fg3
 ;; (straight-use-package '(darkplus :type git :host github :repo "popcorn4dinner/darkplus-emacs"))
-
 ;;; https://github.com/dracula/dracula-theme
-;; https://draculatheme.com/emacs/
+;;; https://draculatheme.com/emacs/
 ;; (use-package dracula-theme)
-
 ;; ;;; https://github.com/rexim/gruber-darker-theme
 ;; (use-package gruber-darker-theme)
-
 ;;; https://github.com/alezost/alect-themes
 ;; (use-package alect-themes)
 ;; (setq alect-display-class '((class color) (min-colors 256)))
@@ -58,8 +53,10 @@
 ;;; M-x describe-face fill-column-indicator
 ;; (set-face-attribute 'fill-column-indicator nil :foreground "grey10")
 
-;;; https://github.com/TheBB/spaceline
+;;----------------------------------------------------------------------------
 ;; powerline mode-line
+;;----------------------------------------------------------------------------
+;;; https://github.com/TheBB/spaceline
 (use-package spaceline
   :defer 2
   :config

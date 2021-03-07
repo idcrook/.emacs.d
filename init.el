@@ -11,9 +11,10 @@
 ;;;;  package management related
 
 
-;;______________________________________________________________________
+;;____________________________________________________________________________
 ;;;;  straight.el
 ;;; https://github.com/raxod502/straight.el/blob/develop/README.md#getting-started
+;;----------------------------------------------------------------------------
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -31,7 +32,6 @@
 ;;; https://github.com/raxod502/straight.el/blob/develop/README.md#integration-with-use-package
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
-
 ;;; https://github.com/raxod502/straight.el#updating-recipe-repositories
 ;;
 ;; updating a recipe repository (e.g. melpa) to get a newish PACKAGE-NAME
@@ -76,7 +76,6 @@
 (require 'base-global-keys)    ;; add bindings for functions
 
 (require 'base-lsp)            ;; Language Server Protocol
-
 (require 'lang-shell)          ;; shell-related (zsh, eshell, bash, etc)
 (require 'lang-python)
 (require 'lang-ruby)
@@ -89,7 +88,7 @@
 (require 'lang-web)
 (require 'lang-hardware)
 
-(require 'base-finally)
+(require 'base-finally)  ;; any final cleanup
 
 (provide 'init)
 
