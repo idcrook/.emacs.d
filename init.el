@@ -47,7 +47,7 @@
 ;;----------------------------------------------------------------------------
 ;; Make startup faster by reducing the frequency of garbage
 ;; collection.  The default is 800 kilobytes.  Measured in bytes.
-(let ((normal-gc-cons-threshold (* 20 1024 1024))
+(let ((normal-gc-cons-threshold (* 2 1024 1024))
       (init-gc-cons-threshold (* 500 1024 1024)))
   (setq gc-cons-threshold init-gc-cons-threshold)
   (add-hook 'emacs-startup-hook
