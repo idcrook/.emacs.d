@@ -78,6 +78,7 @@
 (require 'base-lsp)            ;; Language Server Protocol
 (require 'lang-shell)          ;; shell-related (zsh, eshell, bash, etc)
 (require 'lang-python)
+(require 'lang-perl)
 (require 'lang-ruby)
 (require 'lang-go)
 (require 'lang-elixir)
