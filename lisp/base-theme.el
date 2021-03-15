@@ -46,9 +46,11 @@
     ;; (load-theme 'dracula 'no-confirm)
     ;; (load-theme 'gruber-darker 'no-confirm)
     (load-theme 'sanityinc-tomorrow-bright 'no-confirm)
-;;  (load-theme 'tango-dark))  ;; tango-dark included in emacs
-;;  (load-theme 'wheatgrass))  ;;
-  (load-theme 'cyberpunk 'no-confirm))
+  (load-theme 'tango-dark)  ;; tango-dark included in emacs
+;;  (load-theme 'misterioso)  ;;
+;;  (load-theme 'wheatgrass)  ;;
+;;  (load-theme 'cyberpunk 'no-confirm)
+  )
 
 ;;; M-x describe-face fill-column-indicator
 ;; (set-face-attribute 'fill-column-indicator nil :foreground "grey10")
