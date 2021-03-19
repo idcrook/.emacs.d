@@ -669,7 +669,7 @@ This function is intended for use with `ivy-ignore-buffers'."
    ("C-c a" . org-agenda)
    ("C-c c" . org-capture)))
 
-;; TODO investiage
+;; TODO investigate
 ;; - ivy-todo
 ;; - magit-org-todos
 ;; - ob-rust, ob-uart
@@ -678,6 +678,22 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; - org-protocol-jekyll, org2jekyll, org2issue
 ;; - org-shoplist, org-rtm
 ;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
+
+;; ;;; [org-opml/org-opml: Edit OPML files using Org mode in Emacs](https://github.com/org-opml/org-opml)
+;; NOTE: Was able to get loaded after updating :files directive; OPML parsing
+;;     is not robust to different generators, and was breaking "round-trip"
+;; (use-package ox-opml
+;;   :straight (ox-opml :type git :host github
+;;                      :repo "org-opml/org-opml"
+;;                      ))
+
+;; (use-package org-opml
+;;   :straight (org-opml :type git :host github
+;;                       :repo "org-opml/org-opml"
+;; ;; opml-decode: Could not locate opml2org.py. Make sure it’s in ‘load-path’.
+;;                       :files (:defaults "opml2org.py")
+;;                       ))
+
 
 ;; ;;; https://github.com/larstvei/ox-gfm
 ;; (use-package ox-gfm
