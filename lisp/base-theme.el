@@ -10,7 +10,7 @@
 ;; sanityinc-tomorrow-bright is actually a dark theme
 
 ;;; https://github.com/n3mo/cyberpunk-theme.el
-(use-package cyberpunk-theme)
+;; (use-package cyberpunk-theme)
 
 ;; Don't prompt to confirm theme safety. This avoids problems with
 ;; first-time startup on Emacs > 26.3.
