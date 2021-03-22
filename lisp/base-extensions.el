@@ -33,7 +33,9 @@
     :config
     (setq-default ag-highlight-search t)
     (add-to-list 'ag-arguments "--hidden" t))
-  (use-package wgrep)
+  (use-package wgrep
+    :init
+    (setq wgrep-enable-key "p"))
   (use-package wgrep-ag))
 
 ;; (use-package ansible
