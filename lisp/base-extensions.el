@@ -131,7 +131,7 @@
 
 ;;; https://github.com/iquiw/company-restclient
 (use-package company-restclient
-  :defer 2
+;;  :defer 2
   :init
   (add-to-list 'company-backends 'company-restclient))
 
@@ -234,7 +234,7 @@
   ;;; https://github.com/lassik/editorconfig-emacs-domain-specific
   (with-eval-after-load 'editorconfig
     (use-package editorconfig-domain-specific
-      :defer 2
+;;      :defer 2
       :init
       (add-hook 'editorconfig-custom-hooks 'editorconfig-domain-specific))))
 
@@ -283,8 +283,8 @@
 ;;   )
 
 ;;; https://github.com/defunkt/gist.el
-(use-package gist
-  :defer 2)
+(use-package gist)
+;;  :defer 2)
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
@@ -443,7 +443,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://github.com/mnewt/counsel-web
 (use-package counsel-web
-  :defer 2
+;;  :defer 2
   ;; :bind
   ;; (("C-c w" . counsel-web-suggest)
   ;;  ("C-c W" . counsel-web-search)
@@ -520,7 +520,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
 ;; can use: M-x magit-todos-list  or  M-x ivy-magic-todos
 (use-package magit-todos
-  :defer 2
+;;  :defer 2
   :after (magit)
   :config
   ;; ;; magit-todos: Not overriding bind of "jT" in ‘magit-status-mode-map’.
@@ -714,7 +714,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; https://github.com/emacsorphanage/org-bullets
 (use-package org-bullets
-  :defer 2
+;;  :defer 2
   :config
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-bullets-mode))
@@ -742,8 +742,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (global-page-break-lines-mode +1))
 
 ;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
-(use-package scad-mode
-  :defer 2)
+(use-package scad-mode)
+;;  :defer 2)
 
 (use-package recentf
   :demand

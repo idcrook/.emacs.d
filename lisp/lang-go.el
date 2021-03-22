@@ -8,7 +8,7 @@
 
 
 (use-package go-mode
-  :defer 2
+;;  :defer 2
   :config
   ; Use goimports instead of go-fmt
   (setq gofmt-command "goimports")
@@ -39,7 +39,7 @@
               ("M-." . godef-jump)))
 
 (use-package go-eldoc
-  :defer 2
+;;  :defer 2
   :config
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 

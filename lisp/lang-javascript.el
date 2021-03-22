@@ -23,7 +23,7 @@
 
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
-  :defer 2
+;;  :defer 2
   :bind (:map js2-mode-map
               (("C-x C-e" . js-send-last-sexp)
                ("C-M-x" . js-send-last-sexp-and-go)

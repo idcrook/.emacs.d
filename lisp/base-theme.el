@@ -79,7 +79,7 @@
 ;;----------------------------------------------------------------------------
 ;;; https://github.com/TheBB/spaceline
 (use-package spaceline
-  :defer 2
+;;  :defer 2
   :config
   (require 'spaceline-config)
   ;; segments
