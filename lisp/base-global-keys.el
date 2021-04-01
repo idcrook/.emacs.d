@@ -19,6 +19,9 @@
 ;; unfill-paragraph defined in base-functions.el
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
+;; super-u
+(define-key global-map [?\s-u] 'revert-buffer)
+
 (provide 'base-global-keys)
 
 ;;; base-global-keys.el ends here
