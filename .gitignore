@@ -13,3 +13,4 @@ custom.el
 /elpy
 .lsp-session-*
 /url/
+session.*
