@@ -16,8 +16,8 @@
 ;; (setq-default c-basic-offset                     4)
 ;; (setq         c-basic-offset                     4)
 
-;; ;;; https://github.com/Lindydancer/cmake-font-lock
-;; (use-package cmake-font-lock)
+;;; https://github.com/Lindydancer/cmake-font-lock
+(use-package cmake-font-lock)
 
 ;; ;;; https://github.com/jimhourihan/glsl-mode
 ;; (use-package glsl-mode)
