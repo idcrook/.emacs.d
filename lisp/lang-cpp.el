@@ -23,16 +23,16 @@
 ;; (use-package glsl-mode)
 ;; ;; TODO: add flycheck support for glsl
 
-;;; https://github.com/chachi/cuda-mode
-(use-package cuda-mode
-  :config
-  (add-hook 'cuda-mode-hook
-            (lambda ()
-              ( setq c-basic-offset              4
-                     ;; add paths manually
-                     flycheck-cuda-include-path (list "."))
-              ))
-  )
+;; ;;; https://github.com/chachi/cuda-mode
+;; (use-package cuda-mode
+;;   :config
+;;   (add-hook 'cuda-mode-hook
+;;             (lambda ()
+;;               ( setq c-basic-offset              4
+;;                      ;; add paths manually
+;;                      flycheck-cuda-include-path (list "."))
+;;               ))
+;;   )
 
 ;; (setq cuda-mode-hook nil)
 
@@ -50,11 +50,18 @@
 
 (use-package irony)
 
-;; ubuntu: sudo apt install cmake libclang1 libclang-dev
+
+;;PREVIOUSLY
+;; ubuntu: sudo apt install cmake clang  libclang-dev
+;;
+;;TRIAL?
+;; ubuntu: sudo apt install irony-server
+;;   installs -> irony-server libclang1-10 libllvm10
+;; Company backend ’company-clang’ could not be initialized:
+;; Company found no clang executable
+
 ;; macos: brew install cmake
-;;
 ;; Note: since relies on Homebrew, assumes macOS user already owns /usr/local
-;;
 ;;     cp -p "`xcode-select --print-path`"/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib /usr/local/lib
 ;;     cd /tmp
 ;;     svn export http://llvm.org/svn/llvm-project/cfe/trunk/include/clang-c/
@@ -73,28 +80,29 @@
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
-(push 'cuda-mode irony-supported-major-modes)
+;; (push 'cuda-mode irony-supported-major-modes)
 
-(add-hook 'irony-mode-hook
-          (lambda ()
-            (define-key irony-mode-map [remap completion-at-point]
-              'irony-completion-at-point-async)
-            (define-key irony-mode-map [remap complete-symbol]
-              'irony-completion-at-point-async)
-            (irony-cdb-autosetup-compile-options)
-            ))
+;; (add-hook 'irony-mode-hook
+;;           (lambda ()
+;;             (define-key irony-mode-map [remap completion-at-point]
+;;               'irony-completion-at-point-async)
+;;             (define-key irony-mode-map [remap complete-symbol]
+;;               'irony-completion-at-point-async)
+;;             (irony-cdb-autosetup-compile-options)
+;;             ))
 
-(defun dpc-irony-mode-hook ()
-  "Change the \\<C-M-i> binding to counsel-irony."
-  (define-key irony-mode-map
-    [remap completion-at-point] 'counsel-irony)
-  (define-key irony-mode-map
-    [remap complete-symbol] 'counsel-irony))
+;; (defun dpc-irony-mode-hook ()
+;;   "Change the \\<C-M-i> binding to counsel-irony."
+;;   (define-key irony-mode-map
+;;     [remap completion-at-point] 'counsel-irony)
+;;   (define-key irony-mode-map
+;;     [remap complete-symbol] 'counsel-irony))
 
-; Use irony's completion functions.
-(add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
+;; ; Use irony's completion functions.
+;; (add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
 
-;; use compile_commands.json obtained from CMake -D CMAKE_EXPORT_COMPILE_COMMANDS=O
+;; use compile_commands.json obtained from
+;; CMake -D CMAKE_EXPORT_COMPILE_COMMANDS=ON
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; https://github.com/Sarcasm/flycheck-irony
@@ -107,7 +115,6 @@
 (use-package irony-eldoc)
 (add-hook 'irony-mode-hook #'irony-eldoc)
 
-;; ubuntu: sudo apt install clang
 ;; https://github.com/Sarcasm/company-irony
 (use-package company-irony)
 ;;; load grouped with company-irony-c-headers below
