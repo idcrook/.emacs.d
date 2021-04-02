@@ -50,16 +50,8 @@
 
 (use-package irony)
 
-
-;;PREVIOUSLY
-;; ubuntu: sudo apt install cmake clang  libclang-dev
+;; Ubuntu/Debian: sudo apt install cmake clang libclang-dev
 ;;
-;;TRIAL?
-;; ubuntu: sudo apt install irony-server
-;;   installs -> irony-server libclang1-10 libllvm10
-;; Company backend ’company-clang’ could not be initialized:
-;; Company found no clang executable
-
 ;; macos: brew install cmake
 ;; Note: since relies on Homebrew, assumes macOS user already owns /usr/local
 ;;     cp -p "`xcode-select --print-path`"/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib /usr/local/lib
@@ -74,7 +66,7 @@
 (add-hook 'c++-mode-hook (lambda ()
                            (irony-mode)
                            (irony-eldoc)
-                           (setq flycheck-gcc-language-standard "c++11")
+                           (setq flycheck-gcc-language-standard "c++17")
                            (setq flycheck-clang-language-standard "c++17")))
 ;;(setq c++-mode-hook nil)
 
@@ -82,24 +74,24 @@
 (add-hook 'objc-mode-hook 'irony-mode)
 ;; (push 'cuda-mode irony-supported-major-modes)
 
-;; (add-hook 'irony-mode-hook
-;;           (lambda ()
-;;             (define-key irony-mode-map [remap completion-at-point]
-;;               'irony-completion-at-point-async)
-;;             (define-key irony-mode-map [remap complete-symbol]
-;;               'irony-completion-at-point-async)
-;;             (irony-cdb-autosetup-compile-options)
-;;             ))
+(add-hook 'irony-mode-hook
+          (lambda ()
+            (define-key irony-mode-map [remap completion-at-point]
+              'irony-completion-at-point-async)
+            (define-key irony-mode-map [remap complete-symbol]
+              'irony-completion-at-point-async)
+            ;; (irony-cdb-autosetup-compile-options)
+            ))
 
-;; (defun dpc-irony-mode-hook ()
-;;   "Change the \\<C-M-i> binding to counsel-irony."
-;;   (define-key irony-mode-map
-;;     [remap completion-at-point] 'counsel-irony)
-;;   (define-key irony-mode-map
-;;     [remap complete-symbol] 'counsel-irony))
+(defun dpc-irony-mode-hook ()
+  "Change the \\<C-M-i> binding to counsel-irony."
+  (define-key irony-mode-map
+    [remap completion-at-point] 'counsel-irony)
+  (define-key irony-mode-map
+    [remap complete-symbol] 'counsel-irony))
 
-;; ; Use irony's completion functions.
-;; (add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
+; Use irony's completion functions.
+(add-hook 'irony-mode-hook 'dpc-irony-mode-hook)
 
 ;; use compile_commands.json obtained from
 ;; CMake -D CMAKE_EXPORT_COMPILE_COMMANDS=ON
