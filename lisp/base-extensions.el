@@ -116,10 +116,10 @@
 ;;   :init
 ;;   (add-to-list 'company-backends 'company-ansible))
 
-;;; https://github.com/dunn/company-emoji
-(use-package company-emoji
-  :init
-  (add-to-list 'company-backends 'company-emoji))
+;; ;;; https://github.com/dunn/company-emoji
+;; (use-package company-emoji
+;;   :init
+;;   (add-to-list 'company-backends 'company-emoji))
 
 ;;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
