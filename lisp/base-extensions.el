@@ -141,6 +141,9 @@
 (global-set-key (kbd "C-c w o") 'copy-as-format-org-mode)
 (global-set-key (kbd "C-c w g") 'copy-as-format-github)
 
+;;; https://elpa.gnu.org/packages/csv-mode.html
+(use-package csv-mode)
+
 ;;; https://github.com/rakanalh/emacs-dashboard
 ;; - needs package all-the-icons (and icons installed)
 (use-package dashboard
