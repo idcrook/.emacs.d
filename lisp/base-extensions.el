@@ -401,7 +401,8 @@ This function is intended for use with `ivy-ignore-buffers'."
    ("<f1> l" . counsel-find-library)
    ("<f2> i" . counsel-info-lookup-symbol)
    ("<f2> u" . counsel-unicode-char)
-   ("C-c g" . counsel-git)
+   ;; ("C-c g" . counsel-git) ;; use for magit-file-dispatch instead
+   ("C-c C-f" . counsel-git)
    ("C-c j" . counsel-git-grep)
    ("C-c k" . counsel-ag))
   :config
@@ -416,7 +417,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (if (eq system-type 'darwin)
       ;; TODO: dynamically find the places.sqlite?
       ;; https://github.com/cireu/counsel-ffdata/issues/3
-      (setq counsel-ffdata-database-path "/Users/dpc/Library/Application Support/Firefox/Profiles/xea5xo20.default-release/places.sqlite"))
+      (setq counsel-ffdata-database-path "/Users/dpc/Library/Application Support/Firefox/Profiles/ke986qv7.default-release/places.sqlite"))
   )
 
 ;;; https://github.com/200ok-ch/counsel-jq
@@ -492,13 +493,17 @@ This function is intended for use with `ivy-ignore-buffers'."
   :init
   (eval-after-load "magit"
     '(define-key magit-status-mode-map (kbd "Q") #'idc-magit-kill-buffers))
+  (setq magit-define-global-key-bindings nil)
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
   ;; ;; When commiting enable verbose mode by default.
   ;; (setq magit-commit-arguments (quote ("--verbose")))
+  ;; (global-set-key (kbd "C-c g") 'magit-file-dispatch)
   :bind
   ;; Magit
   (("C-x g s" . magit-status)
+   ("C-x M-g" . magit-dispatch)
+   ("C-c g"   . magit-file-dispatch)
    ("C-x g x" . magit-checkout)
    ("C-x g c" . magit-commit)
    ("C-x g p" . magit-push)
@@ -672,7 +677,8 @@ This function is intended for use with `ivy-ignore-buffers'."
   :bind
   (("C-c l" . org-store-link)
    ("C-c a" . org-agenda)
-   ("C-c c" . org-capture)))
+   ("C-c c" . org-capture))
+  )
 
 ;; TODO investigate
 ;; - ivy-todo
