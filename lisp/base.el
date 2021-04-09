@@ -99,8 +99,9 @@
 (setq-default major-mode                 'text-mode
               fill-column                79)
 
-(unless (version< emacs-version "27.0")
-  (global-display-fill-column-indicator-mode 1))
+;; fill-column-indicator-mode not as useful as I thought in modern configs
+;; (unless (version< emacs-version "27.0")
+;;   (global-display-fill-column-indicator-mode 1))
 
 ;; many of the variable-wrapper functions below are intended to be called
 ;; directly; i.e. do not set the underlying variable but instead call the

@@ -501,9 +501,9 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (global-set-key (kbd "C-c g") 'magit-file-dispatch)
   :bind
   ;; Magit
-  (("C-x g s" . magit-status)
-   ("C-x M-g" . magit-dispatch)
-   ("C-c g"   . magit-file-dispatch)
+  (("C-x g s" . magit-status)         ;; global default is "C-x g"
+   ("C-x M-g" . magit-dispatch)       ;; same as global default
+   ("C-c g"   . magit-file-dispatch)  ;; global default is "C-c M-g"
    ("C-x g x" . magit-checkout)
    ("C-x g c" . magit-commit)
    ("C-x g p" . magit-push)
