@@ -15,21 +15,70 @@
 (use-package python
   :init
   (setq python-shell-interpreter "python3")
-  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
+  ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+  (add-hook 'python-mode-hook #'my-python-mode-hook))
 
+;;; https://github.com/jorgenschaefer/elpy
 (use-package elpy
-  :defer t
   :after (flycheck)
   :delight highlight-indentation-mode
   :init
   (setq elpy-rpc-python-command "python3")
-  ;; lazy load elpy
-  (advice-add 'python-mode :before 'elpy-enable))
+  ;; do not enable elpy globally for python-mode; see my-python-mode-hook.
+  ;; ;; lazy load elpy
+  ;; (advice-add 'python-mode :before 'elpy-enable)
+  :config
+  (when (load "flycheck" t t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+  ;; do not explicitly run; also, should only be run once per emacs session
+  ;;(elpy-modules-global-init)
+  )
 
 ;; these are the default bindings
 ;; :bind (:map elpy-mode-map
 ;; 	          ("M-." . elpy-goto-definition)
 ;; 	          ("M-*" . pop-tag-mark))
+
+(defun check-for-embedded-python ()
+  (and (eq major-mode 'python-mode)
+       (buffer-file-name)
+       (string= (file-name-base (directory-file-name (file-name-directory (buffer-file-name))))
+                "CIRCUITPY")))
+
+(defun  my-python-mode-hook ()
+  (if (check-for-embedded-python)
+      (progn
+        (message "Detected embedded python")
+        ;; (message  "%s" python-mode-hook) ;; elpy-mode should be removed from python-mode-hook after below enable
+        ;; (interactive)
+        ;; (elpy-modules-global-stop)
+        (elpy-disable)
+        (eldoc-mode -1)
+        (flymake-mode -1)
+        (flycheck-mode -1))
+    (progn
+      ;; (message "Did not detect embedded python")
+      (elpy-enable)
+      ;; it does ;; (add-hook 'python-mode-hook 'elpy-mode)
+      (remove-hook 'python-mode-hook 'elpy-mode)
+      (yapf-mode +1)
+      (blacken-mode +1)
+      ;;(py-autopep8-enable-on-save)
+      ;; (make-variable-buffer-local 'elpy-modules)
+      ;; (setq elpy-modules
+	  ;;         '(elpy-module-sane-defaults
+      ;;           elpy-module-company
+      ;;           elpy-module-eldoc
+      ;;           elpy-module-flymake
+      ;;           ;; elpy-module-folding
+      ;;           elpy-module-highlight-indentation
+      ;;           elpy-module-pyvenv
+      ;;           elpy-module-yasnippet
+      ;;           ))
+      (elpy-mode +1))
+    )
+  )
 
 ;;; https://github.com/syohex/emacs-company-jedi
 ;; company-mode completion back-end for Python JEDI.
@@ -52,14 +101,10 @@
 ;;   )
 
 ;; https://github.com/JorisE/yapfify
-(use-package yapfify
-  :init
-  (add-hook 'python-mode-hook 'yapf-mode))
+(use-package yapfify)
 
 ;; https://github.com/proofit404/blacken
 (use-package blacken
-  :init
-  (add-hook 'python-mode-hook 'blacken-mode)
   :config
   (setq blacken-skip-string-normalization t))
 
