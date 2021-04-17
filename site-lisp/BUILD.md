@@ -9,20 +9,28 @@ git clone --depth 1 --branch emacs-27 https://git.savannah.gnu.org/git/emacs.git
 
 # DEPENDENCIES
 sudo apt install build-essential git stow
+
+# apt build-dep command below requires deb-src to be uncommented in /etc/apt/sources*
+sudo vi /etc/apt/sources.list
+sudo vi /etc/apt/sources.list.d/raspi.list 
+
+sudo apt update
+sudo apt build-dep emacs
 # native JSON support available in emacs27 with jansson
 sudo apt install libjansson-dev
 
-# apt build-dep command below requires deb-src to be uncommented in /etc/apt/sources*
-sudo apt update
-sudo apt build-dep emacs
-
 # BUILD
-cd emacs-27
+cd ~/projects/build/
+cd emacs-27/
 
 ./autogen.sh
 ./configure
+# uses prefix=/usr/local as default, aligns with make install + stow below
+# TODO: investigate --with-xwidgets
+
+# BUILD
+# this main build takes about 45 minutes on a Model 3 B
 make bootstrap
-# this main build will take about 45 minutes on a Model 3 B
 
 # INSTALL
 sudo make install prefix=/usr/local/stow/emacs
