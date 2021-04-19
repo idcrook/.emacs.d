@@ -19,7 +19,7 @@ sudo apt build-dep emacs
 # native JSON support available in emacs27 with jansson
 sudo apt install libjansson-dev
 
-# BUILD
+# CONFIGURE
 cd ~/projects/build/
 cd emacs-27/
 
@@ -30,14 +30,15 @@ cd emacs-27/
 
 # BUILD
 # this main build takes about 45 minutes on a Model 3 B
-make bootstrap
+make -j4 bootstrap
 
 # INSTALL
-sudo make install prefix=/usr/local/stow/emacs
+sudo make install prefix=/usr/local/stow/emacs-27.2
 
 # SYMLINK with stow
 sudo su -
 cd /usr/local/stow
+ln -s emacs-27.2 emacs
 stow -vv emacs
 ```
 
