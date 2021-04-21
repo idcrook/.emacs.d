@@ -20,8 +20,6 @@
 
 ;;; https://github.com/jorgenschaefer/elpy
 (use-package elpy
-  :after (flycheck)
-  :delight highlight-indentation-mode
   :init
   (setq elpy-rpc-python-command "python3")
   ;; do not enable elpy globally for python-mode; see my-python-mode-hook.
@@ -36,7 +34,7 @@
   )
 
 ;; these are the default bindings
-;; :bind (:map elpy-mode-map
+;; :bind (:map elpy-mode-map1
 ;; 	          ("M-." . elpy-goto-definition)
 ;; 	          ("M-*" . pop-tag-mark))
 
@@ -64,7 +62,7 @@
       (remove-hook 'python-mode-hook 'elpy-mode)
       (yapf-mode +1)
       (blacken-mode +1)
-      ;;(py-autopep8-enable-on-save)
+      ;; (py-autopep8-enable-on-save)
       ;; (make-variable-buffer-local 'elpy-modules)
       ;; (setq elpy-modules
 	  ;;         '(elpy-module-sane-defaults
@@ -101,7 +99,8 @@
 ;;   )
 
 ;; https://github.com/JorisE/yapfify
-(use-package yapfify)
+(use-package yapfify
+  :delight yapf-mode)
 
 ;; https://github.com/proofit404/blacken
 (use-package blacken
