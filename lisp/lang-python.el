@@ -1,7 +1,6 @@
 ;;; package --- python configs
 ;;; Commentary:
 ;;; Contains my python configs
-;; via http://emacs-bootstrap.com
 
 ;;; Code:
 
@@ -10,7 +9,10 @@
 ;; # completion and code navigation - jedi
 ;; # automatic formatting - black autopep8 yapf
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
-;; pip3 install --user venv
+;; pip3 install --user virtualenvwrapper
+;; venv is now built into python3
+
+;; TODO: Invetigate formatter https://github.com/raxod502/apheleia
 
 (use-package python
   :init
@@ -58,7 +60,7 @@
     (progn
       ;; (message "Did not detect embedded python")
       (elpy-enable)
-      ;; it does ;; (add-hook 'python-mode-hook 'elpy-mode)
+      ;; it does ;; (add-hook 'python-mode-hook 'elpy-mode) so remove it
       (remove-hook 'python-mode-hook 'elpy-mode)
       (yapf-mode +1)
       (blacken-mode +1)
@@ -85,11 +87,12 @@
   :init
   (add-to-list 'company-backends 'company-jedi))
 
+;;; https://github.com/Wilfred/pip-requirements.el
 ;; major mode for editing pip requirements files.
-(use-package pip-requirements
-  :mode ("/requirements.txt$" . pip-requirements-mode)
-  :config
-  (add-hook 'pip-requirements-mode-hook #'pip-requirements-auto-complete-setup))
+;; Use its defaults
+;; - already recognizes file names
+;; - do not turn on the ac module as it will use company
+(use-package pip-requirements)
 
 ;; ;; https://github.com/paetzke/py-autopep8.el
 ;; (use-package py-autopep8
@@ -98,23 +101,28 @@
 ;;   ;;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 ;;   )
 
-;; https://github.com/JorisE/yapfify
+;;; https://github.com/JorisE/yapfify
 (use-package yapfify
   :delight yapf-mode)
 
 ;; https://github.com/proofit404/blacken
 (use-package blacken
   :config
-  (setq blacken-skip-string-normalization t))
+  (setq
+   ;; blacken-line-length                  'fill  ;; ‘fill-column’ variable value is used.
+   ;; Only auto-blacken if project has a pyproject.toml with a [tool.black] section.
+   blacken-only-if-project-is-blackened t
+   blacken-skip-string-normalization    t))
 
 
-;; ;;; https://github.com/jorgenschaefer/pyvenv
-;; (use-package pyvenv
-;;   :init
-;;   (setq pyvenv-default-virtual-env-name "env")
-;;   (setenv "WORKON_HOME" "~/.pyenv/versions/")
-;;   :bind
-;;   ("C-x C-y v" . pyvenv-activate))
+;;; https://github.com/jorgenschaefer/pyvenv
+(use-package pyvenv
+  :init
+  (setq pyvenv-default-virtual-env-name "venv")
+  ;; $WORKON_HOME or ~/.virtualenvs (Default)
+  ;; (setenv "WORKON_HOME" "~/.pyenv/versions/")
+  :bind
+  ("C-x C-y v" . pyvenv-activate))
 
 
 ;; ;;; https://github.com/pythonic-emacs/pyenv-mode
