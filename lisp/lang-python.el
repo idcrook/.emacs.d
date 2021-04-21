@@ -10,7 +10,7 @@
 ;; # completion and code navigation - jedi
 ;; # automatic formatting - black autopep8 yapf
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
-;; pip3 install --user venv
+;; venv is now built into python3
 
 (use-package python
   :init
@@ -60,10 +60,9 @@
     (progn
       ;; (message "Did not detect embedded python")
       (elpy-enable)
-      ;; it does ;; (add-hook 'python-mode-hook 'elpy-mode)
+      ;; it does ;; (add-hook 'python-mode-hook 'elpy-mode) so remove it
       (remove-hook 'python-mode-hook 'elpy-mode)
-      (yapf-mode +1)
-      (blacken-mode +1)
+      ;; (blacken-mode +1)
       ;;(py-autopep8-enable-on-save)
       ;; (make-variable-buffer-local 'elpy-modules)
       ;; (setq elpy-modules
@@ -100,13 +99,19 @@
 ;;   ;;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 ;;   )
 
-;; https://github.com/JorisE/yapfify
-(use-package yapfify)
+;; ;; https://github.com/JorisE/yapfify
+;; (use-package yapfify
+;;   :diminish yapf-mode)
 
 ;; https://github.com/proofit404/blacken
 (use-package blacken
   :config
-  (setq blacken-skip-string-normalization t))
+  (setq
+   ;; ;; ‘fill-column’ variable value is used.
+   ;; blacken-line-length                  'fill
+   ;; Only blacken if project has a pyproject.toml with a [tool.black] section.
+   blacken-only-if-project-is-blackened t
+   blacken-skip-string-normalization    t))
 
 
 ;; ;;; https://github.com/jorgenschaefer/pyvenv
