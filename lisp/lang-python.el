@@ -62,7 +62,7 @@
       (elpy-enable)
       ;; it does ;; (add-hook 'python-mode-hook 'elpy-mode) so remove it
       (remove-hook 'python-mode-hook 'elpy-mode)
-      (yapf-mode +1)
+      (yapf-mode -1)
       (blacken-mode +1)
       ;; (py-autopep8-enable-on-save)
       ;; (make-variable-buffer-local 'elpy-modules)
