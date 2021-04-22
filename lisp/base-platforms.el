@@ -46,6 +46,7 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
+;; (print (font-family-list))
 ;; macos :
 ;;       : brew cask install font-cascadia-mono-pl
 ;;       : brew cask install font-dejavusansmono-nerd-font
@@ -60,15 +61,16 @@
 ;;        : sudo apt install fonts-hack
 ;;        : sudo apt install fonts-ubuntu
 ;;        : sudo apt install fonts-inconsolata
+;;        : sudo apt install fonts-anonymous-pro
 ;;        : sudo apt install fonts-dejavu
 ;;        : sudo apt install fonts-cascadia-code
 ;;      Emoji
 ;;        : sudo apt install fonts-symbola
 ;;        : sudo apt install ttf-ancient-fonts
 ;;
-;;; https://github.com/purcell/default-text-scale
-;;
+
 ;; Change global font size easily
+;;; https://github.com/purcell/default-text-scale
 ;; "C-M-=" - decrease font size
 ;; "C-M--" - increase font size
 ;; "C-M-0" - reset
@@ -77,9 +79,18 @@
   (add-hook 'after-init-hook 'default-text-scale-mode))
 
 ;; my various font family variables
+(defvar  dpc-font-frame-default)
 (defvar  dpc-font-default)
 (defvar  dpc-font-variable)
 (defvar  dpc-font-modeline)
+
+(when platform-linux-x-p
+  (when (member "Inconsolata" (font-family-list))
+    (setq dpc-font-frame-default "Inconsolata"))
+  (when (member "Inconsolata Nerd Font Mono" (font-family-list))
+    (setq dpc-font-frame-default "Inconsolata Nerd Font Mono"))
+  (when (member "Cascadia Code" (font-family-list))
+    (setq dpc-font-frame-default "Cascadia Code")))
 
 (setq
  ;; "powerline" fonts override plain font names in Linux
@@ -92,6 +103,12 @@
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
+  (when (member "Inconsolata Nerd Font" (font-family-list))
+    (setq dpc-font-frame-default "Inconsolata Nerd Font"))
+  (when (member "Cascadia Code" (font-family-list))
+    (setq dpc-font-frame-default "Cascadia Code")))
+
+(when platform-macos-p
   (setq
    ;; dpc-font-default "Inconsolata for Powerline"
    dpc-font-default "Inconsolata Nerd Font"
@@ -102,15 +119,19 @@
    dpc-font-modeline "DejaVuSansMono Nerd Font"
   ))
 
-(defun dpc-setup-main-fonts (default-height variable-pitch-height modeline-height)
+(defun dpc-setup-main-fonts (frame-default-height default-height variable-pitch-height modeline-height)
   "Set up default fonts.
 
-Use DEFAULT-HEIGHT for default face, VARIABLE-PITCH-HEIGHT for
-variable-pitch face, and MODELINE-HEIGHT for mode-line face."
+Use FRAME-DEFAULT-HEIGHT for default frame font, DEFAULT-HEIGHT
+for default face, VARIABLE-PITCH-HEIGHT for variable-pitch face,
+and MODELINE-HEIGHT for mode-line face."
   (set-face-attribute 'default nil
                       :family dpc-font-default
                       :height default-height
                       :weight 'regular)
+  ;; set frame font after default face attribute
+  (set-frame-font
+   (format "%s-%d" dpc-font-frame-default (/ frame-default-height 10)) nil t)
   (set-face-attribute 'variable-pitch nil
                       :family dpc-font-variable
                       :height variable-pitch-height
@@ -120,9 +141,18 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
                       :height modeline-height
                       :weight 'regular))
 
-;; Starting defaults
+;; (dpc-setup-main-fonts 140 140 140 120)
+
+
+;; App launch defaults
 (set-face-attribute 'default nil
                     :family dpc-font-default
+                    :height 160
+                    :weight 'normal)
+;; set frame font after default face attribute
+(set-frame-font dpc-font-frame-default nil t)
+(set-face-attribute 'variable-pitch nil
+                    :family dpc-font-variable
                     :height 160
                     :weight 'normal)
 (set-face-attribute 'mode-line nil :family dpc-font-modeline :height 140 :weight 'regular)
@@ -139,7 +169,7 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
           (and
            (>= (x-display-pixel-width) 5120)
            (< (x-display-pixel-width) 6400))
-	      (dpc-setup-main-fonts 160 160 140)
+	      (dpc-setup-main-fonts 160 160 160 140)
         (if (or
              (and             ;; specific display
               (= (x-display-pixel-width) 2560)
@@ -148,8 +178,8 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
               (= (x-display-pixel-width) 3840)
               (= (x-display-pixel-height) 1080))
              )
-            ;; (dpc-setup-main-fonts 140 140 120)
-            (dpc-setup-main-fonts 160 160 140)
+            ;; (dpc-setup-main-fonts 140 140 140 120)
+            (dpc-setup-main-fonts 160 160 160 140)
           (if (or
                (and ;; another specific display setup
                 (= (x-display-pixel-width) 1920)
@@ -157,11 +187,11 @@ variable-pitch face, and MODELINE-HEIGHT for mode-line face."
                (and ;; another specific display setup
                 (= (x-display-pixel-width) 5120)
                 (= (x-display-pixel-height) 1440)))
-              (dpc-setup-main-fonts 120 120 110)
+              (dpc-setup-main-fonts 120 120 120 110)
             ;; other large display
-	        (dpc-setup-main-fonts 180 180 160)))
+	        (dpc-setup-main-fonts 180 180 180 160)))
         )
-	(dpc-setup-main-fonts 140 140 120)))
+	(dpc-setup-main-fonts 140 140 140 120)))
 
 ;; can get hostname/display names
 ;; (x-display-list) ("w32")
