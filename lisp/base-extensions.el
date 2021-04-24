@@ -710,6 +710,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;                       ))
 
 
+;;; https://github.com/yashi/org-asciidoc
+(use-package ox-asciidoc
+  :after (org))
+
 ;; ;;; https://github.com/larstvei/ox-gfm
 ;; (use-package ox-gfm
 ;;   :after (org))
