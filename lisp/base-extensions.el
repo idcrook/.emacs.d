@@ -53,6 +53,10 @@
 ;;   :config
 ;;   (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" private-dir)))
 
+;;; https://github.com/sensorflo/adoc-mode
+(use-package adoc-mode
+  :mode (("\\.adoc$" . adoc-mode)))
+
 (use-package avy
   :bind (("C-c SPC" . avy-goto-char)
          :map isearch-mode-map
