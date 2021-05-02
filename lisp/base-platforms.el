@@ -78,37 +78,39 @@
   :init
   (add-hook 'after-init-hook 'default-text-scale-mode))
 
-;; my various font family variables
-(defvar  dpc-font-frame-default)
-(defvar  dpc-font-default)
-(defvar  dpc-font-variable)
-(defvar  dpc-font-modeline)
+;; Declare various font family variables
+;; "powerline" fonts override their "plain" font names in Linux
+(defvar
+  dpc-font-frame-default "Inconsolata"
+  "The default font to use for frames.")
+(defvar
+  dpc-font-default "Inconsolata"
+  ;; dpc-font-default "Hack"
+  ;; dpc-font-default "Bitstream Vera Sans Mono"
+  ;; dpc-font-default "Roboto Mono"
+  "The default font to use.")
+(defvar
+  dpc-font-variable "Ubuntu Mono"
+  "The font to use for variable-width faces.")
+(defvar
+  dpc-font-modeline "DejaVu Sans Mono"
+  "The font to use for modeline.")
 
+;; priority order based on availability
 (when platform-linux-x-p
-  (when (member "Inconsolata" (font-family-list))
-    (setq dpc-font-frame-default "Inconsolata"))
   (when (member "Inconsolata Nerd Font Mono" (font-family-list))
     (setq dpc-font-frame-default "Inconsolata Nerd Font Mono"))
+  (when (member "Inconsolata" (font-family-list))
+    (setq dpc-font-frame-default "Inconsolata"))
   (when (member "Cascadia Code" (font-family-list))
     (setq dpc-font-frame-default "Cascadia Code")))
-
-(setq
- ;; "powerline" fonts override plain font names in Linux
- ;;dpc-font-default "Hack"
- ;;dpc-font-default "Bitstream Vera Sans Mono"
- dpc-font-default "Inconsolata"
- ;;dpc-font-default "Roboto Mono"
- dpc-font-variable "Ubuntu Mono"
- dpc-font-modeline "DejaVu Sans Mono")
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
   (when (member "Inconsolata Nerd Font" (font-family-list))
     (setq dpc-font-frame-default "Inconsolata Nerd Font"))
   (when (member "Cascadia Code" (font-family-list))
-    (setq dpc-font-frame-default "Cascadia Code")))
-
-(when platform-macos-p
+    (setq dpc-font-frame-default "Cascadia Code"))
   (setq
    ;; dpc-font-default "Inconsolata for Powerline"
    dpc-font-default "Inconsolata Nerd Font"
@@ -116,8 +118,8 @@
    dpc-font-variable "UbuntuMono Nerd Font"
    ;; dpc-font-modeline "Cascadia Mono PL"
    ;; dpc-font-modeline "Menlo for Powerline"
-   dpc-font-modeline "DejaVuSansMono Nerd Font"
-  ))
+   dpc-font-modeline "DejaVuSansMono Nerd Font"))
+
 
 (defun dpc-setup-main-fonts (frame-default-height default-height variable-pitch-height modeline-height)
   "Set up default fonts.
