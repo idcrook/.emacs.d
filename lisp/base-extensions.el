@@ -818,6 +818,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   :config
 ;;   (setq smooth-scroll-margin 2))
 
+;;; https://github.com/io12/good-scroll.el
+(use-package good-scroll
+  :init
+  (good-scroll-mode 1))
+
+
 ;;; https://github.com/holomorph/systemd-mode
 (use-package systemd
   :hook (systemd-mode . company-mode))
