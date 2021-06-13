@@ -667,22 +667,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; dashboard uses
 (use-package all-the-icons)
 
-;; org-plus-contrib (org-mode Plus)
 ;;; https://orgmode.org/worg/org-contrib/
-;; :includes now in straight.el
-;; https://github.com/raxod502/straight.el/issues/352#issuecomment-460069774
-;; https://github.com/raxod502/straight.el/issues/352#issuecomment-772045575
-;; (straight-use-package '(org-plus-contrib :includes (org)))
-(use-package org-plus-contrib
-  :straight (org-plus-contrib
-             ;; :repo "https://code.orgmode.org/bzg/org-mode.git"
-             ;; :local-repo "org"
-             :includes (org))
-  :bind
-  (("C-c l" . org-store-link)
-   ("C-c a" . org-agenda)
-   ("C-c c" . org-capture))
-  )
+(use-package org-contrib)
+;; (straight-use-package '(org :type built-in))
+;; (straight-use-package '(org-contrib :includes ol-vm))
 
 ;; TODO investigate
 ;; - ivy-todo
