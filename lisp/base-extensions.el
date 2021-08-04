@@ -532,24 +532,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
 ;; can use: M-x magit-todos-list  or  M-x ivy-magic-todos
 (use-package magit-todos
-;;  :defer 2
-  :after (magit)
   :config
-  ;; ;; magit-todos: Not overriding bind of "jT" in ‘magit-status-mode-map’.
-  ;; (magit-todos-mode +1)
-  (let ((inhibit-message t))
-    (magit-todos-mode +1))
-  ;; BROKEN - in magit-status buffer "j T" to jump to TODOs
-  ;;; workaround: https://github.com/alphapapa/magit-todos/issues/95#issuecomment-654006672
-  ;;; patch: https://github.com/wyuenho/magit-todos/commit/ed4f5c49d726919529ef621dde56330dea3653a6
-  (transient-append-suffix
-    'magit-status-jump
-    '(0 -1) ;; places in a new third column
-    '[("T " "Todos" magit-todos-jump-to-todos)
-      ("l " "List todos" ivy-magit-todos)])
-  )
-;;    '(0 0 -1)
-;;    '("T " "Todos" magit-todos-jump-to-todos)))
+  (magit-todos-mode +1))
 
 ;;; https://github.com/jrblevin/markdown-mode
 ;; C-c C-c p - markdown-preview - open preview in browser
