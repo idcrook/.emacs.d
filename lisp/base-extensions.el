@@ -681,6 +681,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 
 ;; ;;; https://github.com/yashi/org-asciidoc
+;; ;;   1 Error (use-package): ox-asciidoc/:catch: Symbol’s function definition is void: org-file-name-concat
 ;; (use-package ox-asciidoc
 ;;   :after (org))
 
