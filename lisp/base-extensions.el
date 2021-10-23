@@ -312,11 +312,9 @@
   (eval-after-load 'git-gutter
     (global-git-gutter-mode +1)))
 
-;;; https://github.com/magit/git-modes#gitconfig-mode
-(use-package gitconfig-mode)
-
-;;; https://github.com/magit/git-modes#gitignore-mode
-(use-package gitignore-mode)
+;;; https://github.com/magit/git-modes
+;; modes for gitconfig gitignore gitattributes
+(use-package git-modes)
 
 ;;----------------------------------------------------------------------------
 ;; counsel / ivy / swiper is a lifestyle
@@ -682,9 +680,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;                       ))
 
 
-;;; https://github.com/yashi/org-asciidoc
-(use-package ox-asciidoc
-  :after (org))
+;; ;;; https://github.com/yashi/org-asciidoc
+;; (use-package ox-asciidoc
+;;   :after (org))
 
 ;; ;;; https://github.com/larstvei/ox-gfm
 ;; (use-package ox-gfm
