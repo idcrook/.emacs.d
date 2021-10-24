@@ -5,38 +5,73 @@
 ;;; Code:
 
 
-;; https://github.com/joshwnj/json-mode
+;; ;;; https://github.com/ananthakumaran/tide - TypeScript support
+;;    Install node.js v0.12.0 or greater.
+;; (use-package tide)
+
+;;ts-comint - TypeScript  Run a Typescript interpreter in an inferior process window.
+
+;; (defun setup-tide-mode ()
+;;   "Configure TypeScript support."
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (company-mode +1))
+
+;; ;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;;; https://github.com/joshwnj/json-mode
 ;; for flycheck:  npm install jsonlint -g
 (use-package json-mode
   :init
   (setq json-reformat:indent-width 2)
+  ;;; https://github.com/gongo/json-reformat
+  (use-package json-reformat)
   :config
   (add-hook 'json-mode-hook #'flycheck-mode))
 
+;; ;;; https://github.com/Sterlingg/json-snatcher
+;; (use-package json-snatcher)
+;; (defun js-mode-bindings ()
+;; "Sets a hotkey for using the json-snatcher plugin"
+;; 	 (when (string-match  "\\.json$" (buffer-name))
+;;         (local-set-key (kbd "C-c C-g") 'jsons-print-path)))
+;; (add-hook 'js-mode-hook 'js-mode-bindings)
+;; (add-hook 'js2-mode-hook 'js-mode-bindings)
 
 ;; comment out for now as it activates for JSON mode and reports spurious errors
 ;; FIXME: do not do js2-minor-mode for JSON
-;; ;; to install it as a minor mode just for JavaScript linting, JSX handling
-;; (if (version< emacs-version "27.0")
-;;     (message "before emacs 27.0")
-;;     (add-hook 'js-mode-hook 'js2-minor-mode))
+;; to install it as a minor mode just for JavaScript linting, JSX handling
 
-;; https://github.com/mooz/js2-mode
+;;; bundled starting in emacs27
+;; (use-package js-mode)
+
+;;; https://github.com/mooz/js2-mode
+;; https://github.com/mooz/js2-mode/blob/bb73461c2c7048d811b38e6b533a30fb5fdcea93/js2-mode.el#L57
 (use-package js2-mode
-;;  :defer 2
-  :bind (:map js2-mode-map
-              (("C-x C-e" . js-send-last-sexp)
-               ("C-M-x" . js-send-last-sexp-and-go)
-               ("C-c C-b" . js-send-buffer-and-go)
-               ("C-c C-l" . js-load-file-and-go)))
   :init
-  (setq js-indent-level 2)
-  (setq js2-basic-offset 2)
+  (if (version< emacs-version "27.0")
+      (message "before emacs 27.0")
+    (add-hook 'js-mode-hook 'js2-minor-mode)))
 
-  :config
-  (setq js2-strict-inconsistent-return-warning nil)
-  (setq js2-strict-missing-semi-warning nil)
+;;   :bind (:map js2-mode-map
+;;               (("C-x C-e" . js-send-last-sexp)
+;;                ("C-M-x" . js-send-last-sexp-and-go)
+;;                ("C-c C-b" . js-send-buffer-and-go)
+;;                ("C-c C-l" . js-load-file-and-go)))
+;;   :init
+;;   (setq js-indent-level 2)
+;;   (setq js2-basic-offset 2)
 
+;;   :config
+;;   (setq js2-strict-inconsistent-return-warning nil)
+;;   (setq js2-strict-missing-semi-warning nil)
 
 ;;   ;; tern :- IDE like features for javascript and completion
 ;;   ;; http://ternjs.net/doc/manual.html#emacs
@@ -75,7 +110,7 @@
 ;;   ;; http://ternjs.net/doc/manual.html#emacs
 ;;   (use-package company-tern)
 
-  )
+  ;; )
 
 ;; ;; Run a JavaScript interpreter in an inferior process window
 ;; ;; https://github.com/redguardtoo/js-comint
@@ -89,26 +124,6 @@
 ;;   :config
 ;;   (add-hook 'js2-mode-hook 'js2-refactor-mode)
 ;;   (js2r-add-keybindings-with-prefix "C-c j r"))
-
-;; ;;; https://github.com/ananthakumaran/tide - TypeScript support
-;; (use-package tide)
-
-;;ts-comint - TypeScript  Run a Typescript interpreter in an inferior process window.
-
-;; (defun setup-tide-mode ()
-;;   "Configure TypeScript support."
-;;   (interactive)
-;;   (tide-setup)
-;;   (flycheck-mode +1)
-;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-;;   (eldoc-mode +1)
-;;   (tide-hl-identifier-mode +1)
-;;   (company-mode +1))
-
-;; ;; formats the buffer before saving
-;; (add-hook 'before-save-hook 'tide-format-before-save)
-
-;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 
 

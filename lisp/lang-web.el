@@ -4,33 +4,78 @@
 
 ;; (use-package add-node-modules-path) ;; looks in node_modules/bin
 
+;; Additional possibilities (See also: lang-javascript.el)
+;;
+;; https://github.com/jtkDvlp/web-mode-edit-element
+;; https://github.com/russmatney/company-css-classes
+;; https://github.com/felipeochoa/rjsx-mode
+
 ;;; Code:
 
 (use-package web-mode
   :after flycheck
-  :bind (("C-c ]" . emmet-next-edit-point)
-         ("C-c [" . emmet-prev-edit-point)
-         ("C-c o b" . browse-url-of-file))
+  ;; :bind (("C-c ]" . emmet-next-edit-point)
+  ;;        ("C-c [" . emmet-prev-edit-point)
+  ;;        ("C-c o b" . browse-url-of-file))
   :mode
-  (("\\.js\\'" . web-mode)
-   ("\\.html?\\'" . web-mode)
-   ("\\.phtml?\\'" . web-mode)
-   ("\\.tpl\\.php\\'" . web-mode)
-   ("\\.[agj]sp\\'" . web-mode)
-   ("\\.as[cp]x\\'" . web-mode)
-   ("\\.erb\\'" . web-mode)
-   ("\\.mustache\\'" . web-mode)
-   ("\\.djhtml\\'" . web-mode)
-   ("\\.jsx$" . web-mode))
+  (("\\.html?\\'" . web-mode)
+   ("\\.s?css\\'" . web-mode)
+   ;; ("\\.js\\'" . web-mode)
+   ;; ("\\.phtml?\\'" . web-mode)
+   ;; ("\\.tpl\\.php\\'" . web-mode)
+   ;; ("\\.[agj]sp\\'" . web-mode)
+   ;; ("\\.as[cp]x\\'" . web-mode)
+   ;; ("\\.erb\\'" . web-mode)
+   ;; ("\\.mustache\\'" . web-mode)
+   ;; ("\\.djhtml\\'" . web-mode)
+      ("\\.jsx$" . web-mode))
   :config
-  (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2)
-
-  ;; (add-hook 'web-mode-hook 'jsx-flycheck)
 
   ;; highlight enclosing tags of the element under cursor
   (setq web-mode-enable-current-element-highlight t)
+
+  ;; snippets for HTML
+  ;; https://github.com/smihica/emmet-mode
+  (use-package emmet-mode
+    :init (setq emmet-move-cursor-between-quotes t) ;; default nil
+    :diminish (emmet-mode . "m"))
+  (add-hook 'web-mode-hook  'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  ;; To enable the JSX support, add your major-mode to emmet-jsx-major-modes
+
+  (defun my-web-mode-hook ()
+    "Hooks for `web-mode'."
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-indent-offset 2
+          web-mode-code-indent-offset 2))
+  (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+  ;;;; https://github.com/osv/company-web
+  ;; to get completion for HTML stuff
+  (use-package company-web
+    :init
+    ;; you may key bind, for example for web-mode:
+    (define-key web-mode-map (kbd "C-'") 'company-web-html)
+    (define-key web-mode-map (kbd "M-SPC") 'company-complete)
+    )
+
+  ;; (defun my-company-web-mode-hook ()
+  ;;   "Hook for `web-mode' config for company-backends."
+  ;;   (set (make-local-variable 'company-backends)
+  ;;        '((company-capf company-web-html company-files))))  ;; company-yasnippet
+  ;; (add-hook 'web-mode-hook 'my-company-web-mode-hook)
+
+  ;; (add-hook 'web-mode-hook 'company-mode)
+  )
+
+;; some vestigial web-mode related commmented out here
+
+;; ;; editing enhancements for web-mode
+  ;; ;; https://github.com/jtkDvlp/web-mode-edit-element
+  ;; (use-package web-mode-edit-element
+  ;;   :diminish web-mode-edit-element-minor-mode
+  ;;   :config (add-hook 'web-mode-hook 'web-mode-edit-element-minor-mode))
+    ;; (add-hook 'web-mode-hook 'jsx-flycheck)
 
   ;; ;; https://truongtx.me/2014/03/10/emacs-setup-jsx-mode-and-jsx-syntax-checking
   ;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
@@ -56,35 +101,6 @@
   ;;     ;; enable flycheck
   ;;     (flycheck-select-checker 'jsxhint-checker)
   ;;     (flycheck-mode)))
-
-  ;; ;; editing enhancements for web-mode
-  ;; ;; https://github.com/jtkDvlp/web-mode-edit-element
-  ;; (use-package web-mode-edit-element
-  ;;   :diminish web-mode-edit-element-minor-mode
-  ;;   :config (add-hook 'web-mode-hook 'web-mode-edit-element-minor-mode))
-
-  ;; snippets for HTML
-  ;; https://github.com/smihica/emmet-mode
-  (use-package emmet-mode
-    :init (setq emmet-move-cursor-between-quotes t) ;; default nil
-    :diminish (emmet-mode . " e"))
-  (add-hook 'web-mode-hook 'emmet-mode)
-
-  (defun my-web-mode-hook ()
-    "Hook for `web-mode' config for company-backends."
-    (set (make-local-variable 'company-backends)
-         '((company-tern company-css company-web-html company-files))))
-  (add-hook 'web-mode-hook 'my-web-mode-hook)
-
-  ;; to get completion for HTML stuff
-  ;; https://github.com/osv/company-web
-  (use-package company-web)
-  (add-hook 'web-mode-hook 'company-mode))
-
-
-
-;; ;; npm -g install js-beautify
-;; (use-package web-beautify)
 
 ;; ;;; for vue.js / .vue files - https://github.com/AdamNiederer/vue-mode
 ;; (use-package vue-mode)
@@ -116,13 +132,19 @@
 
 ;; configure CSS mode company backends
 (use-package css-mode
-;;  :defer 2
   :config
   (defun my-css-mode-hook ()
     (set (make-local-variable 'company-backends)
-         '((company-css company-dabbrev-code company-files))))
+         ;; '((company-css company-dabbrev-code company-files))))
+  ;; In Emacs 26 and newer, company-css is removed from company-backends. company-capf is used instead.
+         '((company-capf company-dabbrev-code company-files))))
   (add-hook 'css-mode-hook 'my-css-mode-hook)
   (add-hook 'css-mode-hook 'company-mode))
+
+
+;;; https://github.com/yasuyk/web-beautify
+;; ;; npm -g install js-beautify
+;; (use-package web-beautify)
 
 ;;----------------------------------------------------------------------------
 ;; graphql
