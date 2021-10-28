@@ -16,15 +16,15 @@
   ;; Call Gofmt before saving
   ;;(add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (add-hook 'before-save-hook 'gofmt-before-save nil
                          ;; Buffer local hook.
                          t)))
   (add-hook 'go-mode-hook 'setup-go-mode-compile)
   (add-hook 'go-mode-hook #'smartparens-mode)
-  (add-hook 'go-mode-hook '(lambda ()
+  (add-hook 'go-mode-hook #'(lambda ()
 			     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
-  (add-hook 'go-mode-hook '(lambda ()
+  (add-hook 'go-mode-hook #'(lambda ()
 			     (local-set-key (kbd "C-c C-g") 'go-goto-imports)))
   (add-hook 'go-mode-hook (lambda ()
 			    (set (make-local-variable 'company-backends) '(company-go))

@@ -229,7 +229,7 @@
   (add-hook 'prog-mode-hook (editorconfig-mode 1))
   (add-hook 'text-mode-hook (editorconfig-mode 1))
   (add-hook 'editorconfig-hack-properties-functions
-            '(lambda (props)
+            #'(lambda (props)
                (when (derived-mode-p 'makefile-mode)
                  (puthash 'indent_style "tab" props))))
   ;;; https://github.com/10sr/editorconfig-custom-majormode-el
@@ -432,10 +432,10 @@ This function is intended for use with `ivy-ignore-buffers'."
   (("C-c s" . counsel-tramp))
   :init
   ;; to speed up tramp
-  (add-hook 'counsel-tramp-pre-command-hook '(lambda ()
+  (add-hook 'counsel-tramp-pre-command-hook #'(lambda ()
                                                ;;				     (projectile-mode 0)
 				                               (editorconfig-mode 0)))
-  (add-hook 'counsel-tramp-quit-hook '(lambda ()
+  (add-hook 'counsel-tramp-quit-hook #'(lambda ()
                                         ;;			      (projectile-mode 1)
 			                            (editorconfig-mode 1)))
   ;; ;; If the shell of the server is zsh it is recommended to connect with bash.
@@ -874,7 +874,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
   ;; :config
-  ;; (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
+  ;; (add-hook 'yaml-mode-hook #'(lambda () (ansible 1)))
   ;; (add-hook 'yaml-mode-hook #'ansible-doc-mode)
   )
 

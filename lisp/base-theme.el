@@ -74,6 +74,17 @@
 ;;; M-x describe-face fill-column-indicator
 ;; (set-face-attribute 'fill-column-indicator nil :foreground "grey10")
 
+;; ;;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
+;; ;; handle light/dark mode
+;; defun my/apply-theme (appearance)
+;;   "Load theme, taking current system APPEARANCE into consideration."
+;;   (mapc #'disable-theme custom-enabled-themes)
+;;   (pcase appearance
+;;     ('light (load-theme 'tango t))
+;;     ('dark (load-theme 'tango-dark t))))
+
+;; (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
+
 ;;----------------------------------------------------------------------------
 ;; powerline mode-line
 ;;----------------------------------------------------------------------------
