@@ -729,9 +729,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   :config
 ;;   (global-page-break-lines-mode +1))
 
-;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
-(use-package scad-mode)
-;;  :defer 2)
+;;; [ruediger/qrencode-el: QRCode encoder for Emacs in pure elisp](https://github.com/ruediger/qrencode-el)
+(use-package qrencode)
+;; qrencode-region
+;;     Shows the current selection as a QR Code.
+;; qrencode-url-at-point
+;;     Encode URL at point as QR Code.
 
 (use-package recentf
   :demand
@@ -750,13 +753,15 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; ;;; https://github.com/pashky/restclient.el
 ;; ;; see also: outline-magic
-;; (use-package restclient
-;;   :defer 2)
+;; (use-package restclient)
 
 ;; (use-package request
 ;;   :config
 ;;   (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
 ;;   )
+
+;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
+(use-package scad-mode)
 
 ;; ;;; https://github.com/Fuco1/smartparens
 ;; ;; https://ebzzry.io/en/emacs-pairs/
@@ -880,7 +885,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; ;;; https://github.com/joaotavora/yasnippet
 ;; (use-package yasnippet
-;;   :defer 2
 ;;   :diminish yas-minor-mode
 ;;   :config
 ;;   (yas-global-mode 1))
@@ -900,7 +904,6 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; ;;; https://github.com/AndreaCrotti/yasnippet-snippets
 ;; (use-package yasnippet-snippets
-;;   :defer 2
 ;;   )
 
 ;; ;;; https://github.com/sei40kr/gitignore-snippets
