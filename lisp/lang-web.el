@@ -56,7 +56,8 @@
     :init
     ;; you may key bind, for example for web-mode:
     (define-key web-mode-map (kbd "C-'") 'company-web-html)
-    (define-key web-mode-map (kbd "M-SPC") 'company-complete)
+    (define-key web-mode-map (kbd "C-\"") 'company-complete)
+    ;; pollutes M-SPC ;; (define-key web-mode-map (kbd "M-SPC") 'company-complete)
     )
 
   ;; (defun my-company-web-mode-hook ()
