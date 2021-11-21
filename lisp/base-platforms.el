@@ -46,6 +46,14 @@
 
 ;;______________________________________________________________________
 ;;;;  Fonts
+
+(defun get-default-height ()
+       (/ (- (display-pixel-height) 120)
+          (frame-char-height)))
+
+;;(add-to-list 'default-frame-alist '(width . 140))
+(add-to-list 'default-frame-alist (cons 'height (get-default-height)))
+
 ;; (print (font-family-list))
 ;; macos :
 ;;       : brew cask install font-cascadia-mono-pl
@@ -102,8 +110,8 @@
     (setq dpc-font-frame-default "Inconsolata Nerd Font Mono"))
   (when (member "Inconsolata" (font-family-list))
     (setq dpc-font-frame-default "Inconsolata"))
-  (when (member "Cascadia Code" (font-family-list))
-    (setq dpc-font-frame-default "Cascadia Code")))
+  (when (member "Cascadia Mono PL" (font-family-list))
+    (setq dpc-font-frame-default "Cascadia Mono PL")))
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
@@ -176,7 +184,7 @@ and MODELINE-HEIGHT for mode-line face."
              (and             ;; specific display
               (= (x-display-pixel-width) 2560)
               (= (x-display-pixel-height) 1600))
-             (and ;; another specific display setup
+             (and ;; another specific display setup (SBS 1080p)
               (= (x-display-pixel-width) 3840)
               (= (x-display-pixel-height) 1080))
              )
