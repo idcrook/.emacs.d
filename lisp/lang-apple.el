@@ -50,8 +50,10 @@
   :config
   (setq grab-mac-link-dwim-favourite-app 'safari))
 
-;;; https://github.com/raghavgautam/osx-lib
-(use-package osx-lib)
+;; commenting out until resolution of:
+;;     https://github.com/raghavgautam/osx-lib/issues/12
+;; ;;; https://github.com/raghavgautam/osx-lib
+;; (use-package osx-lib)
 
 ;; Provides functions for:
 ;;   1. Running Apple Script / osascript
