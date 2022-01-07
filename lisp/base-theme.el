@@ -46,7 +46,7 @@
   (setq         ;; modus-themes-bold-constructs nil
                 ;; modus-themes-slanted-constructs t
                 modus-themes-bold-constructs t
-                modus-themes-mode-line '3d)
+                modus-themes-mode-line '(3d))
   ;; Load the theme files before enabling a theme (else you get an error).
   (modus-themes-load-themes)
   ;; :config
