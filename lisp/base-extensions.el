@@ -530,6 +530,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; displays keyword entries from source code comments and Org files in the Magit status buffer.
 ;; can use: M-x magit-todos-list  or  M-x ivy-magic-todos
 (use-package magit-todos
+  :after (org)
   :config
   (magit-todos-mode +1))
 
@@ -664,57 +665,44 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; - org-shoplist, org-rtm
 ;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
 
-;; ;;; [org-opml/org-opml: Edit OPML files using Org mode in Emacs](https://github.com/org-opml/org-opml)
-;; NOTE: Was able to get loaded after updating :files directive; OPML parsing
-;;     is not robust to different generators, and was breaking "round-trip"
-;; (use-package ox-opml
-;;   :straight (ox-opml :type git :host github
-;;                      :repo "org-opml/org-opml"
-;;                      ))
-
-;; (use-package org-opml
-;;   :straight (org-opml :type git :host github
-;;                       :repo "org-opml/org-opml"
-;; ;; opml-decode: Could not locate opml2org.py. Make sure it’s in ‘load-path’.
-;;                       :files (:defaults "opml2org.py")
-;;                       ))
-
-
-;; ;;; https://github.com/yashi/org-asciidoc
-;; ;;   1 Error (use-package): ox-asciidoc/:catch: Symbol’s function definition is void: org-file-name-concat
-;; (use-package ox-asciidoc
-;;   :after (org))
+;;; https://github.com/yashi/org-asciidoc
+(use-package ox-asciidoc
+  :after (org))
 
 ;; ;;; https://github.com/larstvei/ox-gfm
-;; (use-package ox-gfm
-;;   :after (org))
-;; (eval-after-load "org"
-;;   '(require 'ox-gfm nil t))
+(use-package ox-gfm
+  :after (org))
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
 
 ;; ;;; https://github.com/yjwen/org-reveal
-;; (use-package ox-reveal)
+(use-package ox-reveal
+  :after (org))
 
-;; ;;; https://github.com/abo-abo/org-download
-;; ;; Drag and drop images to Emacs org-mode
-;; (use-package org-download
-;;   :init
-;;   (add-hook 'dired-mode-hook 'org-download-enable))
+;;; https://github.com/abo-abo/org-download
+;; Drag and drop images to Emacs org-mode
+(use-package org-download
+  :after (org)
+  :init
+  (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; https://github.com/emacsorphanage/org-bullets
 (use-package org-bullets
-;;  :defer 2
+  :after (org)
   :config
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-bullets-mode))
 
-;; ;;; https://github.com/snosov1/toc-org
-;; ;; add table of contents to org-mode files (formerly, org-toc)
-;; (use-package toc-org
-;;   :config
-;;   (add-hook 'org-mode-hook 'toc-org-enable))
+;;; https://github.com/snosov1/toc-org
+;; add table of contents to org-mode files (formerly, org-toc)
+(use-package toc-org
+  :after (org)
+  :config
+  (add-hook 'org-mode-hook 'toc-org-enable))
 
-;; ;;; https://github.com/alf/ob-restclient.el
-;; (use-package ob-restclient)
+;;; https://github.com/alf/ob-restclient.el
+(use-package ob-restclient
+  :after (org))
 
 ;; ;;; https://www.killring.org/effective-restclient-in-emacs
 ;; (use-package outline-magic
@@ -889,22 +877,22 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   :config
 ;;   (yas-global-mode 1))
 
-;; ;; yasnippet org-mode conflict
-;; ;;; https://orgmode.org/manual/Conflicts.html#Conflicts
+;; yasnippet org-mode conflict
+;;; https://orgmode.org/manual/Conflicts.html#Conflicts
 
-;; (defun yas/org-very-safe-expand ()
-;;   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (make-variable-buffer-local 'yas/trigger-key)
-;;             (setq yas/trigger-key [tab])
-;;             (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-;;             (define-key yas/keymap [tab] 'yas/next-field)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            (define-key yas/keymap [tab] 'yas/next-field)))
 
-;; ;;; https://github.com/AndreaCrotti/yasnippet-snippets
-;; (use-package yasnippet-snippets
-;;   )
+;;; https://github.com/AndreaCrotti/yasnippet-snippets
+(use-package yasnippet-snippets
+  )
 
 ;; ;;; https://github.com/sei40kr/gitignore-snippets
 ;; (use-package gitignore-snippets

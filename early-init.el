@@ -46,6 +46,12 @@ If you experience freezing, decrease this. If you experience stuttering, increas
                                 (time-subtract after-init-time before-init-time)))
                        gcs-done)))
 
+;; ;; use as debug aid: backtrace to show what is loading org
+;; (eval-after-load "org" '(debug))
+;; emacs28's included org has bug so can use to find early load triggers that
+;; pull in built-in org
+;; - magit-todos
+;; - org-bullets
 
 
 ;; So we can detect this having been loaded
