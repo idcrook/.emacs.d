@@ -67,6 +67,7 @@
 (require 'lang-javascript)
 (require 'lang-web)
 (require 'lang-hardware)
+(require 'lang-other)
 
 (require 'base-finally)  ;; any final cleanup
 
