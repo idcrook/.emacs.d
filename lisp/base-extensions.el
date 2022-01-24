@@ -864,6 +864,9 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq winum-auto-setup-mode-line nil)
   (winum-mode))
 
+;;; https://github.com/progfolio/wordel Wordle in emacs
+(straight-use-package '(wordel :host github :repo "progfolio/wordel" :files (:defaults "words")))
+
 ;;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
   ;; :config
