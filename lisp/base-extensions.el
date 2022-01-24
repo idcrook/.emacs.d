@@ -61,7 +61,7 @@
   :bind (("C-c SPC" . avy-goto-char)
          :map isearch-mode-map
 	           ("C-'" . avy-isearch))
-         ;; swiper-avy also bound to "C-'"
+         ;; swiper-avy also bound to "C-'" by default within swiper
   :config
   (setq avy-background t
         avy-highlight-first t
@@ -319,6 +319,8 @@
 ;;----------------------------------------------------------------------------
 ;; counsel / ivy / swiper is a lifestyle
 ;;----------------------------------------------------------------------------
+
+;;; https://github.com/abo-abo/swiper
 (use-package ivy
   :demand
   :diminish ivy-mode
@@ -360,8 +362,14 @@
       "rename")))
   )
 
+;; Q: How do I enter an input that matches one of the candidates instead
+;;    of this candidate? Example: create a file `bar` when a file
+;;    `barricade` exists in the current directory.
+;; A: Press <kbd>C-M-j</kbd>. Alternatively, you can make the prompt line selectable with `(setq ivy-use-selectable-prompt t)`.
+
 ;;; swiper-isearch
 ;; (global-set-key (kbd "C-s") 'swiper-isearch)
+
 
 ;;; https://github.com/abo-abo/swiper/wiki/Hiding-dired-buffers
 ;; hide dired buffers in ivy-switch-buffer
@@ -389,6 +397,7 @@ This function is intended for use with `ivy-ignore-buffers'."
    ivy-rich-parse-remote-file-path t   ; default: nil
    )
   (ivy-rich-mode 1))
+
 
 (use-package counsel
   :diminish counsel-mode
