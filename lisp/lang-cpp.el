@@ -19,22 +19,22 @@
 ;;; https://github.com/Lindydancer/cmake-font-lock
 (use-package cmake-font-lock)
 
-;; ;;; https://github.com/jimhourihan/glsl-mode
-;; (use-package glsl-mode)
-;; ;; TODO: add flycheck support for glsl
+;;; https://github.com/jimhourihan/glsl-mode
+(use-package glsl-mode)
+;; TODO: add flycheck support for glsl
 
-;; ;;; https://github.com/chachi/cuda-mode
-;; (use-package cuda-mode
-;;   :config
-;;   (add-hook 'cuda-mode-hook
-;;             (lambda ()
-;;               ( setq c-basic-offset              4
-;;                      ;; add paths manually
-;;                      flycheck-cuda-include-path (list "."))
-;;               ))
-;;   )
+;;; https://github.com/chachi/cuda-mode
+(use-package cuda-mode
+  :config
+  (add-hook 'cuda-mode-hook
+            (lambda ()
+              ( setq c-basic-offset              4
+                     ;; add paths manually
+                     flycheck-cuda-include-path (list "."))
+              ))
+  )
 
-;; (setq cuda-mode-hook nil)
+;;(setq cuda-mode-hook nil)
 
 ;;; https://github.com/Sarcasm/irony-mode
 ;;
@@ -72,7 +72,7 @@
 
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
-;; (push 'cuda-mode irony-supported-major-modes)
+(push 'cuda-mode irony-supported-major-modes)
 
 (add-hook 'irony-mode-hook
           (lambda ()
@@ -166,9 +166,6 @@
 
 ;; ;; https://github.com/ZachMassia/platformio-mode
 ;; (use-package platformio-mode)
-
-;; ;; https://github.com/josteink/csharp-mode
-;; (use-package csharp-mode)
 
 (provide 'lang-cpp)
 
