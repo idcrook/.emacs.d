@@ -25,6 +25,12 @@
   (eq sysinfo-os-type 'WSL)
   "Are we running under WSL?")
 
+(defconst platform-wsl-pgtk-p
+  (and
+   platform-wsl-p
+   (eq window-system 'pgtk))
+  "Are we running under WSL with pGTK build?")
+
 (defconst platform-cygwin-p
   (eq sysinfo-os-type 'cygwin)
   "Are we running under cygwin?")
@@ -48,11 +54,24 @@
 ;;;;  Fonts
 
 (defun get-default-height ()
+  "Calculates number of characters tall the display is, assuming size 12 font?"
        (/ (- (display-pixel-height) 120)
           (frame-char-height)))
 
+(defun dpc-frame-height-default ()
+  "Set height in `default-frame-alist'."
+  (interactive)
+  ;; (message "frame-char-height is %d" (frame-char-height))
+  ;; (message "display-pixel-width %d or x-display-pixel-width %d" (display-pixel-width) (x-display-pixel-width))
+  ;; (print (display-monitor-attributes-list))
+  (if platform-wsl-pgtk-p
+      ;; hardcode until emacs29/WSL pgtk wayland way is determined
+      (add-to-list 'default-frame-alist '(height . 52))
+    (add-to-list 'default-frame-alist (cons 'height (get-default-height)))))
+
 ;;(add-to-list 'default-frame-alist '(width . 140))
-(add-to-list 'default-frame-alist (cons 'height (get-default-height)))
+;;(add-hook 'after-init-hook 'dpc-frame-height-default)
+(add-hook 'emacs-startup-hook 'dpc-frame-height-default)
 
 ;; (print (font-family-list))
 ;; macos :
@@ -75,7 +94,15 @@
 ;;      Emoji
 ;;        : sudo apt install fonts-symbola
 ;;        : sudo apt install ttf-ancient-fonts
-;;
+
+;; ubuntu WSLg pgtk
+;;        : sudo apt install fonts-cascadia-code
+;;        : sudo apt install fonts-powerline
+;;        : sudo apt install fonts-inconsolata
+;;        : sudo apt install fonts-ubuntu
+;;        : sudo apt install fonts-symbola
+;;        : sudo apt install ttf-ancient-fonts
+;;        : sudo apt install ttf-ancient-fonts-symbola
 
 ;; Change global font size easily
 ;;; https://github.com/purcell/default-text-scale
@@ -88,14 +115,12 @@
 
 ;; Declare various font family variables
 ;; "powerline" fonts override their "plain" font names in Linux
+;; (message (string-join (font-family-list) "\n"))
 (defvar
   dpc-font-frame-default "Inconsolata"
   "The default font to use for frames.")
 (defvar
   dpc-font-default "Inconsolata"
-  ;; dpc-font-default "Hack"
-  ;; dpc-font-default "Bitstream Vera Sans Mono"
-  ;; dpc-font-default "Roboto Mono"
   "The default font to use.")
 (defvar
   dpc-font-variable "Ubuntu Mono"
@@ -127,6 +152,15 @@
    ;; dpc-font-modeline "Cascadia Mono PL"
    ;; dpc-font-modeline "Menlo for Powerline"
    dpc-font-modeline "DejaVuSansMono Nerd Font"))
+
+;; fonts appear with slightly different names on macOS than Ubuntu/Debian
+(when platform-wsl-pgtk-p
+  (when (member "Cascadia Mono PL" (font-family-list))
+    (setq dpc-font-frame-default "Cascadia Mono PL"))
+  (setq
+   dpc-font-default "Inconsolata"
+   dpc-font-variable "Ubuntu Mono"
+   dpc-font-modeline "DejaVu Sans Mono"))
 
 
 (defun dpc-setup-main-fonts (frame-default-height default-height variable-pitch-height modeline-height)
@@ -191,20 +225,26 @@ and MODELINE-HEIGHT for mode-line face."
             ;; (dpc-setup-main-fonts 140 140 140 120)
             (dpc-setup-main-fonts 160 160 160 140)
           (if (or
-               (and ;; another specific display setup
-                (= (x-display-pixel-width) 1920)
-                (= (x-display-pixel-height) 1080))
-               (and ;; another specific display setup
-                (= (x-display-pixel-width) 5120)
+               (and             ;; specific display
+                (= (x-display-pixel-width) 2560)
                 (= (x-display-pixel-height) 1440)))
-              (dpc-setup-main-fonts 120 120 120 110)
-            ;; other large display
-	        (dpc-setup-main-fonts 180 180 180 160)))
+               (dpc-setup-main-fonts 140 140 140 120)
+               (if (or
+                    (and ;; another specific display setup
+                     (= (x-display-pixel-width) 1920)
+                     (= (x-display-pixel-height) 1080))
+                    (and ;; another specific display setup
+                     (= (x-display-pixel-width) 5120)
+                     (= (x-display-pixel-height) 1440)))
+                   (dpc-setup-main-fonts 120 120 120 110)
+
+                 ;; fall-thru: other large display
+	             (dpc-setup-main-fonts 180 180 180 160))))
         )
 	(dpc-setup-main-fonts 140 140 140 120)))
 
 ;; can get hostname/display names
-;; (x-display-list) ("w32")
+;; (x-display-list) ("w32") ("wayland-0")
 ;;
 ;;; transparency ;;
 (set-frame-parameter (selected-frame) 'alpha '(100 95))

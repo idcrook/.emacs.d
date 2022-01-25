@@ -289,9 +289,8 @@
 ;;       (load-file forecast-api-key-file)))
 ;;   )
 
-;;; https://github.com/defunkt/gist.el
-(use-package gist)
-;;  :defer 2)
+;; ;;; https://github.com/defunkt/gist.el
+;; (use-package gist)
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
