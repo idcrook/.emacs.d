@@ -94,13 +94,13 @@
   (require 'spaceline-config)
   (spaceline-spacemacs-theme)  ;; (spaceline-emacs-theme)
   ;; segments
-  (spaceline-toggle-buffer-position-on) ;; "The current approximate buffer position, in percent."
+  (spaceline-toggle-buffer-position-off) ;; "The current approximate buffer position, in percent."
   (spaceline-toggle-buffer-size-off) ;; size of buffer
   (spaceline-toggle-buffer-id-on) ;; name of buffer
   (spaceline-toggle-remote-host-on) ;; Hostname for remote buffers
   (spaceline-toggle-line-column-on) ;; current line and column numbers
   (spaceline-toggle-selection-info-on) ;; info on currently active selection, if any
-  (spaceline-toggle-hud-off) ;; shows currently visible part of buffer
+  (spaceline-toggle-hud-on) ;; shows currently visible part of buffer
   (spaceline-toggle-buffer-encoding-abbrev-off) ;; line ending convention (dos, mac, unix)
   (spaceline-toggle-buffer-encoding-off) ;; encoding type
   (spaceline-toggle-version-control-on) ;; version control information
