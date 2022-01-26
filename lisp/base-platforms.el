@@ -274,11 +274,11 @@ and MODELINE-HEIGHT for mode-line face."
       ;; For NS/Cocoa
       ;;; https://www.reddit.com/r/emacs/comments/8ph0hq/i_have_converted_from_the_mac_port_to_the_ns_port/
       (if (version< "27.0" emacs-version)
-          ;; not tested with emacs26 (requires a patched Emacs version for multi-color font support)
+          ;; not tested with emacs26 (requires patched Emacs26 for multi-color font support)
           (set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
         (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
     ;; For !darwin (Linux)
-    (if (version< "29.0.50" emacs-version) ;; is it still needed in default build?
+    (if (version< emacs-version "29.0.50") ;; is it still needed in emacs29
         (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
   )
 
@@ -288,12 +288,6 @@ and MODELINE-HEIGHT for mode-line face."
 ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
 (add-hook 'after-make-frame-functions '--set-emoji-font)
 
-;; Emacs 29 added `pixel-scroll-precision-mode'
-(if (version< "29.0.50" emacs-version)
-    (progn
-      ;;(pixel-scroll-mode 1)
-      (good-scroll-mode 1)) ;; see base-extensions.el
-  (pixel-scroll-precision-mode +1))
 
 (cond
  ;;---------------------------------------------------------------------------

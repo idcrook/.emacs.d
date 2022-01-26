@@ -324,9 +324,9 @@
   (("C-x C-g" . git-gutter)
    ("C-x v =" . git-gutter:popup-hunk)))
 
-(when (version<= "26.0.50" emacs-version)
+(when (version<= "26.0.50" emacs-version) ;; Emacs 26.1 added this (replaces linum-mode)
   ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
-  (global-display-line-numbers-mode 1)   ;; Emacs 26.1 added this (replaces linum-mode)
+  (global-display-line-numbers-mode 1)
   (setq display-line-numbers "%4d \u2502 ")
   ;;(setq display-line-numbers "%4d: ")
   ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-395275471
@@ -813,7 +813,15 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (setq smooth-scroll-margin 2))
 
 ;;; https://github.com/io12/good-scroll.el
-(use-package good-scroll)
+(use-package good-scroll
+  :config
+  ;; Emacs 29 added `pixel-scroll-precision-mode'
+  (if (version< emacs-version "29.0.50")
+      (progn
+        ;;(pixel-scroll-mode 1)
+        (good-scroll-mode 1)) ;; see base-extensions.el
+    (pixel-scroll-precision-mode +1))
+  )
 ;; see base-platforms.el
 
 ;;; https://github.com/holomorph/systemd-mode
