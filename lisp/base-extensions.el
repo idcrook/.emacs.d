@@ -120,10 +120,10 @@
 ;;   :init
 ;;   (add-to-list 'company-backends 'company-ansible))
 
-;; ;;; https://github.com/dunn/company-emoji
-;; (use-package company-emoji
-;;   :init
-;;   (add-to-list 'company-backends 'company-emoji))
+;;; https://github.com/dunn/company-emoji
+(use-package company-emoji
+  :init
+  (add-to-list 'company-backends 'company-emoji))
 
 ;;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
@@ -297,15 +297,15 @@
   ;; :diminish git-gutter-mode "gg"
   :diminish git-gutter-mode
   ;; suggested bindings : https://github.com/syohex/emacs-git-gutter#sample-configuration
-  ;; other custom : https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
   :bind
-  (("C-x C-g" . git-gutter)))
+  (("C-x C-g" . git-gutter)
+   ("C-x v =" . git-gutter:popup-hunk)))
 
-;; Emacs 26.1 added this (replaces linum-mode)
-(when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode 1)
+(when (version<= "26.0.50" emacs-version)
+  ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-394196916
+  (global-display-line-numbers-mode 1)   ;; Emacs 26.1 added this (replaces linum-mode)
   (setq display-line-numbers "%4d \u2502 ")
-  ;; ;;(setq display-line-numbers "%4d: ")
+  ;;(setq display-line-numbers "%4d: ")
   ;;; https://github.com/syohex/emacs-git-gutter/issues/156#issuecomment-395275471
   ;; enable after global-display-line-numbers-mode
   (eval-after-load 'git-gutter
@@ -486,15 +486,15 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; in lieu of projectile, for example: #'ffip-get-project-root-directory
 (use-package find-file-in-project)
 
-;; ;;; https://github.com/paradoxxxzero/jinja2-mode/
-;; ;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
-;; (use-package jinja2-mode)
+;;; https://github.com/paradoxxxzero/jinja2-mode/
+;; FIXED: bug with severe effects ;; https://github.com/paradoxxxzero/jinja2-mode/issues/18
+(use-package jinja2-mode)
 
-;; ;;; http://immerrr.github.io/lua-mode/
-;; (use-package lua-mode
-;;   :init
-;;   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-;;   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
+;;; http://immerrr.github.io/lua-mode/
+(use-package lua-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
 ;;----------------------------------------------------------------------------
 ;; magit
@@ -653,10 +653,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;    ("C-<" . mc/mark-previous-like-this)
 ;;    ("C-c C->" . mc/mark-all-like-this)))
 
-;; https://github.com/domtronn/all-the-icons.el
-;; M-x all-the-icons-install-fonts ; puts them in global area
-;; dashboard uses
-(use-package all-the-icons)
+;;; https://github.com/domtronn/all-the-icons.el
+(use-package all-the-icons
+  :if (display-graphic-p))
+;; M-x all-the-icons-install-fonts (installs on mac/linux)
 
 ;;; https://orgmode.org/worg/org-contrib/
 (use-package org-contrib)
@@ -791,10 +791,8 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (setq smooth-scroll-margin 2))
 
 ;;; https://github.com/io12/good-scroll.el
-(use-package good-scroll
-  :init
-  (good-scroll-mode 1))
-
+(use-package good-scroll)
+;; see base-platforms.el
 
 ;;; https://github.com/holomorph/systemd-mode
 (use-package systemd

@@ -4,6 +4,7 @@
 /irony/
 /server/
 /transient/
+/multisession/
 /lisp/ssh-config-keywords.txt
 *.secrets*
 !README.md

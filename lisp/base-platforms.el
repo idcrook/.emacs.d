@@ -61,19 +61,16 @@
 (defun dpc-frame-height-default ()
   "Set height in `default-frame-alist'."
   (interactive)
-  ;; (message "frame-char-height is %d" (frame-char-height))
-  ;; (message "display-pixel-width %d or x-display-pixel-width %d" (display-pixel-width) (x-display-pixel-width))
-  ;; (print (display-monitor-attributes-list))
   (if platform-wsl-pgtk-p
       ;; hardcode until emacs29/WSL pgtk wayland way is determined
       (add-to-list 'default-frame-alist '(height . 52))
     (add-to-list 'default-frame-alist (cons 'height (get-default-height)))))
 
-;;(add-to-list 'default-frame-alist '(width . 140))
 ;;(add-hook 'after-init-hook 'dpc-frame-height-default)
 (add-hook 'emacs-startup-hook 'dpc-frame-height-default)
 
 ;; (print (font-family-list))
+;; (message (string-join (font-family-list) "\n"))
 ;; macos :
 ;;       : brew cask install font-cascadia-mono-pl
 ;;       : brew cask install font-dejavusansmono-nerd-font
@@ -100,22 +97,24 @@
 ;;        : sudo apt install fonts-powerline
 ;;        : sudo apt install fonts-inconsolata
 ;;        : sudo apt install fonts-ubuntu
-;;        : sudo apt install fonts-symbola
-;;        : sudo apt install ttf-ancient-fonts
+;;      Emoji
 ;;        : sudo apt install ttf-ancient-fonts-symbola
 
-;; Change global font size easily
-;;; https://github.com/purcell/default-text-scale
-;; "C-M-=" - decrease font size
-;; "C-M--" - increase font size
-;; "C-M-0" - reset
-(use-package default-text-scale
-  :init
-  (add-hook 'after-init-hook 'default-text-scale-mode))
+;; ;; Change global font size easily
+;; ;;; https://github.com/purcell/default-text-scale
+;; ;; "C-M-=" - decrease font size
+;; ;; "C-M--" - increase font size
+;; ;; "C-M-0" - reset
+;; (use-package default-text-scale
+;;   :init
+;;   (add-hook 'after-init-hook 'default-text-scale-mode))
+
+(defun dpc-font-available-p (font-name)
+  "Check whether FONT-NAME is available from system."
+  (member font-name (font-family-list)))
 
 ;; Declare various font family variables
 ;; "powerline" fonts override their "plain" font names in Linux
-;; (message (string-join (font-family-list) "\n"))
 (defvar
   dpc-font-frame-default "Inconsolata"
   "The default font to use for frames.")
@@ -131,32 +130,32 @@
 
 ;; priority order based on availability
 (when platform-linux-x-p
-  (when (member "Inconsolata Nerd Font Mono" (font-family-list))
+  (cond
+   ((dpc-font-available-p "Inconsolata Nerd Font Mono")
     (setq dpc-font-frame-default "Inconsolata Nerd Font Mono"))
-  (when (member "Inconsolata" (font-family-list))
+   ((dpc-font-available-p "Cascadia Mono PL")
+    (setq dpc-font-frame-default "Cascadia Mono PL"))
+   ((dpc-font-available-p "Inconsolata")
     (setq dpc-font-frame-default "Inconsolata"))
-  (when (member "Cascadia Mono PL" (font-family-list))
-    (setq dpc-font-frame-default "Cascadia Mono PL")))
+    ))
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
-  (when (member "Inconsolata Nerd Font" (font-family-list))
+  (when (dpc-font-available-p "Inconsolata Nerd Font")
     (setq dpc-font-frame-default "Inconsolata Nerd Font"))
-  (when (member "Cascadia Code" (font-family-list))
+  (when (dpc-font-available-p "Cascadia Code")
     (setq dpc-font-frame-default "Cascadia Code"))
   (setq
-   ;; dpc-font-default "Inconsolata for Powerline"
    dpc-font-default "Inconsolata Nerd Font"
-   ;; dpc-font-variable "Meslo for Powerline"
    dpc-font-variable "UbuntuMono Nerd Font"
-   ;; dpc-font-modeline "Cascadia Mono PL"
-   ;; dpc-font-modeline "Menlo for Powerline"
-   dpc-font-modeline "DejaVuSansMono Nerd Font"))
+   dpc-font-modeline "DejaVuSansMono Nerd Font")
+  )
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-wsl-pgtk-p
-  (when (member "Cascadia Mono PL" (font-family-list))
-    (setq dpc-font-frame-default "Cascadia Mono PL"))
+  (cond
+   ((dpc-font-available-p "Cascadia Mono PL")
+    (setq dpc-font-frame-default "Cascadia Mono PL")))
   (setq
    dpc-font-default "Inconsolata"
    dpc-font-variable "Ubuntu Mono"
@@ -278,26 +277,36 @@ and MODELINE-HEIGHT for mode-line face."
           ;; not tested with emacs26 (requires a patched Emacs version for multi-color font support)
           (set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
         (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
-    ;; For Linux
-    (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+    ;; For !darwin (Linux)
+    (if (version< "29.0.50" emacs-version) ;; is it still needed in default build?
+        (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+  )
+
+;; For when Emacs is started in GUI mode:
+(--set-emoji-font nil)
+;; Hook for when a frame is created with emacsclient
+;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+(add-hook 'after-make-frame-functions '--set-emoji-font)
+
+;; Emacs 29 added `pixel-scroll-precision-mode'
+(if (version< "29.0.50" emacs-version)
+    (progn
+      ;;(pixel-scroll-mode 1)
+      (good-scroll-mode 1)) ;; see base-extensions.el
+  (pixel-scroll-precision-mode +1))
 
 (cond
  ;;---------------------------------------------------------------------------
  ;; Windows-specific code goes here.
  ;;---------------------------------------------------------------------------
  (platform-windows-p)
-  ;; ;;(require 'w32shell)
-  ;; (setq w32shell-add-emacs-to-path t)
-  ;; (setq w32shell-cygwin-bin "C:\\cygwin\\bin")
-  ;; (setq w32shell-shell (quote cygwin))
-  ;; (setq emacsw32-style-frame-title t))
 
  ;;---------------------------------------------------------------------------
  ;; macOS-specific code goes here.
  ;;---------------------------------------------------------------------------
  (platform-macos-p
   ;;; https://www.reddit.com/r/emacs/comments/4pocdd/advice_on_setting_up_emacs_on_os_x/d4ng534
-  (setq mouse-wheel-scroll-amount '(2 ((shift) .1) ((control) . nil)))
+  (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (setq scroll-step 1) ;; keyboard scroll one line at a timer
@@ -308,9 +317,9 @@ and MODELINE-HEIGHT for mode-line face."
   ;; (setq browse-url-browser-function (quote browse-url-default-macos-browser))
   ;; always use find-file-other-window to open dropped files
   (setq dnd-open-file-other-window t)
-  ;;; Useful for https://github.com/dunn/company-emoji
-  (--set-emoji-font nil)
-  (add-hook 'after-make-frame-functions '--set-emoji-font)
+  ;; ;;; Useful for https://github.com/dunn/company-emoji
+  ;; (--set-emoji-font nil)
+  ;; (add-hook 'after-make-frame-functions '--set-emoji-font)
   ;; TODO: introduce a boolean switch for setting among macOS native or windows keyboards and bindings below
   ;;; https://stackoverflow.com/questions/45697790/how-to-enter-special-symbols-with-alt-in-emacs-under-mac-os-x
   ;; use the left alt/option key as meta
@@ -358,6 +367,22 @@ and MODELINE-HEIGHT for mode-line face."
     (global-set-key (kbd "M-s-f") 'toggle-frame-fullscreen)))
 
  ;;---------------------------------------------------------------------------
+ ;; WSL pgtk specific code goes here.
+ ;;---------------------------------------------------------------------------
+ (platform-wsl-pgtk-p
+  ;; https://emacsredux.com/blog/2021/12/19/using-emacs-on-windows-11-with-wsl2/
+  (defun copy-selected-text (start end)
+    "A workaround for yank that shells out to clip.exe."
+    (interactive "r")
+    (if (use-region-p)
+        (let ((text (buffer-substring-no-properties start end)))
+          (shell-command (concat "echo '" text "' | clip.exe")))))
+  (add-to-list 'default-frame-alist '(width . 86))
+
+
+  )
+
+ ;;---------------------------------------------------------------------------
  ;; X/Window under Linux code here
  ;;---------------------------------------------------------------------------
  (platform-linux-x-p
@@ -373,14 +398,15 @@ and MODELINE-HEIGHT for mode-line face."
   (add-hook 'after-make-frame-functions '--set-emoji-font)
   ;; Treat clipboard input as UTF-8 string first; compound text
   ;; next, etc.
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+  (add-to-list 'default-frame-alist '(width . 86))
+  )
 
  ;;---------------------------------------------------------------------------
  ;; Linux-specific code goes here.
  ;;---------------------------------------------------------------------------
  (platform-linux-p
-  (add-to-list 'default-frame-alist '(height . 60))
-  (add-to-list 'default-frame-alist '(width . 100)))
+  )
  )
 
 (provide 'base-platforms)
