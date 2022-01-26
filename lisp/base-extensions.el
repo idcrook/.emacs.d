@@ -75,14 +75,16 @@
   (beacon-mode 1)
   (setq beacon-blink-when-point-moves-vertically 1))
 
-;; ;; for bison, yacc, lex grammars, jison mode
-;; (use-package bison-mode)
+;;; https://github.com/Wilfred/bison-mode
+;; for bison, yacc, lex grammars, jison mode
+(use-package bison-mode)
 
-;; ;;; https://github.com/walseb/blimp
-;; ;; a complete wrapper around all imagemagick commands (requires it)
-;; (use-package blimp
-;;   :config
-;;   (add-hook 'image-mode-hook 'blimp-mode))
+;;; https://github.com/walseb/blimp
+;; a complete wrapper around all imagemagick commands (requires it)
+(when (executable-find "mogrify")
+  (use-package blimp
+    :config
+    (add-hook 'image-mode-hook 'blimp-mode)))
 
 ;;; https://github.com/rmuslimov/browse-at-remote
 ;; (browse-at-remote) should open up GitHub, etc. at file in dired, etc
@@ -100,12 +102,13 @@
   ;; (setq browse-url-dwim-always-confirm-extraction nil)
   )
 
-;; ;; Create and share beautiful images of your source code.
-;; ;;; https://github.com/veelenga/carbon-now-sh.el
-;; (use-package carbon-now-sh)
+;; Create and share beautiful images of your source code.
+;;; https://github.com/veelenga/carbon-now-sh.el
+(use-package carbon-now-sh)
 
 ;;; https://github.com/camdez/checkbox.el
 (use-package checkbox
+  ;; :config (setq-default checkbox-states '("TODO" "DONE" "WAITING"))
   :bind (("C-c C-c t" . checkbox-toggle)))
 
 (use-package company
@@ -132,11 +135,6 @@
   (company-prescient-mode 1)
   (prescient-persist-mode 1)
   (setq prescient-save-file (expand-file-name "prescient-save.el" temp-dir)))
-
-;;; https://github.com/iquiw/company-restclient
-(use-package company-restclient
-  :init
-  (add-to-list 'company-backends 'company-restclient))
 
 ;;; https://github.com/sshaw/copy-as-format
 (use-package copy-as-format)
@@ -730,10 +728,6 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   (add-hook 'org-mode-hook 'toc-org-enable))
 
-;;; https://github.com/alf/ob-restclient.el
-(use-package ob-restclient
-  :after (org))
-
 ;; ;;; https://www.killring.org/effective-restclient-in-emacs
 ;; (use-package outline-magic
 ;;   :config
@@ -769,14 +763,24 @@ This function is intended for use with `ivy-ignore-buffers'."
       ))
   (recentf-mode 1))
 
-;; ;;; https://github.com/pashky/restclient.el
-;; ;; see also: outline-magic
-;; (use-package restclient)
+;;; https://github.com/pashky/restclient.el
+;; see also: outline-magic
+(use-package restclient
+  :config
+  ;;; https://github.com/iquiw/company-restclient
+  (use-package company-restclient
+    :init
+    (add-to-list 'company-backends 'company-restclient))
 
-;; (use-package request
-;;   :config
-;;   (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
-;;   )
+  ;;; https://github.com/alf/ob-restclient.el
+  (use-package ob-restclient
+    :after (org)))
+
+;;; https://github.com/tkf/emacs-request
+(use-package request
+  :config
+  (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
+  )
 
 ;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
 (use-package scad-mode)
@@ -828,13 +832,14 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package systemd
   :hook (systemd-mode . company-mode))
 
-;; ;;; https://github.com/saf-dmitry/taskpaper-mode
-;; ;; taskpaper-mode - Major mode for working with TaskPaper files
-;; (use-package taskpaper-mode
-;;   ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
-;;   )
+;;; https://github.com/saf-dmitry/taskpaper-mode
+;; taskpaper-mode - Major mode for working with TaskPaper files
+(use-package taskpaper-mode
+  ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
+  )
 
 ;; ;;; https://github.com/davidshepherd7/terminal-here
+;; ;; todo: figure out windows terminal + WSL2
 ;; (use-package terminal-here
 ;;   :config
 ;;   (cond
@@ -853,6 +858,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; https://github.com/koekeishiya/khd/issues/73#issuecomment-298112103
 ;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile'
 ;; <shortcut> : osascript -e 'tell application "iTerm2" to create window with default profile command "vim"'
+;;
 
 ;;; https://github.com/randymorris/tramp-term.el -
 ;; Automatic setup of directory tracking in ssh sessions.
