@@ -11,7 +11,6 @@
 ;; ;;; https://github.com/dgutov/robe
 ;; ;; M-x robe-start
 ;; (use-package robe
-;;   :defer 2
 ;;   :init
 ;;   (eval-after-load 'company
 ;;     '(push 'company-robe company-backends))
