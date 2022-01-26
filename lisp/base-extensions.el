@@ -919,19 +919,19 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; yasnippet org-mode conflict
 ;;; https://orgmode.org/manual/Conflicts.html#Conflicts
 
-(defun yas/org-very-safe-expand ()
-  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+;; (defun yas/org-very-safe-expand ()
+;;   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (make-variable-buffer-local 'yas/trigger-key)
-            (setq yas/trigger-key [tab])
-            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-            (define-key yas/keymap [tab] 'yas/next-field)))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (make-variable-buffer-local 'yas/trigger-key)
+;;             (setq yas/trigger-key [tab])
+;;             (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+;;             (define-key yas/keymap [tab] 'yas/next-field)))
 
-;;; https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  )
+;; ;;; https://github.com/AndreaCrotti/yasnippet-snippets
+;; (use-package yasnippet-snippets
+;;   )
 
 ;; ;;; https://github.com/sei40kr/gitignore-snippets
 ;; (use-package gitignore-snippets

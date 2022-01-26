@@ -92,7 +92,8 @@
 (use-package spaceline
   :config
   (require 'spaceline-config)
-  (spaceline-spacemacs-theme)  ;; (spaceline-emacs-theme)
+  ;; (spaceline-spacemacs-theme)
+  (spaceline-emacs-theme)
   ;; segments
   (spaceline-toggle-buffer-position-off) ;; "The current approximate buffer position, in percent."
   (spaceline-toggle-buffer-size-off) ;; size of buffer
@@ -111,7 +112,6 @@
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified) ;; based on (unmodified, modified, RO)
   ;; default ;; (setq spaceline-minor-modes-separator "|")
   )
-
 
 (provide 'base-theme)
 
