@@ -168,6 +168,7 @@
 Use FRAME-DEFAULT-HEIGHT for default frame font, DEFAULT-HEIGHT
 for default face, VARIABLE-PITCH-HEIGHT for variable-pitch face,
 and MODELINE-HEIGHT for mode-line face."
+  ;; (message (format "setup-fonts: %d %d %d %d" frame-default-height default-height variable-pitch-height modeline-height nil t))
   (set-face-attribute 'default nil
                       :family dpc-font-default
                       :height default-height
@@ -200,47 +201,45 @@ and MODELINE-HEIGHT for mode-line face."
                     :weight 'normal)
 (set-face-attribute 'mode-line nil :family dpc-font-modeline :height 140 :weight 'regular)
 
-;; adapt font sizes to display resolution - should probably consult
-;; (x-display-mm-width)
-;; (x-display-mm-height)
-;;
-;; macOS ;; 2 X 27" SBS: 1413 mm
-;;       ;;  2560x1440p:  397 mm
+;; adapt font sizes
 (when (display-graphic-p)
-  (if (> (x-display-pixel-width) 1800)
-      (if ;; very large number of pixels in display. side-by-side?
-          (and
-           (>= (x-display-pixel-width) 5120)
+  (if (>= (x-display-pixel-width) 1920)
+      (if (and ;; very large number of pixels in display width
+           (> (x-display-pixel-width) 5120)
            (< (x-display-pixel-width) 6400))
 	      (dpc-setup-main-fonts 160 160 160 140)
         (if (or
-             (and             ;; specific display
+             (and ;; specific display 2560x1600
               (= (x-display-pixel-width) 2560)
               (= (x-display-pixel-height) 1600))
-             (and ;; another specific display setup (SBS 1080p)
+             (and ;; specific display (SBS 1080p)
               (= (x-display-pixel-width) 3840)
               (= (x-display-pixel-height) 1080))
              )
-            ;; (dpc-setup-main-fonts 140 140 140 120)
             (dpc-setup-main-fonts 160 160 160 140)
           (if (or
-               (and             ;; specific display
+               (and ;; specific display 2560x1440
                 (= (x-display-pixel-width) 2560)
-                (= (x-display-pixel-height) 1440)))
-               (dpc-setup-main-fonts 140 140 140 120)
-               (if (or
-                    (and ;; another specific display setup
-                     (= (x-display-pixel-width) 1920)
-                     (= (x-display-pixel-height) 1080))
-                    (and ;; another specific display setup
-                     (= (x-display-pixel-width) 5120)
-                     (= (x-display-pixel-height) 1440)))
-                   (dpc-setup-main-fonts 120 120 120 110)
-
-                 ;; fall-thru: other large display
-	             (dpc-setup-main-fonts 180 180 180 160))))
+                (= (x-display-pixel-height) 1440))
+               (and ;; 1080p
+                (= (x-display-pixel-width) 1920)
+                (= (x-display-pixel-height) 1080))
+               )
+              (dpc-setup-main-fonts 140 140 140 120)
+            (if (or
+                 (and ;; (SBS 1440p 2X 2560x1440)
+                  (= (x-display-pixel-width) 5120)
+                  (= (x-display-pixel-height) 1440))
+                 )
+                (dpc-setup-main-fonts 160 160 160 140)
+              ;; fall-thru: HD display wide or larger
+	          (dpc-setup-main-fonts 180 180 180 160))))
         )
 	(dpc-setup-main-fonts 140 140 140 120)))
+
+;; should probably consult (x-display-mm-width) (x-display-mm-height)
+;; macOS ;; 2 X 27" SBS: 1413 mm
+;;       ;;  2560x1440p:  397 mm
 
 ;; can get hostname/display names
 ;; (x-display-list) ("w32") ("wayland-0")
@@ -278,7 +277,7 @@ and MODELINE-HEIGHT for mode-line face."
           (set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
         (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
     ;; For !darwin (Linux)
-    (if (version< emacs-version "29.0.50") ;; is it still needed in emacs29
+    (if (version< emacs-version "29.0.50") ;; is it still needed in emacs29?
         (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
   )
 
@@ -346,8 +345,8 @@ and MODELINE-HEIGHT for mode-line face."
   ;;; http://pragmaticemacs.com/emacs/automatically-copy-text-selected-with-the-mouse/
   ;; copy selected text to clipboard
   (setq mouse-drag-copy-region t)
-  (add-to-list 'default-frame-alist '(height . 40))
-  (add-to-list 'default-frame-alist '(width . 80))
+  ;;(add-to-list 'default-frame-alist '(height . 40))
+  (add-to-list 'default-frame-alist '(width . 86))
   ;; macos titlebar mods
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
@@ -361,7 +360,7 @@ and MODELINE-HEIGHT for mode-line face."
     (global-set-key (kbd "M-s-f") 'toggle-frame-fullscreen)))
 
  ;;---------------------------------------------------------------------------
- ;; WSL pgtk specific code goes here.
+ ;; WSL2/WSLg pgtk specific code goes here.
  ;;---------------------------------------------------------------------------
  (platform-wsl-pgtk-p
   ;; https://emacsredux.com/blog/2021/12/19/using-emacs-on-windows-11-with-wsl2/
@@ -372,8 +371,6 @@ and MODELINE-HEIGHT for mode-line face."
         (let ((text (buffer-substring-no-properties start end)))
           (shell-command (concat "echo '" text "' | clip.exe")))))
   (add-to-list 'default-frame-alist '(width . 86))
-
-
   )
 
  ;;---------------------------------------------------------------------------
