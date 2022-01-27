@@ -476,28 +476,6 @@ This function is intended for use with `ivy-ignore-buffers'."
           /ssh:rpihp2:projects/kubernetes-homespun/RUN.md
           )))
 
-;;; https://github.com/mnewt/counsel-web
-(use-package counsel-web
-  ;; :bind
-  ;; (("C-c w" . counsel-web-suggest)
-  ;;  ("C-c W" . counsel-web-search)
-  ;;  ("C-c C-w" . counsel-web-thing-at-point))
-  :config
-  ;; Define "C-c w" as a prefix key.
-  (defvar counsel-web-map
-    (let ((map (make-sparse-keymap "counsel-web")))
-      (define-key map (kbd "w") #'counsel-web-suggest)
-      (define-key map (kbd "s") #'counsel-web-search)
-      (define-key map (kbd ".") #'counsel-web-thing-at-point)
-      map))
-  (global-set-key (kbd "C-c w") counsel-web-map)
-  ;; use google instead of the default DuckDuckGo
-  (setq counsel-web-engine 'google)
-  (setq ;; update with each key press
-        counsel-web-search-dynamic-update  t
-        ;; use system browser
-        counsel-web-search-action          #'browse-url))
-
 ;;----------------------------------------------------------------------------
 ;; end of counsel / ivy stuff
 ;;----------------------------------------------------------------------------
