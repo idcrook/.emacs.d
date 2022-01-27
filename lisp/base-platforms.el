@@ -53,21 +53,21 @@
 ;;______________________________________________________________________
 ;;;;  Fonts
 
-(defun get-default-height ()
+(defun dpc/calculate-display-rows-height ()
   "Calculates number of characters tall the display is, assuming size 12 font?"
        (/ (- (display-pixel-height) 120)
           (frame-char-height)))
 
-(defun dpc-frame-height-default ()
+(defun dpc/set-default-frame-height ()
   "Set height in `default-frame-alist'."
   (interactive)
   (if platform-wsl-pgtk-p
       ;; hardcode until emacs29/WSL pgtk wayland way is determined
       (add-to-list 'default-frame-alist '(height . 52))
-    (add-to-list 'default-frame-alist (cons 'height (get-default-height)))))
+    (add-to-list 'default-frame-alist (cons 'height (dpc/calculate-display-rows-height)))))
 
-;;(add-hook 'after-init-hook 'dpc-frame-height-default)
-(add-hook 'emacs-startup-hook 'dpc-frame-height-default)
+;;(add-hook 'after-init-hook 'dpc/set-default-frame-height)
+(add-hook 'emacs-startup-hook 'dpc/set-default-frame-height)
 
 ;; (print (font-family-list))
 ;; (message (string-join (font-family-list) "\n"))
@@ -109,60 +109,53 @@
 ;;   :init
 ;;   (add-hook 'after-init-hook 'default-text-scale-mode))
 
-(defun dpc-font-available-p (font-name)
+(defun dpc/font-available-p (font-name)
   "Check whether FONT-NAME is available from system."
   (member font-name (font-family-list)))
 
-;; Declare various font family variables
-;; "powerline" fonts override their "plain" font names in Linux
-(defvar
-  dpc-font-frame-default "Inconsolata"
+;; Declare font family variables
+(defvar dpc/font-frame-default "Inconsolata"
   "The default font to use for frames.")
-(defvar
-  dpc-font-default "Inconsolata"
+(defvar dpc/font-default "Inconsolata"
   "The default font to use.")
-(defvar
-  dpc-font-variable "Ubuntu Mono"
+(defvar dpc/font-variable "Ubuntu Mono"
   "The font to use for variable-width faces.")
-(defvar
-  dpc-font-modeline "DejaVu Sans Mono"
+(defvar dpc/font-modeline "DejaVu Sans Mono"
   "The font to use for modeline.")
 
+;; "powerline" fonts override their "plain" font names in Linux
 ;; priority order based on availability
 (when platform-linux-x-p
   (cond
-   ((dpc-font-available-p "Inconsolata Nerd Font Mono")
-    (setq dpc-font-frame-default "Inconsolata Nerd Font Mono"))
-   ((dpc-font-available-p "Cascadia Mono PL")
-    (setq dpc-font-frame-default "Cascadia Mono PL"))
-   ((dpc-font-available-p "Inconsolata")
-    (setq dpc-font-frame-default "Inconsolata"))
+   ((dpc/font-available-p "Inconsolata Nerd Font Mono")
+    (setq dpc/font-frame-default "Inconsolata Nerd Font Mono"))
+   ((dpc/font-available-p "Cascadia Mono PL")
+    (setq dpc/font-frame-default "Cascadia Mono PL"))
     ))
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-macos-p
-  (when (dpc-font-available-p "Inconsolata Nerd Font")
-    (setq dpc-font-frame-default "Inconsolata Nerd Font"))
-  (when (dpc-font-available-p "Cascadia Code")
-    (setq dpc-font-frame-default "Cascadia Code"))
+  (when (dpc/font-available-p "Inconsolata Nerd Font")
+    (setq dpc/font-frame-default "Inconsolata Nerd Font"
+          dpc/font-default       "Inconsolata Nerd Font"))
+  (when (dpc/font-available-p "Cascadia Code")
+    (setq dpc/font-frame-default "Cascadia Code"
+          dpc/font-default       "Cascadia Code"))
   (setq
-   dpc-font-default "Inconsolata Nerd Font"
-   dpc-font-variable "UbuntuMono Nerd Font"
-   dpc-font-modeline "DejaVuSansMono Nerd Font")
-  )
+   dpc/font-variable "UbuntuMono Nerd Font"
+   dpc/font-modeline "DejaVuSansMono Nerd Font"))
 
 ;; fonts appear with slightly different names on macOS than Ubuntu/Debian
 (when platform-wsl-pgtk-p
   (cond
-   ((dpc-font-available-p "Cascadia Mono PL")
-    (setq dpc-font-frame-default "Cascadia Mono PL")))
+   ((dpc/font-available-p "Cascadia Mono PL")
+    (setq dpc/font-frame-default "Cascadia Mono PL"
+          dpc/font-default       "Cascadia Mono PL")))
   (setq
-   dpc-font-default "Inconsolata"
-   dpc-font-variable "Ubuntu Mono"
-   dpc-font-modeline "DejaVu Sans Mono"))
+   dpc/font-variable "Ubuntu Mono"
+   dpc/font-modeline "DejaVu Sans Mono"))
 
-
-(defun dpc-setup-main-fonts (frame-default-height default-height variable-pitch-height modeline-height)
+(defun dpc/setup-fonts-height (frame-default-height default-height variable-pitch-height modeline-height)
   "Set up default fonts.
 
 Use FRAME-DEFAULT-HEIGHT for default frame font, DEFAULT-HEIGHT
@@ -170,36 +163,36 @@ for default face, VARIABLE-PITCH-HEIGHT for variable-pitch face,
 and MODELINE-HEIGHT for mode-line face."
   ;; (message (format "setup-fonts: %d %d %d %d" frame-default-height default-height variable-pitch-height modeline-height nil t))
   (set-face-attribute 'default nil
-                      :family dpc-font-default
+                      :family dpc/font-default
                       :height default-height
                       :weight 'regular)
   ;; set frame font after default face attribute
   (set-frame-font
-   (format "%s-%d" dpc-font-frame-default (/ frame-default-height 10)) nil t)
+   (format "%s-%d" dpc/font-frame-default (/ frame-default-height 10)) nil t)
   (set-face-attribute 'variable-pitch nil
-                      :family dpc-font-variable
+                      :family dpc/font-variable
                       :height variable-pitch-height
                       :weight 'regular)
   (set-face-attribute 'mode-line nil
-                      :family dpc-font-modeline
+                      :family dpc/font-modeline
                       :height modeline-height
                       :weight 'regular))
 
-;; (dpc-setup-main-fonts 140 140 140 120)
+;; (dpc/setup-fonts-height 140 140 140 120)
 
 
 ;; App launch defaults
 (set-face-attribute 'default nil
-                    :family dpc-font-default
+                    :family dpc/font-default
                     :height 160
                     :weight 'normal)
 ;; set frame font after default face attribute
-(set-frame-font dpc-font-frame-default nil t)
+(set-frame-font dpc/font-frame-default nil t)
 (set-face-attribute 'variable-pitch nil
-                    :family dpc-font-variable
+                    :family dpc/font-variable
                     :height 160
                     :weight 'normal)
-(set-face-attribute 'mode-line nil :family dpc-font-modeline :height 140 :weight 'regular)
+(set-face-attribute 'mode-line nil :family dpc/font-modeline :height 140 :weight 'regular)
 
 ;; adapt font sizes
 (when (display-graphic-p)
@@ -207,7 +200,7 @@ and MODELINE-HEIGHT for mode-line face."
       (if (and ;; very large number of pixels in display width
            (> (x-display-pixel-width) 5120)
            (< (x-display-pixel-width) 6400))
-	      (dpc-setup-main-fonts 160 160 160 140)
+	      (dpc/setup-fonts-height 160 160 160 140)
         (if (or
              (and ;; specific display 2560x1600
               (= (x-display-pixel-width) 2560)
@@ -216,7 +209,7 @@ and MODELINE-HEIGHT for mode-line face."
               (= (x-display-pixel-width) 3840)
               (= (x-display-pixel-height) 1080))
              )
-            (dpc-setup-main-fonts 160 160 160 140)
+            (dpc/setup-fonts-height 160 160 160 140)
           (if (or
                (and ;; specific display 2560x1440
                 (= (x-display-pixel-width) 2560)
@@ -225,17 +218,17 @@ and MODELINE-HEIGHT for mode-line face."
                 (= (x-display-pixel-width) 1920)
                 (= (x-display-pixel-height) 1080))
                )
-              (dpc-setup-main-fonts 140 140 140 120)
+              (dpc/setup-fonts-height 140 140 140 120)
             (if (or
                  (and ;; (SBS 1440p 2X 2560x1440)
                   (= (x-display-pixel-width) 5120)
                   (= (x-display-pixel-height) 1440))
                  )
-                (dpc-setup-main-fonts 160 160 160 140)
+                (dpc/setup-fonts-height 160 160 160 140)
               ;; fall-thru: HD display wide or larger
-	          (dpc-setup-main-fonts 180 180 180 160))))
+	          (dpc/setup-fonts-height 180 180 180 160))))
         )
-	(dpc-setup-main-fonts 140 140 140 120)))
+	(dpc/setup-fonts-height 140 140 140 120)))
 
 ;; should probably consult (x-display-mm-width) (x-display-mm-height)
 ;; macOS ;; 2 X 27" SBS: 1413 mm
@@ -245,8 +238,12 @@ and MODELINE-HEIGHT for mode-line face."
 ;; (x-display-list) ("w32") ("wayland-0")
 ;;
 ;;; transparency ;;
-(set-frame-parameter (selected-frame) 'alpha '(100 95))
-(add-to-list 'default-frame-alist '(alpha 100 95))
+(defun dpc/default-frame-alpha ()
+    "Set default frame alpha transparencies."
+    (set-frame-parameter (selected-frame) 'alpha '(100 95))
+    (add-to-list 'default-frame-alist '(alpha . (100 . 95))))
+
+(add-hook 'after-init-hook 'dpc/default-frame-alpha)
 
 ;; (setq focus-follows-mouse t)
 ;; (setq focus-follows-mouse 'auto-raise)
