@@ -248,8 +248,8 @@ and MODELINE-HEIGHT for mode-line face."
     (add-to-list 'default-frame-alist '(alpha . (100 . 95)))
     )
   (when platform-macos-p
-    (set-frame-parameter (selected-frame) 'alpha '(100 88))
-    (add-to-list 'default-frame-alist '(alpha 100 88))
+    (set-frame-parameter (selected-frame) 'alpha '(100 92))
+    (add-to-list 'default-frame-alist '(alpha 100 92))
     )
   ;; default
   (unless (assq 'alpha default-frame-alist)
