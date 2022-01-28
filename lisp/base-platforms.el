@@ -161,7 +161,7 @@
 Use FRAME-DEFAULT-HEIGHT for default frame font, DEFAULT-HEIGHT
 for default face, VARIABLE-PITCH-HEIGHT for variable-pitch face,
 and MODELINE-HEIGHT for mode-line face."
-  ;; (message (format "setup-fonts: %d %d %d %d" frame-default-height default-height variable-pitch-height modeline-height nil t))
+  ;;(message (format "setup-fonts: %d %d %d %d" frame-default-height default-height variable-pitch-height modeline-height nil t))
   (set-face-attribute 'default nil
                       :family dpc/font-default
                       :height default-height
@@ -202,32 +202,33 @@ and MODELINE-HEIGHT for mode-line face."
            (< (x-display-pixel-width) 6400))
 	      (dpc/setup-fonts-height 160 160 160 140)
         (if (or
+             (and ;; (2X 2560x1440 SBS 1440p)
+              (= (x-display-pixel-width) 5120)
+              (= (x-display-pixel-height) 1440))
              (and ;; specific display 2560x1600
               (= (x-display-pixel-width) 2560)
               (= (x-display-pixel-height) 1600))
-             (and ;; specific display (SBS 1080p)
-              (= (x-display-pixel-width) 3840)
-              (= (x-display-pixel-height) 1080))
              )
             (dpc/setup-fonts-height 160 160 160 140)
           (if (or
                (and ;; specific display 2560x1440
                 (= (x-display-pixel-width) 2560)
                 (= (x-display-pixel-height) 1440))
-               (and ;; 1080p
-                (= (x-display-pixel-width) 1920)
-                (= (x-display-pixel-height) 1080))
                )
               (dpc/setup-fonts-height 140 140 140 120)
             (if (or
-                 (and ;; (SBS 1440p 2X 2560x1440)
-                  (= (x-display-pixel-width) 5120)
-                  (= (x-display-pixel-height) 1440))
+                 (and ;; 1080p
+                  (= (x-display-pixel-width) 1920)
+                  (= (x-display-pixel-height) 1080))
+                 (and ;; specific display (2X SBS 1080p)
+                  (= (x-display-pixel-width) 3840)
+                  (= (x-display-pixel-height) 1080))
                  )
-                (dpc/setup-fonts-height 160 160 160 140)
-              ;; fall-thru: HD display wide or larger
-	          (dpc/setup-fonts-height 180 180 180 160))))
+                (dpc/setup-fonts-height 120 120 120 100)
+              ;; fall-thru:
+              (dpc/setup-fonts-height 180 180 180 160))))
         )
+
 	(dpc/setup-fonts-height 140 140 140 120)))
 
 ;; should probably consult (x-display-mm-width) (x-display-mm-height)
@@ -239,9 +240,24 @@ and MODELINE-HEIGHT for mode-line face."
 ;;
 ;;; transparency ;;
 (defun dpc/default-frame-alpha ()
-    "Set default frame alpha transparencies."
+  "Set default frame alpha transparencies."
+
+  ;; transparency effects differ across platforms
+  (when platform-wsl-pgtk-p
     (set-frame-parameter (selected-frame) 'alpha '(100 95))
-    (add-to-list 'default-frame-alist '(alpha . (100 . 95))))
+    (add-to-list 'default-frame-alist '(alpha . (100 . 95)))
+    )
+  (when platform-macos-p
+    (set-frame-parameter (selected-frame) 'alpha '(100 88))
+    (add-to-list 'default-frame-alist '(alpha 100 88))
+    )
+  ;; default
+  (unless (assq 'alpha default-frame-alist)
+    (set-frame-parameter (selected-frame) 'alpha '(100 85))
+    (add-to-list 'default-frame-alist '(alpha 100 85))
+    )
+  )
+
 
 (add-hook 'after-init-hook 'dpc/default-frame-alpha)
 
@@ -348,9 +364,6 @@ and MODELINE-HEIGHT for mode-line face."
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   ;;(setq frame-title-format nil)
-  ;; transparency
-  (set-frame-parameter (selected-frame) 'alpha '(100 88))
-  (add-to-list 'default-frame-alist '(alpha 100 88))
   (when  (fboundp 'toggle-frame-fullscreen)
     ;; Command-Option-f to toggle fullscreen mode
     ;; Hint: Customize `ns-use-native-fullscreen'
@@ -387,7 +400,7 @@ and MODELINE-HEIGHT for mode-line face."
   ;; Treat clipboard input as UTF-8 string first; compound text
   ;; next, etc.
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-  (add-to-list 'default-frame-alist '(width . 86))
+  (add-to-list 'default-frame-alist '(width . 100))
   )
 
  ;;---------------------------------------------------------------------------
