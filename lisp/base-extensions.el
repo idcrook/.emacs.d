@@ -397,14 +397,14 @@
 
 ;;; https://github.com/abo-abo/swiper/wiki/Hiding-dired-buffers
 ;; hide dired buffers in ivy-switch-buffer
-(defun idc/ignore-dired-buffers (str)
+(defun dpc/ignore-dired-buffers (str)
   "Return non-nil if STR names a Dired buffer.
 This function is intended for use with `ivy-ignore-buffers'."
   (let ((buf (get-buffer str)))
     (and buf (eq (buffer-local-value 'major-mode buf) 'dired-mode))))
 
 (with-eval-after-load 'ivy
-  (add-to-list 'ivy-ignore-buffers #'idc/ignore-dired-buffers))
+  (add-to-list 'ivy-ignore-buffers #'dpc/ignore-dired-buffers))
 
 ;; ;;; https://github.com/abo-abo/swiper
 ;; (use-package ivy-hydra
@@ -422,7 +422,6 @@ This function is intended for use with `ivy-ignore-buffers'."
    )
   (ivy-rich-mode 1))
 
-
 (use-package counsel
   :diminish counsel-mode
   :bind
@@ -436,6 +435,7 @@ This function is intended for use with `ivy-ignore-buffers'."
    ("<f1> l" . counsel-find-library)
    ("<f2> i" . counsel-info-lookup-symbol)
    ("<f2> u" . counsel-unicode-char)
+   ("C-c r" . counsel-recentf)
    ;; ("C-c g" . counsel-git) ;; use for magit-file-dispatch instead
    ("C-c C-f" . counsel-git)
    ("C-c j" . counsel-git-grep)
@@ -504,7 +504,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package magit
   :init
   (eval-after-load "magit"
-    '(define-key magit-status-mode-map (kbd "Q") #'idc-magit-kill-buffers))
+    '(define-key magit-status-mode-map (kbd "Q") #'dpc/magit-kill-buffers))
   (setq magit-define-global-key-bindings nil)
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
@@ -524,7 +524,7 @@ This function is intended for use with `ivy-ignore-buffers'."
    ("C-x g r" . magit-rebase-interactive)))
 
 ;;; based on http://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
-(defun idc-magit-kill-buffers ()
+(defun dpc/magit-kill-buffers ()
   "Restore window configuration and kill all (of these) Magit buffers."
   (interactive)
   (let ((buffers (magit-mode-get-buffers)))
@@ -730,14 +730,15 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; qrencode-url-at-point
 ;;     Encode URL at point as QR Code.
 
+;; Built-In
 (use-package recentf
-  :demand
+  ;; :demand
   :init
   (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" dpc/temp-dir)))
   (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
   :config
   (setq recentf-max-menu-items 22)
-  (setq recentf-max-saved-items 500)
+  (setq recentf-max-saved-items 200)
   (setq recentf-exclude '("^/var/folders\\.*"
       "COMMIT_EDITMSG\\'"
       ".*-autoloads\\.el\\'"
@@ -814,11 +815,11 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package systemd
   :hook (systemd-mode . company-mode))
 
-;;; https://github.com/saf-dmitry/taskpaper-mode
-;; taskpaper-mode - Major mode for working with TaskPaper files
-(use-package taskpaper-mode
-  ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
-  )
+;; ;;; https://github.com/saf-dmitry/taskpaper-mode
+;; ;; taskpaper-mode - Major mode for working with TaskPaper files
+;; (use-package taskpaper-mode
+;;   ;; (add-to-list 'auto-mode-alist '("\\.todo\\'" . taskpaper-mode))
+;;   )
 
 ;; ;;; https://github.com/davidshepherd7/terminal-here
 ;; ;; todo: figure out windows terminal + WSL2
