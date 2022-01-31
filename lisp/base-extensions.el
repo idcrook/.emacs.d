@@ -315,8 +315,8 @@
     (use-package gist
       ;; ;; masks error about gh-url-response-set-data on pre-Emacs29
       ;; :after (gh gh-url)
-      :config
-      (setq gist-view-gist +1) ;; will use browse-url after posting if set
+      ;; :config
+      ;; (setq gist-view-gist +1) ;; will use browse-url after posting if set
       ))
 
 ;;; https://github.com/syohex/emacs-git-gutter
