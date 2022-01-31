@@ -312,8 +312,10 @@
 
 ;;; https://github.com/defunkt/gist.el
 (use-package gist
+  :after (gh) ;; fixes error about gh-url-response-set-data
+              ;; gh-url (from gh.el) is dependency of gist
   ;; :init ;; base.el sets pcache-directory to override default
-  :config
+  ;; :config
   ;; (setq gist-view-gist +1) ;; will use browse-url after posting if set
   )
 
