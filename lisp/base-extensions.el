@@ -20,9 +20,9 @@
   (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
   (add-hook 'text-mode-hook (lambda () (setq line-move-visual nil)))
   (add-hook 'visual-line-mode-hook
-	    (lambda ()
-	      (adaptive-wrap-prefix-mode +1)
-	      (diminish 'visual-line-mode)))
+	        (lambda ()
+	          (adaptive-wrap-prefix-mode +1)
+	          (diminish 'visual-line-mode)))
   :config
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
   (setq-default adaptive-wrap-extra-indent 2))
@@ -60,8 +60,8 @@
 (use-package avy
   :bind (("C-c SPC" . avy-goto-char)
          :map isearch-mode-map
-	           ("C-'" . avy-isearch))
-         ;; swiper-avy also bound to "C-'" by default within swiper
+	     ("C-'" . avy-isearch))
+  ;; swiper-avy also bound to "C-'" by default within swiper
   :config
   (setq avy-background t
         avy-highlight-first t
@@ -150,33 +150,34 @@
 (use-package dashboard
   :after (all-the-icons)
   :config
-  (setq dashboard-items '((recents       . 5)
-  ;;                        (bookmarks . 5)
+  (setq dashboard-items '(
+                          (recents       . 5)
+                          ;; (bookmarks . 5)
                           ;; (projects . 5)
-  ;;                         (registers . 5)
-  ;;                        (agenda         . 10)
-                            ))
+                          ;; (registers . 5)
+                          ;; (agenda . 10)
+                          ))
   ;; (add-to-list 'dashboard-items '(agenda) t)
   ;; ;; To show info about the packages loaded and the init time:
   ;; (setq dashboard-set-init-info t)
   ;; To show navigator below the banner:
   (setq dashboard-set-navigator t)
   (setq dashboard-navigator-buttons
-      `(;; line1
-        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-         "Homepage"
-         "Browse homepage"
-         (lambda (&rest _) (browse-url "https://github.com/idcrook")))
-        ;; ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
-        ;; ("?" "" "?/h" #'show-help nil "<" ">")
-        )
-         ;; line 2
-        ;; ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
-        ;;   "Linkedin"
-        ;;   ""
-        ;;   (lambda (&rest _) (browse-url "homepage")))
-        ;;  ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))
-        ))
+        `(;; line1
+          ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+            "Homepage"
+            "Browse homepage"
+            (lambda (&rest _) (browse-url "https://github.com/idcrook")))
+           ;; ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+           ;; ("?" "" "?/h" #'show-help nil "<" ">")
+           )
+          ;; line 2
+          ;; ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+          ;;   "Linkedin"
+          ;;   ""
+          ;;   (lambda (&rest _) (browse-url "homepage")))
+          ;;  ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))
+          ))
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
@@ -252,8 +253,8 @@
   (add-hook 'text-mode-hook (editorconfig-mode 1))
   (add-hook 'editorconfig-hack-properties-functions
             #'(lambda (props)
-               (when (derived-mode-p 'makefile-mode)
-                 (puthash 'indent_style "tab" props))))
+                (when (derived-mode-p 'makefile-mode)
+                  (puthash 'indent_style "tab" props))))
   ;;; https://github.com/10sr/editorconfig-custom-majormode-el
   (with-eval-after-load 'editorconfig
     (use-package editorconfig-custom-majormode
@@ -312,12 +313,12 @@
 
 (when (version< emacs-version "29.0.50")
     ;;; https://github.com/defunkt/gist.el
-    (use-package gist
-      ;; ;; masks error about gh-url-response-set-data on pre-Emacs29
-      ;; :after (gh gh-url)
-      ;; :config
-      ;; (setq gist-view-gist +1) ;; will use browse-url after posting if set
-      ))
+  (use-package gist
+    ;; ;; masks error about gh-url-response-set-data on pre-Emacs29
+    ;; :after (gh gh-url)
+    ;; :config
+    ;; (setq gist-view-gist +1) ;; will use browse-url after posting if set
+    ))
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
@@ -468,11 +469,11 @@ This function is intended for use with `ivy-ignore-buffers'."
   :init
   ;; to speed up tramp
   (add-hook 'counsel-tramp-pre-command-hook #'(lambda ()
-                                               ;;				     (projectile-mode 0)
-				                               (editorconfig-mode 0)))
+                                                ;;				     (projectile-mode 0)
+				                                (editorconfig-mode 0)))
   (add-hook 'counsel-tramp-quit-hook #'(lambda ()
-                                        ;;			      (projectile-mode 1)
-			                            (editorconfig-mode 1)))
+                                         ;;			      (projectile-mode 1)
+			                             (editorconfig-mode 1)))
   ;; ;; If the shell of the server is zsh it is recommended to connect with bash.
   ;; (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
   :config
@@ -575,7 +576,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq markdown-open-command "~/bin/macos/marked2"))
 
 ;;; https://github.com/ancane/markdown-preview-mode
-  ;; uses markdown-command from markdown-mode
+;; uses markdown-command from markdown-mode
 ;; dependencies:
 ;; - markdown-mode
 ;; - https://github.com/eschulte/emacs-web-server
@@ -741,10 +742,10 @@ This function is intended for use with `ivy-ignore-buffers'."
   (setq recentf-max-menu-items 22)
   (setq recentf-max-saved-items 200)
   (setq recentf-exclude '("^/var/folders\\.*"
-      "COMMIT_EDITMSG\\'"
-      ".*-autoloads\\.el\\'"
-      "\.emacs\.d\/elpa\/"
-      ))
+                          "COMMIT_EDITMSG\\'"
+                          ".*-autoloads\\.el\\'"
+                          "\.emacs\.d\/elpa\/"
+                          ))
   (recentf-mode 1))
 
 ;;; https://github.com/pashky/restclient.el
