@@ -90,7 +90,7 @@
 ;; (use-package spotlight
 ;;   :config
 ;;   (setq spotlight-tmp-file
-;; 	(expand-file-name "spotlight-tmp-file" temp-dir)))
+;; 	(expand-file-name "spotlight-tmp-file" dpc/temp-dir)))
 
 (provide 'lang-apple)
 

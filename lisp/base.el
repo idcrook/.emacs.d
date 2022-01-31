@@ -7,30 +7,26 @@
 ;;; Code:
 
 ;; See ~/.emacs.d/site-lisp/README.md
-(defconst dpc-site-lisp-dir (concat user-emacs-directory "site-lisp/")
+(defconst dpc/site-lisp-dir (concat user-emacs-directory "site-lisp/")
   "Local directory with hand-maintain libraries.")
 
 ;; explicitly list subdirectories to include in load path
-(let ((default-directory dpc-site-lisp-dir))
+(let ((default-directory dpc/site-lisp-dir))
   (normal-top-level-add-to-load-path '("csh-mode")))
 ;; Adds all its subdirs to load-path
 ;; (normal-top-level-add-subdirs-to-load-path))
 
-(defconst private-dir (expand-file-name "private" user-emacs-directory)
+(defconst dpc/private-dir (expand-file-name "private" user-emacs-directory)
   "Set aside per-user Emacs directory.")
 
-(defconst temp-dir (format "%s/cache" private-dir)
+(defconst dpc/temp-dir (format "%s/cache" dpc/private-dir)
   "Location of package bookkeeping temp directories.")
-
-;; pcache used by gist package
-;; (defvar pcache-directory (concat user-emacs-directory "var/pcache/"))
-(setq pcache-directory  (format "%s/var/pcache/" private-dir))
 
 ;;; https://www.gnu.org/software/emacs/manual/html_node/auth/Help-for-users.html
 (require 'auth-source)
 ;; default: (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
 ;; add ~/.emacs.d/private/authinfo.secrets
-(add-to-list 'auth-sources (expand-file-name "authinfo.secrets" private-dir))
+(add-to-list 'auth-sources (expand-file-name "authinfo.secrets" dpc/private-dir))
 
 ;; Core settings
 ;; UTF-8 please
@@ -70,7 +66,7 @@
  blink-matching-paren               t
 
  ;; abbrev
- abbrev-file-name                   (concat temp-dir "/abbrev_defs")
+ abbrev-file-name                   (concat dpc/temp-dir "/abbrev_defs")
  history-length                     1000
 
  ;;; searching ;;
@@ -115,7 +111,7 @@
 ;;; Bookmarks ;;
 (require 'bookmark)
 (setq bookmark-save-flag                 t
-      bookmark-default-file              (concat temp-dir "/bookmarks"))
+      bookmark-default-file              (concat dpc/temp-dir "/bookmarks"))
 
 ;; overwrite of selection
 (require 'delsel)
@@ -125,7 +121,7 @@
 
 ;; emacs 25 has a network security manager ;;
 (require 'nsm)
-(setq nsm-settings-file                  (concat temp-dir "/network-security.data"))
+(setq nsm-settings-file                  (concat dpc/temp-dir "/network-security.data"))
 
 ;; visualization of matching parens
 (require 'paren)
@@ -137,7 +133,7 @@
 
 ;;; https://www.emacswiki.org/emacs/SavePlace
 (require 'saveplace)
-(setq save-place-file (concat temp-dir "/emacs-places"))
+(setq save-place-file (concat dpc/temp-dir "/emacs-places"))
 (save-place-mode 1)
 
 ;; ;; Timestamps
@@ -183,7 +179,7 @@
 ;; Backups
 (setq
  make-backup-files   t
- backup-directory-alist            `((".*" . ,(concat temp-dir "/backup/")))
+ backup-directory-alist            `((".*" . ,(concat dpc/temp-dir "/backup/")))
  backup-by-copying   t      ; don't clobber symlinks
  backup-by-copying-when-mismatch t
  backup-by-copying-when-linked   t
@@ -202,24 +198,24 @@
 ;; autosaves
 ;; ---------------------------------------------------------------------------
 ;; create the autosave dir if necessary, since emacs won't.
-(make-directory (concat temp-dir "/autosaves/") t)
+(make-directory (concat dpc/temp-dir "/autosaves/") t)
 
 (setq
  auto-save-default   t
- auto-save-list-file-name           (concat temp-dir "/autosave")
- auto-save-list-file-prefix         (concat temp-dir "/autosaves/autosave-")
- auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/autosaves/\\1") t))
- ;;auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/auto-save-list/") t))
+ auto-save-list-file-name           (concat dpc/temp-dir "/autosave")
+ auto-save-list-file-prefix         (concat dpc/temp-dir "/autosaves/autosave-")
+ auto-save-file-name-transforms    `((".*" ,(concat dpc/temp-dir "/autosaves/\\1") t))
+ ;;auto-save-file-name-transforms    `((".*" ,(concat dpc/temp-dir "/auto-save-list/") t))
  )
 
-;;(unless (file-exists-p (concat temp-dir "/autosave-save-list"))
-;;  (make-directory (concat temp-dir "/autosave-save-list") :parents))
+;;(unless (file-exists-p (concat dpc/temp-dir "/autosave-save-list"))
+;;  (make-directory (concat dpc/temp-dir "/autosave-save-list") :parents))
 
 ;; For faster initial connection times, TRAMP stores previous connection
 ;; properties in this file
 (require 'tramp)
 (require 'tramp-cache)
-(setq  tramp-persistency-file-name (expand-file-name "tramp" temp-dir))
+(setq  tramp-persistency-file-name (expand-file-name "tramp" dpc/temp-dir))
 
 ;; see base-platforms.el for
 ;;  - emacs server (used by emacsclient)

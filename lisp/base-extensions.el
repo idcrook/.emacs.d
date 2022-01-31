@@ -51,7 +51,7 @@
 ;; (use-package ansible-vault
 ;;   :init (add-hook 'yaml-mode-hook 'ansible-vault-mode-maybe)
 ;;   :config
-;;   (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" private-dir)))
+;;   (setq ansible-vault-pass-file (expand-file-name "vault_pass.txt" dpc/private-dir)))
 
 ;;; https://github.com/sensorflo/adoc-mode
 (use-package adoc-mode
@@ -134,7 +134,7 @@
   :config
   (company-prescient-mode 1)
   (prescient-persist-mode 1)
-  (setq prescient-save-file (expand-file-name "prescient-save.el" temp-dir)))
+  (setq prescient-save-file (expand-file-name "prescient-save.el" dpc/temp-dir)))
 
 ;;; https://github.com/sshaw/copy-as-format
 (use-package copy-as-format)
@@ -302,16 +302,20 @@
 ;; ;;; https://github.com/cadadr/elisp
 ;; (use-package forecast
 ;;   :config
-;;   (let ((forecast-api-config-file (expand-file-name "forecast-api.config.el" private-dir)))
+;;   (let ((forecast-api-config-file (expand-file-name "forecast-api.config.el" dpc/private-dir)))
 ;;     (when (file-exists-p forecast-api-config-file)
 ;;       (load-file forecast-api-config-file)))
-;;   (let ((forecast-api-key-file (expand-file-name "forecast-api.key.el" private-dir)))
+;;   (let ((forecast-api-key-file (expand-file-name "forecast-api.key.el" dpc/private-dir)))
 ;;     (when (file-exists-p forecast-api-key-file)
 ;;       (load-file forecast-api-key-file)))
 ;;   )
 
 ;; ;;; https://github.com/defunkt/gist.el
 ;; (use-package gist)
+;; ;; pcache used by gist package
+;; ;; (defvar pcache-directory (concat user-emacs-directory "var/pcache/"))
+;; (setq pcache-directory  (format "%s/var/pcache/" dpc/private-dir))
+
 
 ;;; https://github.com/syohex/emacs-git-gutter
 (use-package git-gutter
@@ -729,7 +733,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 (use-package recentf
   :demand
   :init
-  (setq recentf-save-file (recentf-expand-file-name "~/.emacs.d/private/cache/recentf"))
+  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" dpc/temp-dir)))
   (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
   :config
   (setq recentf-max-menu-items 22)
@@ -757,7 +761,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;; https://github.com/tkf/emacs-request
 (use-package request
   :config
-  (custom-set-variables '(request-storage-directory (format "%s/request" private-dir)))
+  (custom-set-variables '(request-storage-directory (format "%s/request" dpc/private-dir)))
   )
 
 ;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
@@ -856,7 +860,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   ;; Remember undo history
 ;;   (setq
 ;;    undo-tree-auto-save-history nil
-;;    undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
+;;    undo-tree-history-directory-alist `(("." . ,(concat dpc/temp-dir "/undo/"))))
 ;;   (global-undo-tree-mode 1))
 
 ;;; https://wakatime.com/emacs
