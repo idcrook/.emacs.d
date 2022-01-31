@@ -290,7 +290,8 @@ and MODELINE-HEIGHT for mode-line face."
           (set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
         (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
     ;; For !darwin (Linux)
-    (if (version< emacs-version "29.0.50") ;; is it still needed in emacs29?
+    (if (and (version< emacs-version "29.0.50");; is it still needed in emacs29?
+             platform-linux-x-p)
         (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
   )
 
