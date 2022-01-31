@@ -22,6 +22,11 @@
 (defconst dpc/temp-dir (format "%s/cache" dpc/private-dir)
   "Location of package bookkeeping temp directories.")
 
+;; pcache used by gh.el package which is gist dependency
+;;; https://github.com/sigma/pcache
+;; (defvar pcache-directory (concat user-emacs-directory "var/pcache/"))
+(setq pcache-directory  (format "%s/pcache/" dpc/temp-dir))
+
 ;;; https://www.gnu.org/software/emacs/manual/html_node/auth/Help-for-users.html
 (require 'auth-source)
 ;; default: (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
