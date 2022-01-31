@@ -148,7 +148,7 @@
 ;;; https://github.com/rakanalh/emacs-dashboard
 ;; - needs package all-the-icons (and icons installed)
 (use-package dashboard
-  :after (all-the-icons)
+  :after (all-the-icons recentf)
   :config
   (setq dashboard-items '(
                           (recents       . 5)
@@ -736,9 +736,9 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; Built-In
 (use-package recentf
   :init
-  (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
+  (setq recentf-auto-cleanup 'never) ;; Re. tramp-mode: disable before we start recentf!
   :config
-  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" dpc/temp-dir)))
+  (setq recentf-save-file (recentf-expand-file-name  (concat dpc/temp-dir "/recentf")))
   (setq recentf-max-menu-items 22)
   (setq recentf-max-saved-items 200)
   (setq recentf-exclude '("^/var/folders\\.*"
