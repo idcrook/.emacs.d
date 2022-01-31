@@ -732,11 +732,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;; Built-In
 (use-package recentf
-  ;; :demand
   :init
-  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" dpc/temp-dir)))
   (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
   :config
+  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" dpc/temp-dir)))
   (setq recentf-max-menu-items 22)
   (setq recentf-max-saved-items 200)
   (setq recentf-exclude '("^/var/folders\\.*"
