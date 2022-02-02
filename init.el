@@ -65,6 +65,7 @@
 (require 'lang-cpp)
 (require 'lang-rust)
 (require 'lang-javascript)
+(require 'lang-lisp)
 (require 'lang-web)
 (require 'lang-hardware)
 (require 'lang-other)

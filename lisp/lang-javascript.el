@@ -124,7 +124,8 @@
 ;;   (add-hook 'js2-mode-hook 'js2-refactor-mode)
 ;;   (js2r-add-keybindings-with-prefix "C-c j r"))
 
-
+;;; https://github.com/rejeep/nvm.el
+(use-package nvm)
 
 (provide 'lang-javascript)
 
