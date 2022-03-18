@@ -14,7 +14,10 @@
 ;;____________________________________________________________________________
 ;;;;  straight.el
 ;;; https://github.com/raxod502/straight.el/blob/develop/README.md#getting-started
-;;----------------------------------------------------------------------------
+;; customizing check variable to speedup emacs startup
+(setq straight-check-for-modifications '(check-on-save find-when-checking))
+;;(setq straight-check-for-modifications 'nil)
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
