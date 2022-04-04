@@ -867,17 +867,18 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;;   (global-undo-tree-mode 1))
 
 ;;; https://wakatime.com/emacs
-;; https://wakatime.com/help/creating-plugin#plugin-init:wakatime-cli
-;; https://github.com/wakatime/legacy-python-cli/issues/264 - pXiXpX3X install --user wakatime
+;;; https://github.com/wakatime/wakatime-mode
 (use-package wakatime-mode
   :diminish wakatime-mode
   :config
-  ;; FIXME: search in path or test for wakatime, wakatime-cli
-  ;;(setq wakatime-cli-path (expand-file-name "wakatime-cli" "~/.local/bin"))
-  (setq wakatime-cli-path "wakatime-cli")
   ;; (setq wakatime-api-key "...") ;; moved to ~/.wakatime.cfg
   (global-wakatime-mode +1)
   )
+;; ?FIXME?: search in path or test for wakatime, wakatime-cli
+;;(setq wakatime-cli-path (expand-file-name "wakatime-cli" "~/.local/bin"))
+;; (setq wakatime-cli-path "wakatime-cli")
+;; https://wakatime.com/help/creating-plugin#plugin-init:wakatime-cli
+;; https://github.com/wakatime/legacy-python-cli/issues/264 - pXiXpX3X install --user wakatime
 
 ;;; https://github.com/justbur/emacs-which-key
 (use-package which-key
