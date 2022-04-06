@@ -159,8 +159,12 @@
 ;; Echo area display of Lisp objects at point
 (eldoc-mode 1)
 
-;; Alias to shorten prompts
-(fset 'yes-or-no-p 'y-or-n-p)
+;; Shorten prompts
+(if (version<= emacs-version "28.1")
+    ;; alias to other function
+    (fset 'yes-or-no-p 'y-or-n-p)
+  ;; use builtin function (emacs 28.1 or later)
+  (setq use-short-answers t))
 
 ;; Some window/frame appearance settings
 (when (fboundp 'tool-bar-mode)
