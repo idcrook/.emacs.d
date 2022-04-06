@@ -279,6 +279,9 @@ and MODELINE-HEIGHT for mode-line face."
                 (unless (server-running-p)
                   (server-start)))))
 
+;; new in emacs28
+(setq server-client-instructions t)
+
 ;;; [dunn/company-emoji: company-mode backend for emoji](https://github.com/dunn/company-emoji#emoji-font-support)
 (defun --set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."
