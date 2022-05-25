@@ -659,7 +659,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (use-package mermaid-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.mermaid$" . mermaid-mode))
-    (add-to-list 'auto-mode-alist '("\\.mmdc$" . mermaid-mode))
+    (add-to-list 'auto-mode-alist '("\\.mmd$" . mermaid-mode))
     :config
     (setq mermaid-mode-map
           (let ((map mermaid-mode-map))
