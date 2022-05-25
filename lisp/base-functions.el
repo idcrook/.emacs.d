@@ -13,9 +13,21 @@
 ;;  org-babel
 ;;----------------------------------------------------------------------------
 ;;; http://orgmode.org/manual/Code-evaluation-security.html
-;; (defun my-org-confirm-babel-evaluate (lang body)
-;;   (not (string= lang "sql")))  ; don't ask for sql
-;; (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (or (string= lang "emacs-lisp") (string= lang "python")
+           (string= lang "mermaid")
+           )))
+
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+(defun babel-confirm (flag)
+  "Report the setting of org-confirm-babel-evaluate.
+If invoked with C-u, toggle the setting"
+  (interactive "P")
+  (if (equal flag '(4))
+      (setq org-confirm-babel-evaluate (not org-confirm-babel-evaluate)))
+  (message "Babel evaluation confirmation is %s"
+           (if org-confirm-babel-evaluate "on" "off")))
 
 ;;----------------------------------------------------------------------------
 ;;  markdown support

@@ -13,6 +13,14 @@
 ;;; [jschaf/esup: ESUP - Emacs Start Up Profiler](https://github.com/jschaf/esup)
 (use-package esup)
 
+;;; https://orgmode.org/worg/org-contrib/
+;; KEEP THIS AT OR NEAR  OF THIS FILE
+(use-package org-contrib)
+
+;;; WARNING: Otherwise causes error via dependency org-persist stemming from
+;;; built-in org-mode
+;;; org-file-name-concat("~/.emacs.d/" "org-persist")
+
 ;;; http://emacs.stackexchange.com/questions/7432/make-visual-line-mode-more-compatible-with-org-mode
 (use-package adaptive-wrap
   :init
@@ -646,6 +654,32 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; ;; uncomment to autoformat ;; (add-hook 'markdown-mode-hook #'markdownfmt-enable-on-save)
   )
 
+;;; https://github.com/abrochard/mermaid-mode
+(when (executable-find "mmdc")
+  (use-package mermaid-mode
+    :init
+    (add-to-list 'auto-mode-alist '("\\.mermaid$" . mermaid-mode))
+    (add-to-list 'auto-mode-alist '("\\.mmdc$" . mermaid-mode))
+    :config
+    (setq mermaid-mode-map
+          (let ((map mermaid-mode-map))
+            (define-key map (kbd "C-c C-c") nil)
+            (define-key map (kbd "C-c C-f") nil)
+            (define-key map (kbd "C-c C-b") nil)
+            (define-key map (kbd "C-c C-r") nil)
+            (define-key map (kbd "C-c C-o") nil)
+            (define-key map (kbd "C-c C-d") nil)
+            (define-key map (kbd "C-c C-d c") 'mermaid-compile)
+            (define-key map (kbd "C-c C-d c") 'mermaid-compile)
+            (define-key map (kbd "C-c C-d f") 'mermaid-compile-file)
+            (define-key map (kbd "C-c C-d b") 'mermaid-compile-buffer)
+            (define-key map (kbd "C-c C-d r") 'mermaid-compile-region)
+            (define-key map (kbd "C-c C-d o") 'mermaid-open-browser)
+            (define-key map (kbd "C-c C-d d") 'mermaid-open-doc)
+            map))
+    )
+  )
+
 ;; (use-package multiple-cursors
 ;;   :bind
 ;;   (("C-S-c C-S-c" . mc/edit-lines)
@@ -663,32 +697,27 @@ This function is intended for use with `ivy-ignore-buffers'."
   :if (display-graphic-p))
 ;; M-x all-the-icons-install-fonts (installs on mac/linux)
 
-;;; https://orgmode.org/worg/org-contrib/
-(use-package org-contrib)
-;; (straight-use-package '(org :type built-in))
-;; (straight-use-package '(org-contrib :includes ol-vm))
 
-;; TODO investigate
+;; TODO: org-mode investigate
 ;; - ivy-todo
 ;; - magit-org-todos
-;; - ob-rust, ob-uart
 ;; - org-capture-pop-frame
 ;; - org-kanban, org-mobile-sync , org-trello
 ;; - org-protocol-jekyll, org2jekyll, org2issue
 ;; - org-shoplist, org-rtm
-;; - org-re-reveal, ox-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
+;; - org-re-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
 
 ;;; https://github.com/yashi/org-asciidoc
 (use-package ox-asciidoc
   :after (org))
 
-;; ;;; https://github.com/larstvei/ox-gfm
+;;; https://github.com/larstvei/ox-gfm
 (use-package ox-gfm
   :after (org))
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
 
-;; ;;; https://github.com/yjwen/org-reveal
+;;; https://github.com/yjwen/org-reveal
 (use-package ox-reveal
   :after (org))
 
@@ -712,6 +741,28 @@ This function is intended for use with `ivy-ignore-buffers'."
   :after (org)
   :config
   (add-hook 'org-mode-hook 'toc-org-enable))
+
+;;; https://orgmode.org/worg/org-contrib/babel/languages/index.html#configure
+;; org-babel
+;; - ob-rust
+;; - ob-uart
+
+;;; https://github.com/mermaid-js/mermaid-cli
+;;; https://github.com/arnm/ob-mermaid
+;; See also: mermaid-mode
+(use-package ob-mermaid
+  :after (org)
+  :config
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((mermaid . t)  ;; ob-mermaid
+     (python . t)
+     (shell . t)
+     (sql . t)
+     (emacs-lisp . t)))
+  )
+
 
 ;; ;;; https://www.killring.org/effective-restclient-in-emacs
 ;; (use-package outline-magic
