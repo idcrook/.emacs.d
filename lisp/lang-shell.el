@@ -6,15 +6,18 @@
 
 ;;; Code:
 
+;;; ## ESHELL config
 
 ;; ;;; https://github.com/manateelazycat/aweshell
-;; ;;; https://github.com/zwild/eshell-prompt-extras
-;; ;;; https://github.com/peterwvj/eshell-up
+;; ;; integrates eshell-up, eshell-prompt-extras, exec-path-from-shell
 ;; (use-package aweshell
 ;;   :straight (:type git :host github
 ;;                    :repo "manateelazycat/aweshell")
 ;;   :init
 ;;   (with-eval-after-load "esh-opt"
+;;     ;; ;; display python virtual environment information:
+;;     ;; (require 'virtualenvwrapper)
+;;     ;; (venv-initialize-eshell)
 ;;     (autoload 'epe-theme-lambda "eshell-prompt-extras")
 ;;     (setq eshell-highlight-prompt nil
 ;;           eshell-prompt-function 'epe-theme-lambda))
@@ -24,17 +27,43 @@
 ;;   (setq eshell-up-print-parent-dir t)
 ;;   )
 
+;;; # Plan 9 Smart Shell
+;; (add-to-list 'eshell-modules-list 'eshell-smart)
+
+;;; https://github.com/zwild/eshell-prompt-extras
+(use-package eshell-prompt-extras
+  :init
+  (with-eval-after-load "esh-opt"
+    ;; ;; display python virtual environment information:
+    ;; ;; need to install virtualenvwrapper.
+    ;; ;; pip install virtualenvwrapper
+    ;; (require 'virtualenvwrapper)
+    ;; (venv-initialize-eshell)
+    (autoload 'epe-theme-lambda "eshell-prompt-extras")
+    (setq eshell-highlight-prompt nil
+          eshell-prompt-function 'epe-theme-lambda))
+  :config
+  (setq epe-path-style 'full)
+  )
+
+;;; https://github.com/peterwvj/eshell-up
+(use-package eshell-up
+  :config
+  (setq eshell-up-ignore-case nil)
+  (setq eshell-up-print-parent-dir t)
+)
+
 ;; ;;; https://github.com/szermatt/emacs-bash-completion
 ;; (use-package bash-completion
 ;;   :config
 ;;   (bash-completion-setup))
-;;
+
 ;; (defun bash-completion-from-eshell ()
 ;;   (interactive)
 ;;   (let ((completion-at-point-functions
 ;;          '(bash-completion-eshell-capf)))
 ;;     (completion-at-point)))
-;;
+
 ;; (defun bash-completion-eshell-capf ()
 ;;   (bash-completion-dynamic-complete-nocomint
 ;;    (save-excursion (eshell-bol) (point))
