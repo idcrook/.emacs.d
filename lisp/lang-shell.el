@@ -64,6 +64,10 @@
   ("s-`" . eshell-toggle) ;; global binding s- is "Super" key
 )
 
+;;; https://github.com/dieggsy/esh-autosuggest
+(use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode))
+
 ;; ;;; https://github.com/akreisher/eshell-syntax-highlighting
 ;; (use-package eshell-syntax-highlighting
 ;;   :after eshell-mode
