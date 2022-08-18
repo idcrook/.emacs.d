@@ -51,7 +51,25 @@
   :config
   (setq eshell-up-ignore-case nil)
   (setq eshell-up-print-parent-dir t)
+  )
+
+;;; https://github.com/4da/eshell-toggle
+(use-package eshell-toggle
+  :custom
+  (eshell-toggle-size-fraction 3)
+ ;; (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-run-command nil)
+ ;; (eshell-toggle-init-function #'eshell-toggle-init-ansi-term)
+  :bind
+  ("s-`" . eshell-toggle) ;; global binding s- is "Super" key
 )
+
+;; ;;; https://github.com/akreisher/eshell-syntax-highlighting
+;; (use-package eshell-syntax-highlighting
+;;   :after eshell-mode
+;;   :config
+;;   ;; Enable in all Eshell buffers.
+;;   (eshell-syntax-highlighting-global-mode +1))
 
 ;; ;;; https://github.com/szermatt/emacs-bash-completion
 ;; (use-package bash-completion
