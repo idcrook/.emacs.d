@@ -34,21 +34,19 @@
 ;; (use-package alect-themes)
 ;; (setq alect-display-class '((class color) (min-colors 256)))
 
-;;; [Modus Themes (Modus Operandi and Modus Vivendi) | Protesilaos Stavrou](https://protesilaos.com/modus-themes/#h:e979734c-a9e1-4373-9365-0f2cd36107b8)
+;;; [Modus Themes (Modus Operandi and Modus Vivendi) | Protesilaos Stavrou](https://protesilaos.com/modus-themes/)
 (use-package modus-themes
-  :init
+  :config
   ;; Add all your customizations prior to loading the themes
   (setq         ;; modus-themes-bold-constructs nil
                 ;; modus-themes-slanted-constructs t
                 modus-themes-bold-constructs t
                 modus-themes-mode-line '(3d accented))
-  ;; Load the theme files before enabling a theme (else you get an error).
-  (modus-themes-load-themes)
-  ;; :config
-  ;; Load the theme of your choice:
-  ;;(modus-themes-load-operandi) ;; light
-  ;;(modus-themes-load-vivendi)  ;; dark
+  ;; ;; Old way.
+  ;; (if (fboundp 'modus-themes-load-themes)
+  ;;     (modus-themes-load-themes))
   ;;  :bind ("<f5>" . modus-themes-toggle)
+  ;; See 'dpc-load-theme for function to load theme
 )
 
 ;; ;;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
@@ -72,7 +70,11 @@
       ;; (load-theme 'dracula 'no-confirm)
       ;; (load-theme 'gruber-darker 'no-confirm)
       ;; Preferred ;; (load-theme 'sanityinc-tomorrow-bright 'no-confirm)
-      (modus-themes-load-vivendi)
+      ;; ;; Old way
+      ;; (if (fboundp 'modus-themes-load-themes)
+      ;;     (modus-themes-load-vivendi)
+      ;;   (load-theme 'modus-vivendi :no-confirm))
+      (load-theme 'modus-vivendi :no-confirm)
     ;; tty
     (load-theme 'tango-dark)  ;; tango-dark included in emacs
     ;;  (load-theme 'misterioso)  ;;
