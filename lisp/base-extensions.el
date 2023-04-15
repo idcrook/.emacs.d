@@ -706,6 +706,7 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; - org-protocol-jekyll, org2jekyll, org2issue
 ;; - org-shoplist, org-rtm
 ;; - org-re-reveal, ox-hugo, ox-epub, ox-jekyll-md, ox-clip
+;; - org-reveal, ox-beamer
 
 ;;; https://github.com/yashi/org-asciidoc
 (use-package ox-asciidoc
