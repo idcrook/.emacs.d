@@ -50,6 +50,11 @@
 ;; ;; ad-handle-definition: ‘find-tag-regexp’ got redefined
 (setq ad-redefinition-action 'accept)
 
+;; https://emacs.stackexchange.com/questions/74289/emacs-28-2-error-in-macos-ventura-image-type-invalid-image-type-svg#comment127558_74801
+;; See https://debbugs.gnu.org/cgi/bugreport.cgi?bug=59081
+;; should be fixed in emacs 29
+(add-to-list 'image-types 'svg)
+
 (require 'base)                ;; basic setup
 (require 'base-theme)          ;; pick themes
 (require 'base-functions)      ;; utility functions

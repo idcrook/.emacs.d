@@ -9,39 +9,63 @@
 
 ;; ;;; reference: https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/
 
+;;; https://emacs-lsp.github.io/lsp-mode/page/performance/#increase-the-amount-of-data-which-emacs-reads-from-the-process
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+
+;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+(setq lsp-keymap-prefix "C-c e")
+;;(setq lsp-keymap-prefix "C-c l")
+
 ;;; https://github.com/emacs-lsp/lsp-mode
+;;; https://emacs-lsp.github.io/lsp-mode/page/installation/
 (use-package lsp-mode
+  :config
+  (define-key lsp-mode-map (kbd "C-c e") lsp-command-map)
+  ;; (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  ;;:bind-keymap ("C-c l" . lsp-command-map)
+  :hook (
+;;         (python-mode . lsp)
+         ;; if you want which-key integration - see base-extensions.el for whick-key package
+         (lsp-mode . lsp-enable-which-key-integration)
+         )
+
   :commands lsp)
+
 
 ;;; https://github.com/emacs-lsp/lsp-ui
 (use-package lsp-ui
   :commands lsp-ui-mode)
-;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
-;; (use-package company-lsp
-;;   :commands company-lsp
-;;   :config
-;;   (push 'company-lsp company-backends))
+;; if you are ivy user
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
-;;; emacs lsp-mode client for Microsoft's python language server
-;; https://github.com/andrew-christianson/lsp-python-ms
 
+;;; https://github.com/fredcamps/lsp-jedi
+;; pip install -U jedi-language-server
+(use-package lsp-jedi)
+
+
+;; - Python (Microsoft)
+;;; https://emacs-lsp.github.io/lsp-python-ms/
 ;; (use-package lsp-python-ms
-;;   :straight (:host github :repo "andrew-christianson/lsp-python-ms")
+;;   :init (setq lsp-python-ms-auto-install-server t)
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-python-ms)
+;;                           (lsp))))  ; or lsp-deferred
 
-;;   :hook (python-mode . lsp)
-;;   :config
+;; - OpenSCAD
+;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-openscad/
+;; cargo install openscad-lsp
 
-;;   ;; for dev build of language server
-;;   (setq lsp-python-ms-dir
-;;         ;; (expand-file-name "~/python-language-server/output/bin/Release/"))
-;;         (expand-file-name "~/.emacs.d/site-lisp/github/python-language-server/output/bin/Release/"))
-;;   ;; for executable of language server, if it's not symlinked on your PATH
-;;   ;; (setq lsp-python-ms-executable
-;;   ;;       "~/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer"))
-;;   ;; symlinked to ~/bin/macos/Microsoft.Python.LanguageServer
-;;   )
+;; - TOML
+;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-toml/
+;; cargo install taplo-cli --features lsp
 
+
+;;; https://github.com/fredcamps/lsp-jedi
+;;;
 
 (provide 'base-lsp)
 

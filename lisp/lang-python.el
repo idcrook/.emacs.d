@@ -118,7 +118,7 @@
 ;;; https://github.com/jorgenschaefer/pyvenv
 (use-package pyvenv
   :init
-  (setq pyvenv-default-virtual-env-name "venv")
+  (setq pyvenv-default-virtual-env-name ".venv")
   ;; $WORKON_HOME or ~/.virtualenvs (Default)
   ;; (setenv "WORKON_HOME" "~/.pyenv/versions/")
   :bind
