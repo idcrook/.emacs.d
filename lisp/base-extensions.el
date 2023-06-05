@@ -120,11 +120,19 @@
   :bind (("C-c C-c t" . checkbox-toggle)))
 
 (use-package company
-  :config
-  (setq company-idle-delay 0.2)
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0)
   ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
-  (add-hook 'after-init-hook 'global-company-mode))
+  (company-tooltip-align-annotations t))
 
 ;; ;;; https://github.com/krzysztof-magosa/company-ansible
 ;; (use-package company-ansible
@@ -133,11 +141,13 @@
 
 ;;; https://github.com/dunn/company-emoji
 (use-package company-emoji
+  :after company
   :init
   (add-to-list 'company-backends 'company-emoji))
 
 ;;; https://github.com/raxod502/prescient.el
 (use-package company-prescient
+  :after company
   :requires (prescient)
   :config
   (company-prescient-mode 1)
@@ -522,6 +532,9 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; ;; When commiting enable verbose mode by default.
   ;; (setq magit-commit-arguments (quote ("--verbose")))
   ;; (global-set-key (kbd "C-c g") 'magit-file-dispatch)
+  ;; :custom
+  ;; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+
   :bind
   ;; Magit
   (("C-x g s" . magit-status)         ;; global default is "C-x g"
@@ -806,6 +819,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   :config
   ;;; https://github.com/iquiw/company-restclient
   (use-package company-restclient
+    :after company
     :init
     (add-to-list 'company-backends 'company-restclient))
 

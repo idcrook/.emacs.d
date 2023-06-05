@@ -106,6 +106,7 @@
 
 ;;; https://github.com/Alexander-Miller/company-shell
 (use-package company-shell
+  :after company
   :init
   (add-to-list 'company-backends '(company-shell company-shell-env)))
 
