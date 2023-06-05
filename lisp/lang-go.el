@@ -31,6 +31,7 @@
 
 (use-package company-go
   :after go-mode
+  :after company
   :config
   (setq tab-width 4)
   :bind (:map go-mode-map

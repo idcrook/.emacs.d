@@ -4,6 +4,17 @@
 
 ;;; Code:
 
+(use-package python
+  :hook (python-mode . lsp-deferred)
+  :custom
+  (python-shell-interpreter "python3")
+  )
+
+;; TODO
+  ;;(dap-python-debugger 'debugpy)
+  ;; :config
+  ;; (require 'dap-python))
+
 ;;; emacs elpy : https://github.com/jorgenschaefer/elpy
 ;; # code checks - flake8
 ;; # completion and code navigation - jedi
@@ -11,22 +22,6 @@
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
 ;; pip3 install --user virtualenvwrapper
 ;; venv is now built into python3
-
-;; TODO: Invetigate formatter https://github.com/raxod502/apheleia
-
-(use-package python
-  :init
-   (setq python-shell-interpreter "python3")
-  :hook (python-mode . lsp-deferred)
-  :custom
-  (python-shell-interpreter "python3")
-  ;;(dap-python-debugger 'debugpy)
-
-  ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-  ;; (add-hook 'python-mode-hook #'my-python-mode-hook))
-  ;; :config
-  ;; (require 'dap-python))
-  )
 
 ;; ;;; https://github.com/jorgenschaefer/elpy
 ;; (use-package elpy
@@ -54,6 +49,7 @@
 ;;        (string= (file-name-base (directory-file-name (file-name-directory (buffer-file-name))))
 ;;                 "CIRCUITPY")))
 
+;; (add-hook 'python-mode-hook #'my-python-mode-hook))
 ;; (defun  my-python-mode-hook ()
 ;;   (if (check-for-embedded-python)
 ;;       (progn
@@ -87,32 +83,21 @@
 ;;       (elpy-mode +1))
 ;;     )
 ;;   )
-
 ;; ;;; https://github.com/syohex/emacs-company-jedi
 ;; ;; company-mode completion back-end for Python JEDI.
 ;; (use-package company-jedi
-;;   :requires (company-mode)
+;;   :after company
 ;;   :init
 ;;   (add-to-list 'company-backends 'company-jedi))
-
-;;; https://github.com/Wilfred/pip-requirements.el
-;; major mode for editing pip requirements files.
-;; Use its defaults
-;; - already recognizes file names
-;; - do not turn on the ac module as it will use company
-(use-package pip-requirements)
-
 ;; ;; https://github.com/paetzke/py-autopep8.el
 ;; (use-package py-autopep8
 ;;   :config
 ;;   (setq py-autopep8-options '("--max-line-length=100"))
 ;;   ;;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 ;;   )
-
 ;; ;;; https://github.com/JorisE/yapfify
 ;; (use-package yapfify
 ;;   :delight yapf-mode)
-
 ;; ;; https://github.com/proofit404/blacken
 ;; (use-package blacken
 ;;   :config
@@ -121,6 +106,13 @@
 ;;    ;; Only auto-blacken if project has a pyproject.toml with a [tool.black] section.
 ;;    blacken-only-if-project-is-blackened t
 ;;    blacken-skip-string-normalization    t))
+
+;;; https://github.com/Wilfred/pip-requirements.el
+;; major mode for editing pip requirements files.
+;; Use its defaults
+;; - already recognizes file names
+;; - do not turn on the ac module as it will use company
+(use-package pip-requirements)
 
 ;;; https://github.com/jorgenschaefer/pyvenv
 (use-package pyvenv
@@ -134,43 +126,6 @@
   ("C-x C-y v" . pyvenv-activate))
 
 
-;; ;;; https://github.com/pythonic-emacs/pyenv-mode
-;; ;; macOS: brew install pyenv
-;; ;; ubuntu: https://github.com/pyenv/pyenv-installer
-;; (use-package pyenv-mode
-;;   :if
-;;   (executable-find "pyenv")
-;;   :init
-;;   (add-to-list 'exec-path "~/.pyenv/shims")
-;;   (setenv "WORKON_HOME" "~/.pyenv/versions/")
-;;   :config
-;;   (pyenv-mode)
-;;   :bind
-;;   ("C-x C-y e" . pyenv-activate-current-project))
-
-;; (defun pyenv-init()
-;;   "Setup pyenv in Emacs."
-;;   (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
-;;   (message (concat "Setting pyenv version to " global-pyenv))
-;;   (pyenv-mode-set global-pyenv)
-;;   (defvar pyenv-current-version nil global-pyenv))
-
-;; (defun pyenv-activate-current-project ()
-;;   "Automatically activates pyenv version if .python-version file exists."
-;;   (interactive)
-;;   (f-traverse-upwards
-;;    (lambda (path)
-;;      (message path)
-;;      (let ((pyenv-version-path (f-expand ".python-version" path)))
-;;        (if (f-exists? pyenv-version-path)
-;;           (progn
-;;             (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
-;;             (pyenv-mode-set pyenv-current-version)
-;;             (pyvenv-workon pyenv-current-version)
-;;             (message (concat "Setting virtualenv to " pyenv-current-version))))))))
-
-;; (add-hook 'after-init-hook 'pyenv-init)
-;; (add-hook 'projectile-after-switch-project-hook #'pyenv-activate-current-project)
 
 ;;----------------------------------------------------------------------------
 ;; Cython

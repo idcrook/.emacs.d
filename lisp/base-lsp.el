@@ -41,6 +41,10 @@
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
+;; optionally if you want to use debugger
+(use-package dap-mode)
+
+
 ;; Python ;;
 ;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
 ;; pip install 'python-lsp-server[all]'

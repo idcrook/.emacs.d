@@ -53,6 +53,7 @@
   ;;;; https://github.com/osv/company-web
   ;; to get completion for HTML stuff
   (use-package company-web
+    :after company
     :init
     ;; you may key bind, for example for web-mode:
     (define-key web-mode-map (kbd "C-'") 'company-web-html)

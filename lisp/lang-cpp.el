@@ -108,17 +108,17 @@
 (add-hook 'irony-mode-hook #'irony-eldoc)
 
 ;; https://github.com/Sarcasm/company-irony
-(use-package company-irony)
+;; (use-package company-irony)
 ;;; load grouped with company-irony-c-headers below
 ;; (eval-after-load 'company
 ;;   '(add-to-list 'company-backends 'company-irony))
 
-;; https://github.com/hotpxl/company-irony-c-headers
-(use-package company-irony-c-headers)
-;; Load with `irony-mode` as a grouped backend
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends '(company-irony-c-headers company-irony)))
+;; ;; https://github.com/hotpxl/company-irony-c-headers
+;; (use-package company-irony-c-headers)
+;; ;; Load with `irony-mode` as a grouped backend
+;; (eval-after-load 'company
+;;   '(add-to-list
+;;     'company-backends '(company-irony-c-headers company-irony)))
 
 ;; Sometimes when the compiler options change, you need to manually reload
 ;; header completion cache by invoking:

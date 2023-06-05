@@ -14,23 +14,21 @@
 ;; https://github.com/GyazSquare/flycheck-objc-clang
 ;; https://gitlab.com/michael.sanders/swift-playground-mode
 
+;; Swift ;;
+;;; https://github.com/emacs-lsp/lsp-sourcekit
+(use-package lsp-sourcekit
+  :after lsp-mode
+  :config
+  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+;; xcrun --find sourcekit-lsp
 
-;; ;;; https://github.com/emacs-lsp/lsp-sourcekit
-;; ;; FIXME: handle Linux platform and/or other platform considerations
-;; (use-package lsp-sourcekit
-;;   :after lsp-mode
-;;   :config
-;;   ;; xcrun --find sourcekit-lsp
-;;   (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
-;;   ;; (setq lsp-sourcekit-executable "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
-;;   )
 
-;; ;;; https://github.com/swift-emacs/swift-mode
-;; (use-package swift-mode
-;;   ;; enable lsp automatically when a .swift file is visited
-;;   :hook (swift-mode . (lambda () (lsp)))
-;;   :config
-;;   (setq swift-mode:basic-offset 2))
+;;; https://github.com/swift-emacs/swift-mode
+(use-package swift-mode
+  ;; enable lsp automatically when a .swift file is visited
+  :hook (swift-mode . (lambda () (lsp)))
+  :config
+  (setq swift-mode:basic-offset 2))
 
 ;;;________________________________________________________________________
 ;; Applescript
