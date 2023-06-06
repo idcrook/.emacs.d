@@ -18,6 +18,8 @@
 ;; pip3 install --user --upgrade jedi flake8 autopep8 yapf black rope
 ;; pip3 install --user virtualenvwrapper
 ;; venv is now built into python3
+;; pip install 'python-lsp-server[all]'
+
 
 ;; ;;; https://github.com/jorgenschaefer/elpy
 ;; (use-package elpy
