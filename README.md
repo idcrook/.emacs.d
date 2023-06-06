@@ -7,8 +7,8 @@ python
 ------
 
 ```shell
-pip3 install --user jedi flake8 autopep8 yapf black rope
-pip3 install --user virtualenvwrapper
+# pip3 install --user jedi flake8 autopep8 yapf black rope
+# pip3 install --user virtualenvwrapper
 pip3 install --user yamllint
 pip3 install --user grip
 pip3 install --user wakatime

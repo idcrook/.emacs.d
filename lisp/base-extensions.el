@@ -934,17 +934,12 @@ This function is intended for use with `ivy-ignore-buffers'."
 
 ;;; https://wakatime.com/emacs
 ;;; https://github.com/wakatime/wakatime-mode
+;; pip3 install --user wakatime
 (use-package wakatime-mode
   :diminish wakatime-mode
   :config
-  ;; (setq wakatime-api-key "...") ;; moved to ~/.wakatime.cfg
   (global-wakatime-mode +1)
   )
-;; ?FIXME?: search in path or test for wakatime, wakatime-cli
-;;(setq wakatime-cli-path (expand-file-name "wakatime-cli" "~/.local/bin"))
-;; (setq wakatime-cli-path "wakatime-cli")
-;; https://wakatime.com/help/creating-plugin#plugin-init:wakatime-cli
-;; https://github.com/wakatime/legacy-python-cli/issues/264 - pXiXpX3X install --user wakatime
 
 ;;; https://github.com/justbur/emacs-which-key
 (use-package which-key
@@ -972,34 +967,35 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (add-hook 'yaml-mode-hook #'ansible-doc-mode)
   )
 
-;; ;;; https://github.com/joaotavora/yasnippet
-;; (use-package yasnippet
-;;   :diminish yas-minor-mode
-;;   :config
-;;   (yas-global-mode 1))
+;;; https://github.com/joaotavora/yasnippet
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :config
+  (yas-global-mode 1))
 
 ;; yasnippet org-mode conflict
 ;;; https://orgmode.org/manual/Conflicts.html#Conflicts
 
-;; (defun yas/org-very-safe-expand ()
-;;   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (make-variable-buffer-local 'yas/trigger-key)
-;;             (setq yas/trigger-key [tab])
-;;             (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-;;             (define-key yas/keymap [tab] 'yas/next-field)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            (define-key yas/keymap [tab] 'yas/next-field)))
 
-;; ;;; https://github.com/AndreaCrotti/yasnippet-snippets
-;; (use-package yasnippet-snippets
-;;   )
+;;; https://github.com/AndreaCrotti/yasnippet-snippets
+(use-package yasnippet-snippets
+  :after (yasnippet)
+  )
 
-;; ;;; https://github.com/sei40kr/gitignore-snippets
-;; (use-package gitignore-snippets
-;;   :after (yasnippet)
-;;   :config
-;;   (gitignore-snippets-init))
+;;; https://github.com/sei40kr/gitignore-snippets
+(use-package gitignore-snippets
+  :after (yasnippet)
+  :config
+  (gitignore-snippets-init))
 
 
 (provide 'base-extensions)
