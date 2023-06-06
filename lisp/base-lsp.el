@@ -16,6 +16,20 @@
 ;;; https://github.com/emacs-lsp/lsp-mode
 ;;; https://emacs-lsp.github.io/lsp-mode/page/installation/
 (use-package lsp-mode
+  ;;; https://robert.kra.hn/posts/rust-emacs-setup/
+  :custom
+  ;; what to use when checking on-save. "check" is default, I prefer clippy
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.6)
+  ;; enable / disable the hints as you prefer:
+  (lsp-rust-analyzer-server-display-inlay-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-reborrow-hints nil)
   :config
   (define-key lsp-mode-map (kbd "C-c e") lsp-command-map)
 
@@ -25,6 +39,8 @@
                     :major-modes '(python-mode)
                     :remote? t
                     :server-id 'pyls-remote))
+
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :hook (
 ;;        (python-mode . lsp)
         (python-mode . lsp-deferred)
@@ -35,7 +51,11 @@
 
 ;;; https://github.com/emacs-lsp/lsp-ui
 (use-package lsp-ui
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-peek-always-show t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-doc-enable nil))
 
 ;; if you are ivy user
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
