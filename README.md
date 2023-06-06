@@ -12,6 +12,7 @@ python
 pip3 install --user yamllint
 pip3 install --user grip
 pip3 install --user wakatime
+pip3 install --user "debugpy"
 ```
 
 node

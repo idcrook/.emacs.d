@@ -10,10 +10,6 @@
   (python-shell-interpreter "python3")
   )
 
-;; TODO
-  ;;(dap-python-debugger 'debugpy)
-  ;; :config
-  ;; (require 'dap-python))
 
 ;;; emacs elpy : https://github.com/jorgenschaefer/elpy
 ;; # code checks - flake8
