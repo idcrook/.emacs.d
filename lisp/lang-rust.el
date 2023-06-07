@@ -15,52 +15,50 @@
 
 
 ;; rust-analyzer: one of
-;;     rustup component add rust-src
+;;     rustup component add rust-analyzer
 ;;     brew install rust-analyzer
 
 
-;; ;; rust-mode
-;; ;; https://github.com/rust-lang/rust-mode
-;; (use-package rust-mode
-;;   :config
-;;   (progn
-;;     ;; add flycheck support for rust (reads in cargo stuff)
-;;     ;; https://github.com/flycheck/flycheck-rust
-;;     (use-package flycheck-rust)
+;; rust-mode
+;; https://github.com/rust-lang/rust-mode
+(use-package rust-mode
+  :config
+  (progn
+    ;; add flycheck support for rust (reads in cargo stuff)
+    ;; https://github.com/flycheck/flycheck-rust
+    (use-package flycheck-rust)
 
-;;     ;; cargo-mode for all the cargo related operations
-;;     ;; https://github.com/kwrooijen/cargo.el
-;;     (use-package cargo
-;;       :hook (rust-mode . cargo-minor-mode)
-;;       :bind
-;;       ("C-c C-c C-n" . cargo-process-new)) ;; global binding
+    ;; cargo-mode for all the cargo related operations
+    ;; https://github.com/kwrooijen/cargo.el
+    (use-package cargo
+      :hook (rust-mode . cargo-minor-mode)
+      :bind
+      ("C-c C-c C-n" . cargo-process-new)) ;; global binding
 
-;;     ;;; separedit ;; via https://github.com/twlz0ne/separedit.el
-;;     (use-package separedit
-;;       :straight (separedit :type git :host github :repo "idcrook/separedit.el")
-;;       :config
-;;       (progn
-;;         (define-key prog-mode-map (kbd "C-c '") #'separedit)
-;;         (setq separedit-default-mode 'markdown-mode)))
+    ;;; separedit ;; via https://github.com/twlz0ne/separedit.el
+    (use-package separedit
+      :straight (separedit :type git :host github :repo "idcrook/separedit.el")
+      :config
+      (progn
+        (define-key prog-mode-map (kbd "C-c '") #'separedit)
+        (setq separedit-default-mode 'markdown-mode)))
 
-;;     (add-hook 'rust-mode-hook 'flycheck-mode)
+    (add-hook 'rust-mode-hook 'flycheck-mode)
 
-;;     ;;; https://rust-analyzer.github.io/manual.html#emacs
-;;     ;;; https://rust-analyzer.github.io/manual.html#installation
-;;     ;; rustup component add rust-src
-;;     (add-hook 'rust-mode-hook 'lsp-deferred)
-;;     (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
+    (add-hook 'rust-mode-hook 'lsp-deferred)
+    (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
 
-;;     ;; format rust buffers on save using rustfmt
-;;     (add-hook 'before-save-hook
-;;               (lambda ()
-;;                 (when (eq major-mode 'rust-mode)
-;;                   (rust-format-buffer))))))
+    ;; ;; format rust buffers on save using rustfmt
+    ;; (add-hook 'before-save-hook
+    ;;           (lambda ()
+    ;;             (when (eq major-mode 'rust-mode)
+    ;;               (rust-format-buffer)))))
+    )
+  )
 
 ;;; https://github.com/brotzeit/rustic
 ;; https://robert.kra.hn/posts/rust-emacs-setup/
 (use-package rustic
-  :ensure
   :bind (:map rustic-mode-map
               ("M-j" . lsp-ui-imenu)
               ("M-?" . lsp-find-references)
@@ -77,7 +75,10 @@
   ;; (setq lsp-signature-auto-activate nil)
 
   ;; comment to disable rustfmt on save
-  (setq rustic-format-on-save t))
+  (setq rustic-format-on-save t)
+  ;; :custom
+  ;; (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer"))
+  )
 
 
 ;; ;;   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
