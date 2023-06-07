@@ -226,6 +226,8 @@
 (require 'tramp-cache)
 (setq  tramp-persistency-file-name (expand-file-name "tramp" dpc/temp-dir))
 
+(add-to-list 'tramp-remote-path "~/.local/bin")
+
 ;; see base-platforms.el for
 ;;  - emacs server (used by emacsclient)
 ;;  - platform specific fonts, keybindings, workarounds
