@@ -61,7 +61,8 @@
   (eshell-toggle-run-command nil)
  ;; (eshell-toggle-init-function #'eshell-toggle-init-ansi-term)
   :bind
-  ("s-`" . eshell-toggle) ;; global binding s- is "Super" key
+  ("M-s-`" . eshell-toggle) ;; global binding s- is "Super" key
+  ;; change to Meta-super becuase on macOS command-` is already global next window
 )
 
 ;;; https://github.com/dieggsy/esh-autosuggest
