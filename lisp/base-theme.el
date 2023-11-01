@@ -34,20 +34,28 @@
 ;; (use-package alect-themes)
 ;; (setq alect-display-class '((class color) (min-colors 256)))
 
-;;; [Modus Themes (Modus Operandi and Modus Vivendi) | Protesilaos Stavrou](https://protesilaos.com/modus-themes/)
-(use-package modus-themes
+
+;; [Ef (εὖ) themes for GNU Emacs | Protesilaos Stavrou](https://protesilaos.com/emacs/ef-themes#h:dd9e06f2-eef0-4afe-8a12-b7af5d597108)
+(use-package ef-themes
   :config
-  ;; Add all your customizations prior to loading the themes
-  (setq         ;; modus-themes-bold-constructs nil
-                ;; modus-themes-slanted-constructs t
-                modus-themes-bold-constructs t
-                modus-themes-mode-line '(3d accented))
-  ;; ;; Old way.
-  ;; (if (fboundp 'modus-themes-load-themes)
-  ;;     (modus-themes-load-themes))
-  ;;  :bind ("<f5>" . modus-themes-toggle)
-  ;; See 'dpc-load-theme for function to load theme
+  ;; command : ef-themes-toggle
+  (setq ef-themes-to-toggle '(ef-night ef-maris-dark))
 )
+
+;; ;;; [Modus Themes (Modus Operandi and Modus Vivendi) | Protesilaos Stavrou](https://protesilaos.com/modus-themes/)
+;; (use-package modus-themes
+;;   :config
+;;   ;; Add all your customizations prior to loading the themes
+;;   (setq         ;; modus-themes-bold-constructs nil
+;;                 ;; modus-themes-slanted-constructs t
+;;                 modus-themes-bold-constructs t
+;;                 modus-themes-mode-line '(3d accented))
+;;   ;; ;; Old way.
+;;   ;; (if (fboundp 'modus-themes-load-themes)
+;;   ;;     (modus-themes-load-themes))
+;;   ;;  :bind ("<f5>" . modus-themes-toggle)
+;;   ;; See 'dpc-load-theme for function to load theme
+;; )
 
 ;; ;;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
 ;; ;; FIXME: handle light/dark mode
@@ -74,7 +82,10 @@
       ;; (if (fboundp 'modus-themes-load-themes)
       ;;     (modus-themes-load-vivendi)
       ;;   (load-theme 'modus-vivendi :no-confirm))
-      (load-theme 'modus-vivendi :no-confirm)
+      ;;(load-theme 'modus-vivendi :no-confirm)
+      ;; load the theme which also calls `ef-themes-post-load-hook':
+      (ef-themes-select 'ef-night)
+
     ;; tty
     (load-theme 'tango-dark)  ;; tango-dark included in emacs
     ;;  (load-theme 'misterioso)  ;;
