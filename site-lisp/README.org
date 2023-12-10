@@ -8,9 +8,6 @@ which isn't available in MELPA or other package repositories. This
 directory and its immediate subdirectories will be added to load-path at
 start-up time.
 
-#+begin_html
-  <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-#+end_html
 
 - [[#manually-downloaded-libraries][Manually downloaded libraries]]
   - [[#csh-mode][csh-mode]]
@@ -20,9 +17,6 @@ start-up time.
   - [[#verilog-mode][verilog-mode]]
   - [[#github][github]]
 
-#+begin_html
-  <!-- markdown-toc end -->
-#+end_html
 
 * Manually downloaded libraries
 :PROPERTIES:
@@ -50,6 +44,12 @@ curl https://opensource.apple.com/source/tcsh/tcsh-67/tcsh/csh-mode.el > csh-mod
 #+begin_example
 git submodule add https://github.com/idcrook/EmacsMacOSModule.git site-lisp/EmacsMacOSModule
 #+end_example
+
+*** Setup
+
+- Open =macos.el= and =M-x eval-buffer=.
+- Run =M-x macos-module-dev-reload= to build and load the native module.
+
 
 | Command                 | Description                          |
 |-------------------------+--------------------------------------|
@@ -81,6 +81,8 @@ Now in ELPA. No longer manually downleaded. See
 :END:
 For this type of module, now instead of downloading or adding a git
 submodule, use =straight.el=:
-[[https://github.com/raxod502/straight.el][raxod502/straight.el: 🍀
+[[https://github.com/radian-software/straight.el][radian-software
+/
+straight.el:
 Next-generation, purely functional package manager for the Emacs
 hacker.]]
