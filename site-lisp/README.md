@@ -5,14 +5,13 @@ For gathering external Emacs lisp packages, especially if they fall outside norm
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 
-**Table of Contents**
-
--	[Manually downloaded libraries](#manually-downloaded-libraries)
-	-	[csh-mode](#csh-mode)
--	[Hacks](#hacks)
--	[Outdated](#outdated)
-	-	[verilog-mode](#verilog-mode)
-	-	[github](#github)
+- [Manually downloaded libraries](#manually-downloaded-libraries)
+    - [csh-mode](#csh-mode)
+    - [EmacsMacOSModule](#emacsmacosmodule)
+- [Hacks](#hacks)
+- [Outdated](#outdated)
+    - [verilog-mode](#verilog-mode)
+    - [github](#github)
 
 <!-- markdown-toc end -->
 
@@ -28,6 +27,15 @@ csh-mode
 
 ```
 curl https://opensource.apple.com/source/tcsh/tcsh-67/tcsh/csh-mode.el > csh-mode/csh-mode.el
+```
+
+EmacsMacOSModule
+----------------
+
+https://github.com/xenodium/EmacsMacOSModule
+
+```
+git submodule add https://github.com/idcrook/EmacsMacOSModule.git site-lisp/EmacsMacOSModule
 ```
 
 Hacks

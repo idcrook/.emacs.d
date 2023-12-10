@@ -1,0 +1,3 @@
+[submodule "site-lisp/EmacsMacOSModule"]
+	path = site-lisp/EmacsMacOSModule
+	url = https://github.com/idcrook/EmacsMacOSModule.git
