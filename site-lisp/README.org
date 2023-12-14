@@ -81,8 +81,6 @@ Now in ELPA. No longer manually downleaded. See
 :END:
 For this type of module, now instead of downloading or adding a git
 submodule, use =straight.el=:
-[[https://github.com/radian-software/straight.el][radian-software
-/
-straight.el:
+[[https://github.com/radian-software/straight.el][radian-software/straight.el:
 Next-generation, purely functional package manager for the Emacs
 hacker.]]
