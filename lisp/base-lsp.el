@@ -81,6 +81,9 @@
 ;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
 ;; pip install 'python-lsp-server[all]'
 
+;;; [astral-sh/ruff-lsp: A Language Server Protocol implementation for Ruff.](https://github.com/astral-sh/ruff-lsp)
+
+
 ;; Python ;; Dead ends
 ;;; https://github.com/fredcamps/lsp-jedi
 ;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-pyls/

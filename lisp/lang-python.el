@@ -10,6 +10,8 @@
   (python-shell-interpreter "python3")
   )
 
+;; TODO
+;;; https://github.com/v4n6/flycheck-python-ruff
 
 ;;; emacs elpy : https://github.com/jorgenschaefer/elpy
 ;; # code checks - flake8
