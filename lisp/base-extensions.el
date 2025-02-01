@@ -125,12 +125,15 @@
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+              ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+        ("<tab>" . company-indent-or-complete-common))
   :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
+  ;; setting to 1 was having company-emoji complete after every colon in python
+  (company-minimum-prefix-length 2)
+  ;; (company-idle-delay 0.0)
+  (setq company-idle-delay
+        (lambda () (if (company-in-string-or-comment) nil 0.3)))
   ;; aligns annotation to the right hand side
   (company-tooltip-align-annotations t))
 
@@ -140,6 +143,7 @@
 ;;   (add-to-list 'company-backends 'company-ansible))
 
 ;;; https://github.com/dunn/company-emoji
+;;; moved to https://codeberg.org/egirl/company-emoji
 (use-package company-emoji
   :after company
   :init
