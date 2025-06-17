@@ -43,7 +43,9 @@
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :hook (
 ;;        (python-mode . lsp)
-        (python-mode . lsp-deferred)
+         (python-mode . lsp-deferred)
+         ;; https://www.swift.org/documentation/articles/zero-to-swift-emacs.html#configuring-emacs
+         (swift-mode . lsp)
          ;; if you want which-key integration - see base-extensions.el for whick-key package
          (lsp-mode . lsp-enable-which-key-integration)
          )

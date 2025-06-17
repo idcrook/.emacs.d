@@ -802,6 +802,10 @@ This function is intended for use with `ivy-ignore-buffers'."
 ;; qrencode-url-at-point
 ;;     Encode URL at point as QR Code.
 
+;; Rainbow delimiters makes nested delimiters easier to understand
+(use-package rainbow-delimiters
+    :hook ((prog-mode . rainbow-delimiters-mode)))
+
 ;; Built-In
 (use-package recentf
   :init
