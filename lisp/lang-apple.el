@@ -28,19 +28,13 @@
 
 
 ;; Swift editing support
+;;; https://github.com/swift-emacs/swift-mode
 (use-package swift-mode
   :mode "\\.swift\\'"
   :interpreter "swift"
   ;; :config
   ;; (setq swift-mode:basic-offset 2)
   )
-
-;; ;;; https://github.com/swift-emacs/swift-mode
-;; (use-package swift-mode
-;;   ;; enable lsp automatically when a .swift file is visited
-;;   :hook (swift-mode . (lambda () (lsp)))
-;;   :config
-;;   (setq swift-mode:basic-offset 2))
 
 ;;; https://github.com/emacs-lsp/lsp-sourcekit
 (use-package lsp-sourcekit

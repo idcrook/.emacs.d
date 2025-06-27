@@ -46,6 +46,8 @@
          (python-mode . lsp-deferred)
          ;; https://www.swift.org/documentation/articles/zero-to-swift-emacs.html#configuring-emacs
          (swift-mode . lsp)
+         (scad-mode . lsp)
+         ;;(toml-mode . lsp-deferred)
          ;; if you want which-key integration - see base-extensions.el for whick-key package
          (lsp-mode . lsp-enable-which-key-integration)
          )
@@ -62,6 +64,19 @@
 ;; if you are ivy user
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+
+
+;; OpenSCAD ;;
+;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-openscad/
+;; rustup update
+;; cargo install openscad-lsp
+
+;; TOML ;;
+;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-toml/
+;; cargo install taplo-cli --features lsp
+
+
 
 ;;; https://emacs-lsp.github.io/dap-mode/page/configuration/#python
 ;; pip3 install --user "debugpy"
@@ -101,13 +116,6 @@
 ;;                           (require 'lsp-python-ms)
 ;;                           (lsp))))  ; or lsp-deferred
 
-;; OpenSCAD ;;
-;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-openscad/
-;; cargo install openscad-lsp
-
-;; TOML ;;
-;;; https://emacs-lsp.github.io/lsp-mode/page/lsp-toml/
-;; cargo install taplo-cli --features lsp
 
 (provide 'base-lsp)
 

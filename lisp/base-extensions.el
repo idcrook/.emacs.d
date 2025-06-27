@@ -841,7 +841,7 @@ This function is intended for use with `ivy-ignore-buffers'."
   (custom-set-variables '(request-storage-directory (format "%s/request" dpc/private-dir)))
   )
 
-;;; https://github.com/openscad/openscad/blob/master/contrib/scad-mode.el
+;;; https://github.com/openscad/emacs-scad-mode
 (use-package scad-mode)
 
 ;; ;;; https://github.com/Fuco1/smartparens
