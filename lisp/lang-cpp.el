@@ -54,10 +54,21 @@
 ;;
 ;; macos: brew install cmake
 ;; Note: since relies on Homebrew, assumes macOS user already owns /usr/local
-;;     cp -p "`xcode-select --print-path`"/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib /usr/local/lib
+;;
+;;     bp=`brew --prefix`
+;;     cp -p "`xcode-select --print-path`"/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib ${bp}/lib
+;;
 ;;     cd /tmp
-;;     svn export http://llvm.org/svn/llvm-project/cfe/trunk/include/clang-c/
-;;     cp -RP clang-c /usr/local/include
+;;     ### svn export https://llvm.org/svn/llvm-project/cfe/trunk/include/clang-c/
+;;     ### cp -RP clang-c ${bp}/include
+;;     # git clone https://github.com/llvm/llvm-project.git
+;;     # cp -RP llvm-project/clang/include/clang-c ${bp}/include
+;;
+;;   brew install llvm -> -I/opt/homebrew/opt/llvm/include/clang-c
+;;
+;;     echo | clang -x c++ -v -E - 2>&1 | sed -n '/^#include </,/^End/s|^[^/]*\([^ ]*/include[^ ]*\).*$|-I\1|p'
+
+;;
 ;;
 ;; M-x irony-install-server
 
