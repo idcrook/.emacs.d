@@ -538,6 +538,10 @@ This function is intended for use with `ivy-ignore-buffers'."
   ;; (global-set-key (kbd "C-c g") 'magit-file-dispatch)
   ;; :custom
   ;; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  (setq magit-completing-read-function 'ivy-completing-read)
+  ;; adapted from https://gregnewman.io/blog/speed-up-magit-on-macos/
+  (let ((git (executable-find "git")))
+    (when git (setq magit-git-executable git)))
 
   :bind
   ;; Magit
