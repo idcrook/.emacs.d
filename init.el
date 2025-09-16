@@ -36,9 +36,11 @@
 
 
 ;;;;  Effectively replace use-package with straight-use-package
-;;; https://github.com/raxod502/straight.el/blob/develop/README.md#integration-with-use-package
+;;; https://github.com/radian-software/straight.el#integration-with-use-package-1
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
+
+
 ;;; https://github.com/raxod502/straight.el#updating-recipe-repositories
 ;;
 ;; updating a recipe repository (e.g. melpa) to get a newish PACKAGE-NAME
