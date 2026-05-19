@@ -1003,11 +1003,11 @@ This function is intended for use with `ivy-ignore-buffers'."
   :after (yasnippet)
   )
 
-;;; https://github.com/sei40kr/gitignore-snippets
-(use-package gitignore-snippets
-  :after (yasnippet)
-  :config
-  (gitignore-snippets-init))
+;; ;;; https://github.com/sei40kr/gitignore-snippets
+;; (use-package gitignore-snippets
+;;   :after (yasnippet)
+;;   :config
+;;   (gitignore-snippets-init))
 
 
 (provide 'base-extensions)
